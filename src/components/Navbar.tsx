@@ -1,9 +1,13 @@
+// src/components/Navbar.tsx
 "use client";
 
-import { SiInstagram, SiLinkedin, SiX, SiYoutube } from "react-icons/si";
 import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Variants, Transition } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
+import { SiInstagram, SiLinkedin, SiX, SiYoutube } from "react-icons/si";
+
+/* ---------- COMPONENT ---------- */
 
 export const Nav = () => {
   const [active, setActive] = useState(false);
@@ -29,9 +33,11 @@ const LinksOverlay = ({ onClose }: { onClose: () => void }) => {
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[999] bg-black"
       />
+
       <nav
-        className="fixed right-4 top-4 z-[1000] h-[calc(100vh_-_32px)] w-[calc(100%_-_32px)] overflow-hidden"
+        id="menu"
         aria-label="Main"
+        className="fixed right-4 top-4 z-[1000] h-[calc(100vh_-_32px)] w-[calc(100%_-_32px)] overflow-hidden"
       >
         <Logo />
         <LinksContainer />
@@ -120,7 +126,7 @@ const HamburgerButton = ({
 }) => {
   return (
     <>
-      {/* Expanding violet underlay */}
+      {/* Expanding amber underlay */}
       <motion.div
         initial={false}
         animate={active ? "open" : "closed"}
@@ -173,6 +179,7 @@ const FooterCTAs = () => {
     <>
       <div className="absolute bottom-6 left-6 flex gap-4 md:flex-col">
         {SOCIAL_CTAS.map((l, idx) => {
+          const Icon = l.Component;
           return (
             <motion.a
               key={idx}
@@ -189,7 +196,7 @@ const FooterCTAs = () => {
               }}
               exit={{ opacity: 0, y: -8 }}
             >
-              <l.Component className="text-xl text-white transition-colors hover:text-violet-300" />
+              <Icon className="text-xl text-white transition-colors hover:text-violet-300" />
             </motion.a>
           );
         })}
@@ -207,13 +214,18 @@ const FooterCTAs = () => {
           },
         }}
         exit={{ opacity: 0, y: 8 }}
-        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-white px-3 py-3 text-4xl uppercase text-black-200 transition-colors hover:bg-white hover:text-amber-600 md:bottom-4 md:right-4 md:px-6 md:text-2xl"
+        className="absolute bottom-2 right-2 flex items-center gap-2 rounded-full bg-white px-3 py-3 text-black/80 transition-colors hover:bg-white hover:text-amber-600 md:bottom-4 md:right-4 md:px-6 md:text-2xl"
       >
-        <span className="hidden md:block">contact us</span> <FiArrowRight />
+        <span className="hidden md:block uppercase tracking-wide text-sm md:text-base">
+          contact us
+        </span>
+        <FiArrowRight className="text-2xl md:text-xl" />
       </motion.button>
     </>
   );
 };
+
+/* ---------- DATA ---------- */
 
 const LINKS = [
   { title: "acasa", href: "/" },
@@ -222,22 +234,21 @@ const LINKS = [
   { title: "contact", href: "/contact" },
 ];
 
-const SOCIAL_CTAS = [
+type SocialItem = {
+  Component: React.ComponentType<{ className?: string }>;
+  href: string;
+};
+
+const SOCIAL_CTAS: SocialItem[] = [
   { Component: SiX, href: "#" },
   { Component: SiInstagram, href: "#" },
   { Component: SiLinkedin, href: "#" },
   { Component: SiYoutube, href: "#" },
 ];
 
-/* ---------- animation variants ---------- */
-// --- at the top of the file ---
-import type { Variants, Transition } from "framer-motion";
+/* ---------- ANIMATION VARIANTS ---------- */
 
-// --- replace your variants with the typed ones below ---
-
-// at top:
-
-// spring for the underlay
+// Spring pentru underlay
 const UNDERLAY_SPRING: Transition = {
   type: "spring",
   mass: 3,
@@ -245,14 +256,12 @@ const UNDERLAY_SPRING: Transition = {
   damping: 50,
 };
 
-// smooth 3-step for bars
+// Tween pentru barele de hamburger
 const BAR_TWEEN: Transition = {
   type: "tween",
   ease: "easeInOut",
   duration: 0.28,
 };
-
-// --- variants ---
 
 export const UNDERLAY_VARIANTS: Variants = {
   open: {
@@ -267,8 +276,10 @@ export const UNDERLAY_VARIANTS: Variants = {
   },
 };
 
-// Use tween keyframes for rotate/top to allow 3 values
-export const HAMBURGER_VARIANTS = {
+// tip propriu pentru obiectul cu 3 variante
+type HamburgerVariants = Record<"top" | "middle" | "bottom", Variants>;
+
+export const HAMBURGER_VARIANTS: HamburgerVariants = {
   top: {
     open: {
       rotate: ["0deg", "0deg", "45deg"],
@@ -301,4 +312,6 @@ export const HAMBURGER_VARIANTS = {
       transition: BAR_TWEEN,
     },
   },
-} satisfies Record<"top" | "middle" | "bottom", Variants>;
+};
+
+export default Nav;
