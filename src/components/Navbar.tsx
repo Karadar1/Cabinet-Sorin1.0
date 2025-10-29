@@ -146,7 +146,7 @@ const HamburgerButton = ({
         aria-expanded={active}
         aria-controls="menu"
       >
-        {/* Keep geometry consistent: use top/left + translate for ALL bars */}
+        {/* Bars */}
         <motion.span
           variants={HAMBURGER_VARIANTS.top}
           className="absolute block h-1 w-10 bg-white"
@@ -246,9 +246,8 @@ const SOCIAL_CTAS: SocialItem[] = [
   { Component: SiYoutube, href: "#" },
 ];
 
-/* ---------- ANIMATION VARIANTS ---------- */
+/* ---------- ANIMATION VARIANTS (fără keyframe arrays) ---------- */
 
-// Spring pentru underlay
 const UNDERLAY_SPRING: Transition = {
   type: "spring",
   mass: 3,
@@ -256,7 +255,6 @@ const UNDERLAY_SPRING: Transition = {
   damping: 50,
 };
 
-// Tween pentru barele de hamburger
 const BAR_TWEEN: Transition = {
   type: "tween",
   ease: "easeInOut",
@@ -276,39 +274,38 @@ export const UNDERLAY_VARIANTS: Variants = {
   },
 };
 
-// tip propriu pentru obiectul cu 3 variante
 type HamburgerVariants = Record<"top" | "middle" | "bottom", Variants>;
 
 export const HAMBURGER_VARIANTS: HamburgerVariants = {
   top: {
     open: {
-      rotate: ["0deg", "0deg", "45deg"],
-      top: ["35%", "50%", "50%"],
+      rotate: 45, // numeric, fără "deg"
+      top: "50%",
       transition: BAR_TWEEN,
     },
     closed: {
-      rotate: ["45deg", "0deg", "0deg"],
-      top: ["50%", "50%", "35%"],
+      rotate: 0,
+      top: "35%",
       transition: BAR_TWEEN,
     },
   },
   middle: {
-    open: { rotate: ["0deg", "0deg", "-45deg"], transition: BAR_TWEEN },
-    closed: { rotate: ["-45deg", "0deg", "0deg"], transition: BAR_TWEEN },
+    open: { rotate: -45, transition: BAR_TWEEN },
+    closed: { rotate: 0, transition: BAR_TWEEN },
   },
   bottom: {
     open: {
-      rotate: ["0deg", "0deg", "45deg"],
-      top: ["65%", "50%", "50%"],
-      left: ["calc(50% + 10px)", "50%", "50%"],
-      width: ["1.25rem", "2.5rem", "2.5rem"],
+      rotate: 45,
+      top: "50%",
+      left: "50%",
+      width: "2.5rem",
       transition: BAR_TWEEN,
     },
     closed: {
-      rotate: ["45deg", "0deg", "0deg"],
-      top: ["50%", "50%", "65%"],
-      left: ["50%", "50%", "calc(50% + 10px)"],
-      width: ["2.5rem", "1.25rem", "1.25rem"],
+      rotate: 0,
+      top: "65%",
+      left: "calc(50% + 10px)",
+      width: "1.25rem",
       transition: BAR_TWEEN,
     },
   },
