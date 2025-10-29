@@ -3,11 +3,8 @@
 
 import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Variants, Transition } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { SiInstagram, SiLinkedin, SiX, SiYoutube } from "react-icons/si";
-
-/* ---------- COMPONENT ---------- */
 
 export const Nav = () => {
   const [active, setActive] = useState(false);
@@ -24,7 +21,6 @@ export const Nav = () => {
 const LinksOverlay = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
-      {/* Backdrop to dim content and capture clicks */}
       <motion.button
         aria-label="Close menu"
         onClick={onClose}
@@ -126,16 +122,36 @@ const HamburgerButton = ({
 }) => {
   return (
     <>
-      {/* Expanding amber underlay */}
       <motion.div
         initial={false}
         animate={active ? "open" : "closed"}
-        variants={UNDERLAY_VARIANTS}
+        variants={{
+          open: {
+            width: "calc(100% - 32px)",
+            height: "calc(100vh - 32px)",
+            transition: {
+              type: "spring",
+              mass: 3,
+              stiffness: 400,
+              damping: 50,
+            },
+          },
+          closed: {
+            width: "80px",
+            height: "80px",
+            transition: {
+              type: "spring",
+              mass: 3,
+              stiffness: 400,
+              damping: 50,
+              delay: 0.75,
+            },
+          },
+        }}
         style={{ top: 16, right: 16 }}
         className="fixed z-[900] rounded-xl bg-gradient-to-br from-amber-600 to-amber-500 shadow-lg shadow-violet-800/20"
       />
 
-      {/* Toggle button stays ABOVE overlay for easy close */}
       <motion.button
         initial={false}
         animate={active ? "open" : "closed"}
@@ -146,19 +162,53 @@ const HamburgerButton = ({
         aria-expanded={active}
         aria-controls="menu"
       >
-        {/* Bars */}
         <motion.span
-          variants={HAMBURGER_VARIANTS.top}
+          variants={{
+            open: {
+              rotate: 45,
+              top: "50%",
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+            closed: {
+              rotate: 0,
+              top: "35%",
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+          }}
           className="absolute block h-1 w-10 bg-white"
           style={{ top: "35%", left: "50%", x: "-50%", y: "-50%" }}
         />
         <motion.span
-          variants={HAMBURGER_VARIANTS.middle}
+          variants={{
+            open: {
+              rotate: -45,
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+            closed: {
+              rotate: 0,
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+          }}
           className="absolute block h-1 w-10 bg-white"
           style={{ top: "50%", left: "50%", x: "-50%", y: "-50%" }}
         />
         <motion.span
-          variants={HAMBURGER_VARIANTS.bottom}
+          variants={{
+            open: {
+              rotate: 45,
+              top: "50%",
+              left: "50%",
+              width: "2.5rem",
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+            closed: {
+              rotate: 0,
+              top: "65%",
+              left: "calc(50% + 10px)",
+              width: "1.25rem",
+              transition: { type: "tween", ease: "easeInOut", duration: 0.28 },
+            },
+          }}
           className="absolute block h-1 bg-white"
           style={{
             width: "1.25rem",
@@ -225,8 +275,6 @@ const FooterCTAs = () => {
   );
 };
 
-/* ---------- DATA ---------- */
-
 const LINKS = [
   { title: "acasa", href: "/" },
   { title: "echipa", href: "/echipa" },
@@ -245,70 +293,5 @@ const SOCIAL_CTAS: SocialItem[] = [
   { Component: SiLinkedin, href: "#" },
   { Component: SiYoutube, href: "#" },
 ];
-
-/* ---------- ANIMATION VARIANTS (fără keyframe arrays) ---------- */
-
-const UNDERLAY_SPRING: Transition = {
-  type: "spring",
-  mass: 3,
-  stiffness: 400,
-  damping: 50,
-};
-
-const BAR_TWEEN: Transition = {
-  type: "tween",
-  ease: "easeInOut",
-  duration: 0.28,
-};
-
-export const UNDERLAY_VARIANTS: Variants = {
-  open: {
-    width: "calc(100% - 32px)",
-    height: "calc(100vh - 32px)",
-    transition: UNDERLAY_SPRING,
-  },
-  closed: {
-    width: "80px",
-    height: "80px",
-    transition: { ...UNDERLAY_SPRING, delay: 0.75 },
-  },
-};
-
-type HamburgerVariants = Record<"top" | "middle" | "bottom", Variants>;
-
-export const HAMBURGER_VARIANTS: HamburgerVariants = {
-  top: {
-    open: {
-      rotate: 45, // numeric, fără "deg"
-      top: "50%",
-      transition: BAR_TWEEN,
-    },
-    closed: {
-      rotate: 0,
-      top: "35%",
-      transition: BAR_TWEEN,
-    },
-  },
-  middle: {
-    open: { rotate: -45, transition: BAR_TWEEN },
-    closed: { rotate: 0, transition: BAR_TWEEN },
-  },
-  bottom: {
-    open: {
-      rotate: 45,
-      top: "50%",
-      left: "50%",
-      width: "2.5rem",
-      transition: BAR_TWEEN,
-    },
-    closed: {
-      rotate: 0,
-      top: "65%",
-      left: "calc(50% + 10px)",
-      width: "1.25rem",
-      transition: BAR_TWEEN,
-    },
-  },
-};
 
 export default Nav;
