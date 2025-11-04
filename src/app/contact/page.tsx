@@ -187,7 +187,7 @@ const ContactPage = () => {
   textsRef.current = [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 pt-20 via-orange-50 to-yellow-50">
       <style>{`
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .fade-up.animate-in { opacity: 1; transform: translateY(0); }

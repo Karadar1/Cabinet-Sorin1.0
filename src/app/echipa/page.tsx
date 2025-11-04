@@ -334,6 +334,8 @@ const TeamPage = () => {
                     className={`team-card-bg bg-gradient-to-br ${member.color}`}
                   ></div>
                   <Image
+                    width={100}
+                    height={100}
                     src={member.image}
                     alt={member.name}
                     className="team-card-image"

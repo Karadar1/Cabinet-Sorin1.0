@@ -9,12 +9,13 @@ export default function Page() {
   return (
     <main
       className={[
-        // Full height on sm+, let xs overflow if needed
         "relative w-full bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900",
-        "min-h-[100svh] sm:h-[100svh]",
-        // allow vertical scroll on very small phones
-        "overflow-y-auto sm:overflow-hidden",
+        // Make page scrollable; avoid fixed viewport height
+        "min-h-screen pt-6",
+        "overflow-y-auto",
       ].join(" ")}
+      // Set your navbar height once (tweak as needed)
+      style={{ ["--nav-h" as any]: "72px" }}
     >
       {/* Animated grid background */}
       <div
@@ -52,40 +53,28 @@ export default function Page() {
         style={{ animationDelay: "10s", animationDuration: "22s" }}
       />
 
-      {/* One-screen layout */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 h-full min-h-[100svh] sm:h-[100svh] pt-30 md:pt-0 flex flex-col">
+      {/* Layout */}
+      <section
+        className={[
+          "mx-auto max-w-7xl px-4 sm:px-6",
+          // Allow the section to grow beyond viewport to enable scroll
+          "min-h-screen",
+          // Clean spacing under fixed navbar + safe area
+          "pt-[calc(var(--nav-h)+env(safe-area-inset-top))]",
+          "flex flex-col",
+        ].join(" ")}
+      >
         {/* Header */}
         <header
-          className={[
-            "text-center shrink-0 animate-fade-in-down",
-            // use safe-area top on mobile to avoid menu button overlap
-            "pt-[calc(env(safe-area-inset-top)+16px)] sm:pt-8",
-            "pb-4 sm:pb-6",
-          ].join(" ")}
+          className={["text-center shrink-0 animate-fade-in-down", "pt-0"].join(
+            " "
+          )}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-slate-900 bg-white px-4 py-1.5  text-xs sm:text-sm font-bold shadow-[6px_6px_0_#0f172a] transition-all duration-300 hover:shadow-[8px_8px_0_#0f172a] hover:-translate-y-0.5 hover:-translate-x-0.5">
-            <svg
-              className="w-4 h-4 text-cyan-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-            <span>Servicii veterinare premium</span>
-          </div>
-
-          <h1 className="mt-4 sm:mt-6 text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+          <h1 className=" sm:mt-2 text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
             Îngrijire medicală — curat, sigur, profesionist
           </h1>
 
-          <div className="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-3 text-sm sm:text-base text-slate-600 font-medium">
+          <div className="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-3 text-sm sm:text-base pb-4 text-slate-600 font-medium">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
               Câini
@@ -109,9 +98,9 @@ export default function Page() {
           </div>
         </header>
 
-        {/* Cards (responsive, shorter on mobile) */}
-        <div className="flex-1 flex items-center justify-center py-4 sm:py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 lg:gap-10 w-full">
+        {/* Cards */}
+        <div className="flex items-start justify-center">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 lg:gap-10 w-full">
             <div
               className="animate-fade-in-up"
               style={{ animationDelay: "0.05s" }}
@@ -122,7 +111,7 @@ export default function Page() {
                 image={dog}
                 variant="caini"
                 href="servicii/caini"
-                className="w-full h-[280px] sm:h-[320px] md:h-[340px] lg:h-[360px]"
+                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
               />
             </div>
 
@@ -136,7 +125,7 @@ export default function Page() {
                 image={cat}
                 variant="pisici"
                 href="servicii/pisici"
-                className="w-full h-[280px] sm:h-[320px] md:h-[340px] lg:h-[360px]"
+                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
               />
             </div>
 
@@ -150,7 +139,7 @@ export default function Page() {
                 image={bird}
                 variant="pasari"
                 href="servicii/pasari"
-                className="w-full h-[280px] sm:h-[320px] md:h-[340px] lg:h-[360px]"
+                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
               />
             </div>
           </div>
@@ -158,13 +147,10 @@ export default function Page() {
 
         {/* Footer CTA */}
         <footer
-          className="pb-[calc(env(safe-area-inset-bottom)+12px)] text-center shrink-0 animate-fade-in-up"
+          className="pb-[calc(env(safe-area-inset-bottom)+12px)] pt-10 sm:pt-0 text-center shrink-0 animate-fade-in-up"
           style={{ animationDelay: "0.35s" }}
         >
-          <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4">
-            Echipă dedicată, tehnologie avansată, rezultate excelente
-          </p>
-          <div className="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
+          <div className="flex md:pt-20 sm:pt-6 items-center justify-center gap-3 sm:gap-4 flex-wrap">
             <a
               href="tel:+40123456789"
               className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg border-2 border-slate-900 bg-white text-xs sm:text-sm font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
@@ -185,6 +171,7 @@ export default function Page() {
               </svg>
               Contact rapid
             </a>
+
             <a
               href="#programare"
               className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg border-2 border-slate-900 bg-gradient-to-r from-orange-500 to-orange-600 text-xs sm:text-sm font-bold text-slate-900 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5"
@@ -220,7 +207,6 @@ export default function Page() {
             transform: translateY(0);
           }
         }
-
         @keyframes fade-in-up {
           from {
             opacity: 0;
@@ -231,7 +217,6 @@ export default function Page() {
             transform: translateY(0);
           }
         }
-
         @keyframes float {
           0%,
           100% {
@@ -244,7 +229,6 @@ export default function Page() {
             transform: translateY(10px) translateX(-10px);
           }
         }
-
         .animate-fade-in-down {
           animation: fade-in-down 0.7s ease-out forwards;
         }
@@ -255,8 +239,6 @@ export default function Page() {
         .animate-float {
           animation: float ease-in-out infinite;
         }
-
-        /* Respect reduced motion on mobile */
         @media (prefers-reduced-motion: reduce) {
           .animate-fade-in-down,
           .animate-fade-in-up,
