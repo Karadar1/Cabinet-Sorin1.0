@@ -7,6 +7,11 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
+// Define your custom colors using Tailwind arbitrary values for clarity and reuse
+const PRIMARY_COLOR = "#224e4d"; // Dark Green
+const SECONDARY_COLOR = "#356154"; // Medium Green
+const LIGHT_ACCENT = "#e0ebeb"; // Custom light minty background for chips
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -142,6 +147,7 @@ const ContactPage = () => {
     const newErrors = validateForm();
     if (Object.keys(newErrors).length === 0) {
       setSubmitted(true);
+      // Simulate API call and success state
       setTimeout(() => {
         setFormData({
           name: "",
@@ -187,18 +193,20 @@ const ContactPage = () => {
   textsRef.current = [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 pt-20 via-orange-50 to-yellow-50">
+    // Updated background gradient for a cooler, greener feel
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-cyan-50 pt-20">
       <style>{`
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .fade-up.animate-in { opacity: 1; transform: translateY(0); }
         .input-focus { transition: all 0.3s ease; }
-        .input-focus:focus { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249,115,22,.2); }
+        /* Use PRIMARY_COLOR for focus glow */
+        .input-focus:focus { transform: translateY(-2px); box-shadow: 0 4px 12px ${PRIMARY_COLOR}30; } 
       `}</style>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16 pt-20 md:pt-0">
           <h2 className="text-5xl font-bold text-gray-800 mb-4">
-            Get in <span className="text-orange-500">Touch</span>
+            Get in <span style={{ color: PRIMARY_COLOR }}>Touch</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             We're here to help your furry companions. Reach out to us for
@@ -223,19 +231,19 @@ const ContactPage = () => {
                 }
                 className="
                   group flex items-center overflow-hidden
-                  rounded-full border border-orange-200/60 bg-white
+                  rounded-full border border-[${LIGHT_ACCENT}] bg-white
                   h-14 shadow-sm
-                  transition-all hover:shadow-md hover:border-orange-300
-                  focus:outline-none focus:ring-2 focus:ring-orange-300
+                  transition-all hover:shadow-md hover:border-[${SECONDARY_COLOR}]
+                  focus:outline-none focus:ring-2 focus:ring-[${SECONDARY_COLOR}]
                 "
                 // NOTE: no `w-full` here; GSAP controls width
               >
                 <span
+                  style={{ backgroundColor: LIGHT_ACCENT, color: PRIMARY_COLOR }}
                   className="
                     ml-2 grid h-10 w-10 place-content-center
-                    rounded-full bg-orange-100 text-orange-600
-                    ring-1 ring-inset ring-orange-200
-                    transition group-hover:bg-orange-200 group-hover:text-orange-700
+                    rounded-full ring-1 ring-inset ring-[${LIGHT_ACCENT}]
+                    transition group-hover:text-white group-hover:bg-[${PRIMARY_COLOR}]
                     flex-shrink-0
                   "
                 >
@@ -262,10 +270,11 @@ const ContactPage = () => {
           <div ref={formRef} className="fade-up">
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <h3 className="text-3xl font-bold text-gray-800 mb-6">
-                Send us a <span className="text-orange-500">Message</span>
+                Send us a <span style={{ color: PRIMARY_COLOR }}>Message</span>
               </h3>
 
               {submitted && (
+                // Used a lighter green for the success message
                 <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
                   Thank you! We'll get back to you soon.
                 </div>
@@ -283,7 +292,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.name ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-orange-500 input-focus`}
+                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
                     placeholder="John Doe"
                   />
                   {errors.name && (
@@ -302,7 +311,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.email ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-orange-500 input-focus`}
+                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
                     placeholder="john@example.com"
                   />
                   {errors.email && (
@@ -321,7 +330,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.phone ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-orange-500 input-focus`}
+                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
                     placeholder="(555) 123-4567"
                   />
                   {errors.phone && (
@@ -339,7 +348,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.service ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-orange-500 input-focus`}
+                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
                   >
                     <option value="">Select a service</option>
                     <option value="dentistry">Dentistry</option>
@@ -365,7 +374,7 @@ const ContactPage = () => {
                     rows={4}
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.message ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-orange-500 input-focus resize-none`}
+                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus resize-none`}
                     placeholder="Tell us about your pet and how we can help..."
                   />
                   {errors.message && (
@@ -377,7 +386,8 @@ const ContactPage = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                  style={{ backgroundColor: PRIMARY_COLOR }}
+                  className="w-full hover:bg-[${SECONDARY_COLOR}] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                 >
                   <span>Send Message</span>
                   <Send className="w-5 h-5" />
@@ -391,7 +401,7 @@ const ContactPage = () => {
             <div ref={mapRef} className="fade-up">
               <div className="bg-white rounded-2xl shadow-xl p-8 h-full">
                 <h3 className="text-3xl font-bold text-gray-800 mb-4">
-                  Find us on the <span className="text-orange-500">Map</span>
+                  Find us on the <span style={{ color: PRIMARY_COLOR }}>Map</span>
                 </h3>
                 <p className="text-gray-600 mb-4">
                   We’re conveniently located with parking available. Tap the map
@@ -408,7 +418,7 @@ const ContactPage = () => {
                 </div>
                 <div className="mt-4 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-orange-500" />
+                    <MapPin className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
                     <span>
                       123 Pet Care Lane, Suite 100, Cityville, ST 12345
                     </span>
@@ -417,12 +427,13 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-orange-200">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-[${LIGHT_ACCENT}]">
               <p className="text-sm text-gray-700">
                 Emergencies after hours? Visit our{" "}
                 <a
                   href="#"
-                  className="text-orange-600 font-semibold underline-offset-2 hover:underline"
+                  style={{ color: PRIMARY_COLOR }}
+                  className="font-semibold underline-offset-2 hover:underline"
                 >
                   urgent care
                 </a>{" "}

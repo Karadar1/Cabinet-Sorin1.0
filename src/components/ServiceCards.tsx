@@ -1,101 +1,122 @@
-// components/ServiceCard.tsx
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
 
-type ServiceCardProps = {
-  /** Leading icon (SVG/ReactNode) */
-  icon: React.ReactNode;
+const PRIMARY_COLOR = "#224e4d";   // Dark green (brand)
+const SECONDARY_COLOR = "#356154"; // Medium green (accent)
+
+type FeatureCardProps = {
+  /** Leading icon (SVG element) */
+  icon: React.ReactElement;
   /** Card title */
   title: string;
   /** Supporting description */
   description: string;
-  /** Optional link target; if omitted, renders a <div> */
+  /** Optional link target; if omitted, renders a div-like button */
   href?: string;
   /** Optional extra classes */
   className?: string;
-  /**
-   * Visual variant:
-   * - "default": white card that turns orange on hover
-   * - "highlight": orange card by default (like the middle one in your screenshot)
-   */
-  variant?: "default" | "highlight";
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-const base =
-  "group relative rounded-2xl ring-1 ring-black/5 shadow-xl transition " +
-  "duration-300 will-change-transform focus:outline-none focus-visible:ring-2 " +
-  "focus-visible:ring-offset-2 focus-visible:ring-orange-400 hover:scale-[1.02] " +
-  "active:scale-[0.99]";
+const baseClasses =
+  [
+    "group",
+    "relative flex flex-col items-start",
+    "h-full overflow-hidden",
+    "rounded-xl border border-gray-100 bg-white",
+    "p-6 shadow-lg",
+    "transition-all duration-300 ease-out",
+    "hover:-translate-y-0.5 hover:shadow-xl",
+    // Color flip on hover using CSS vars
+    "hover:border-[var(--card-primary)]",
+    "hover:bg-[var(--card-primary)]",
+    "hover:text-white",
+    // Focus ring
+    "focus-visible:outline-none",
+    "focus-visible:ring-2",
+    "focus-visible:ring-[var(--card-secondary)]",
+    "focus-visible:ring-offset-2",
+    "active:scale-[0.99]",
+    "cursor-pointer",
+  ].join(" ");
 
-const defaultStyles =
-  "bg-white text-slate-900 hover:bg-orange-500 hover:text-white";
+type CardBodyProps = Pick<FeatureCardProps, "icon" | "title" | "description">;
 
-const highlightStyles = "bg-orange-500 text-white hover:brightness-110";
+function CardBody({ icon, title, description }: CardBodyProps) {
+  const iconWrapperClasses =
+    [
+      "mb-4 flex h-12 w-12 items-center justify-center rounded-lg",
+      // Subtle tinted background + brand-colored icon
+      "bg-emerald-50 text-[var(--card-primary)]",
+      "transition-all duration-300",
+      "group-hover:bg-[var(--card-secondary)] group-hover:text-white",
+    ].join(" ");
 
-const inner = "p-5 md:p-6 flex items-start gap-4";
-
-const iconBase = "shrink-0 rounded-xl p-3 transition duration-300";
-const iconDefault = "bg-orange-100 group-hover:bg-white/20";
-const iconHighlight = "bg-white/15 group-hover:bg-white/25";
-
-function CardBody({
-  icon,
-  title,
-  description,
-  variant = "default",
-}: Omit<ServiceCardProps, "href" | "className">) {
   return (
-    <div className={inner}>
-      <div
-        className={`${iconBase} ${
-          variant === "highlight" ? iconHighlight : iconDefault
-        }`}
-      >
-        {icon}
+    <>
+      {/* Icon badge */}
+      <div className={iconWrapperClasses}>
+        {React.cloneElement(icon, {
+          className: "w-6 h-6",
+          strokeWidth: 2,
+          // Allow icon to keep its own className if it had one
+          ...("className" in icon.props ? { className: icon.props.className + " w-6 h-6" } : {}),
+        } as any)}
       </div>
-      <div>
-        <h3 className="text-lg font-semibold leading-snug">{title}</h3>
-        <p className="mt-1 text-sm/6 opacity-80">{description}</p>
-      </div>
-    </div>
+
+      {/* Title */}
+      <h3 className="mb-2 text-lg font-bold leading-snug text-gray-900 transition-colors duration-300 group-hover:text-white">
+        {title}
+      </h3>
+
+      {/* Description */}
+      <p className="flex-grow text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-white/80">
+        {description}
+      </p>
+    </>
   );
 }
 
-export default function ServiceCard({
+export default function ModernFeatureCard({
   icon,
   title,
   description,
   href,
   className = "",
-  variant = "default",
-}: ServiceCardProps) {
-  const variantClasses =
-    variant === "highlight" ? highlightStyles : defaultStyles;
-  const classes = `${base} ${variantClasses} ${className}`;
+  ...rest
+}: FeatureCardProps) {
+  const classes = `${baseClasses} ${className}`.trim();
+
+  // CSS variables so Tailwind arbitrary values stay static & still use your brand colors
+  const style = {
+    "--card-primary": PRIMARY_COLOR,
+    "--card-secondary": SECONDARY_COLOR,
+  } as React.CSSProperties;
 
   if (href) {
     return (
-      <Link href={href} className={classes} aria-label={title}>
-        <CardBody
-          icon={icon}
-          title={title}
-          description={description}
-          variant={variant}
-        />
+      <Link
+        href={href}
+        className={classes}
+        style={style}
+        aria-label={title}
+      >
+        <CardBody icon={icon} title={title} description={description} />
       </Link>
     );
   }
 
   return (
-    <div className={classes} role="button" tabIndex={0} aria-label={title}>
-      <CardBody
-        icon={icon}
-        title={title}
-        description={description}
-        variant={variant}
-      />
+    <div
+      className={classes}
+      style={style}
+      role="button"
+      tabIndex={0}
+      aria-label={title}
+      {...rest}
+    >
+      <CardBody icon={icon} title={title} description={description} />
     </div>
   );
 }

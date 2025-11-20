@@ -34,7 +34,7 @@ export default function Page() {
 
               <a
                 href="#appointment"
-                className="mt-6 sm:mt-5 inline-flex items-center rounded-xl bg-orange-500 px-5 py-3 text-sm sm:text-base font-semibold shadow transition hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-2 focus:ring-offset-transparent"
+                className="mt-6 sm:mt-5 inline-flex items-center rounded-xl bg-emerald-600 px-5 py-3 text-sm sm:text-base font-semibold shadow transition hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 Make an Appointment
               </a>
@@ -101,7 +101,7 @@ export default function Page() {
 
           {/* RIGHT: text */}
           <div>
-            <span className="inline-block rounded-full bg-orange-50 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-orange-600 shadow-sm ring-1 ring-black/5">
+            <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-emerald-600 shadow-sm ring-1 ring-black/5">
               About Us
             </span>
 
@@ -123,7 +123,7 @@ export default function Page() {
                 "Quality Food",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 sm:gap-3">
-                  <span className="grid h-7 w-7 sm:h-9 sm:w-9 flex-shrink-0 place-content-center rounded-md bg-orange-500 text-white shadow-sm">
+                  <span className="grid h-7 w-7 sm:h-9 sm:w-9 flex-shrink-0 place-content-center rounded-md bg-emerald-500 text-white shadow-sm">
                     <svg
                       width="16"
                       height="16"
@@ -152,7 +152,7 @@ export default function Page() {
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
               <a
                 href="#"
-                className="inline-flex justify-center rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+                className="inline-flex justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
               >
                 Book an Appointment
               </a>

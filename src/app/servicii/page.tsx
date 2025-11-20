@@ -1,254 +1,254 @@
 "use client";
-import type { Metadata } from "next";
-import ServiceCard from "@/components/ServiceCard";
-import dog from "../../../public/hero2.png";
-import cat from "../../../public/cat.png";
-import bird from "../../../public/bird.png";
 
-export default function Page() {
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image"; // Assuming this is needed, replacing usage with simple img tag for portability
+import { 
+  Phone, 
+  MapPin, 
+  Clock,
+  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Stethoscope,
+  Heart,
+  Syringe,
+  ClipboardList
+} from "lucide-react";
+
+// --- Custom Colors ---
+const PRIMARY_COLOR = "#224e4d"; // Dark Green
+const SECONDARY_COLOR = "#356154"; // Medium Green (Accent)
+const LIGHT_ACCENT_BG = "bg-green-50"; // Standard Tailwind light green background
+const LIGHT_ACCENT_TEXT = "text-green-700"; // Standard Tailwind light green text
+// ---------------------
+
+// Placeholder for service data since the original import is external
+const services = [
+  { slug: 'consultatii', title: 'Consultații Generale', shortDescription: 'Evaluări anuale de sănătate, vaccinări și sfaturi preventive personalizate.', icon: Stethoscope },
+  { slug: 'chirurgie', title: 'Chirurgie', shortDescription: 'Intervenții de la sterilizări la proceduri ortopedice complexe, efectuate în condiții de maximă siguranță.', icon: Heart },
+  { slug: 'vaccinari', title: 'Vaccinări', shortDescription: 'Programe complete de vaccinare adaptate nevoilor și stilului de viață al animalului tău.', icon: Syringe },
+  { slug: 'dermatologie', title: 'Dermatologie', shortDescription: 'Diagnostic și tratament pentru afecțiuni ale pielii, blănii și alergiilor.', icon: ClipboardList },
+];
+
+export default function ServicesPage() {
+  
+  // Custom Tailwind classes using arbitrary values
+  const primaryBg = `bg-[${PRIMARY_COLOR}]`;
+  const secondaryBg = `bg-[${SECONDARY_COLOR}]`;
+  const secondaryText = `text-[${SECONDARY_COLOR}]`;
+
   return (
-    <main
-      className={[
-        "relative w-full bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900",
-        // Make page scrollable; avoid fixed viewport height
-        "min-h-screen pt-6",
-        "overflow-y-auto",
-      ].join(" ")}
-      // Set your navbar height once (tweak as needed)
-      style={{ ["--nav-h" as any]: "72px" }}
-    >
-      {/* Animated grid background */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.08] animate-pulse"
-        style={{
-          backgroundImage:
-            "linear-gradient(#0ea5e9 1.5px, transparent 1.5px), linear-gradient(90deg,#0ea5e9 1.5px, transparent 1.5px)",
-          backgroundSize: "32px 32px, 32px 32px",
-          backgroundPosition: "0 0, 0 0",
-          animationDuration: "8s",
-        }}
-      />
-
-      {/* Radial soft vignette */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-radial from-transparent via-transparent to-slate-900/5"
-      />
-
-      {/* Floating orbs (hide on mobile for perf) */}
-      <div
-        aria-hidden
-        className="hidden md:block absolute top-20 left-10 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl animate-float"
-        style={{ animationDelay: "0s", animationDuration: "20s" }}
-      />
-      <div
-        aria-hidden
-        className="hidden md:block absolute bottom-20 right-10 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl animate-float"
-        style={{ animationDelay: "5s", animationDuration: "25s" }}
-      />
-      <div
-        aria-hidden
-        className="hidden md:block absolute top-40 right-20 w-56 h-56 bg-emerald-400/10 rounded-full blur-3xl animate-float"
-        style={{ animationDelay: "10s", animationDuration: "22s" }}
-      />
-
-      {/* Layout */}
-      <section
-        className={[
-          "mx-auto max-w-7xl px-4 sm:px-6",
-          // Allow the section to grow beyond viewport to enable scroll
-          "min-h-screen",
-          // Clean spacing under fixed navbar + safe area
-          "pt-[calc(var(--nav-h)+env(safe-area-inset-top))]",
-          "flex flex-col",
-        ].join(" ")}
-      >
-        {/* Header */}
-        <header
-          className={["text-center shrink-0 animate-fade-in-down", "pt-0"].join(
-            " "
-          )}
-        >
-          <h1 className=" sm:mt-2 text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-            Îngrijire medicală — curat, sigur, profesionist
+    <div className="min-h-screen bg-white text-slate-800 font-sans pt-20">
+      
+      {/* --- HERO / HEADER SECTION --- */}
+      <div className={`bg-gray-50/50 border-b border-gray-100`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-4">
+            Serviciile Noastre <span style={{ color: PRIMARY_COLOR }}>Veterinare</span>
           </h1>
+          <p className="text-xl text-slate-600 max-w-3xl">
+            Oferim o gamă completă de servicii medicale, de la controale de rutină la chirurgie avansată, toate sub supravegherea unei echipe dedicate.
+          </p>
+        </div>
+      </div>
+      {/* ------------------------------- */}
 
-          <div className="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-3 text-sm sm:text-base pb-4 text-slate-600 font-medium">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-              Câini
-            </span>
-            <span className="text-slate-400">•</span>
-            <span className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"
-                style={{ animationDelay: "0.6s" }}
-              />
-              Pisici
-            </span>
-            <span className="text-slate-400">•</span>
-            <span className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
-                style={{ animationDelay: "1.2s" }}
-              />
-              Păsări
-            </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          
+          {/* Main Content Column */}
+          <div className="lg:col-span-2 space-y-12">
+            
+            {/* Intro Text */}
+            <section className="prose prose-slate max-w-none">
+              <p className="text-lg leading-relaxed text-slate-600">
+                La Cabinet Sorin, oferim o gamă completă de servicii medicale veterinare. Fiecare procedură este efectuată cu atenție la detalii, folosind echipamente moderne și protocoale actualizate.
+              </p>
+            </section>
+
+            {/* Service List Grid */}
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-100">
+                Lista Procedurilor
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {services.map((service, index) => (
+                  // Uses the updated ServiceCategoryCard logic
+                  <ServiceCategoryCard 
+                    key={service.slug}
+                    title={service.title}
+                    description={service.shortDescription}
+                    href={`/servicii/${service.slug}`}
+                    Icon={service.icon}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-100">
+                Întrebări frecvente
+              </h2>
+              <div className="space-y-4">
+                <FAQItem 
+                  question="Când este necesară o consultație?" 
+                  answer="Recomandăm un control periodic la fiecare 6-12 luni. De asemenea, orice schimbare în comportamentul, apetitul sau nivelul de energie al animalului necesită o vizită la medic."
+                  secondaryColor={SECONDARY_COLOR}
+                  lightBg={LIGHT_ACCENT_BG}
+                />
+                <FAQItem 
+                  question="Cum pregătesc animalul pentru operație?" 
+                  answer="De regulă, este necesar un post alimentar de 12 ore înainte de anestezie. Apa poate fi lăsată la discreție. Medicul vă va oferi instrucțiuni specifice în funcție de intervenție."
+                  secondaryColor={SECONDARY_COLOR}
+                  lightBg={LIGHT_ACCENT_BG}
+                />
+                <FAQItem 
+                  question="Oferiți servicii de urgență?" 
+                  answer="Da, preluăm urgențe în timpul programului de lucru. Pentru urgențe în afara programului, vă rugăm să ne contactați telefonic pentru îndrumare."
+                  secondaryColor={SECONDARY_COLOR}
+                  lightBg={LIGHT_ACCENT_BG}
+                />
+              </div>
+            </section>
+
           </div>
-        </header>
 
-        {/* Cards */}
-        <div className="flex items-start justify-center">
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-8 lg:gap-10 w-full">
-            <div
-              className="animate-fade-in-up"
-              style={{ animationDelay: "0.05s" }}
-            >
-              <ServiceCard
-                title="Câini"
-                subtitle="Consultații, vaccinări, stomatologie"
-                image={dog}
-                variant="caini"
-                href="servicii/caini"
-                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
-              />
+          {/* Sidebar Column */}
+           <div className="lg:col-span-1 space-y-8">
+            
+            {/* Appointment CTA */}
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Programează o vizită</h3>
+              <p className="text-slate-600 text-sm mb-6">
+                Evită așteptarea și asigură-te că primești atenția necesară la ora potrivită.
+              </p>
+              <Link 
+                href="/#programare" 
+                className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm hover:shadow-md"
+              >
+                Programare Online
+              </Link>
             </div>
 
-            <div
-              className="animate-fade-in-up"
-              style={{ animationDelay: "0.15s" }}
-            >
-              <ServiceCard
-                title="Pisici"
-                subtitle="Examinări, profilaxie, detartraj"
-                image={cat}
-                variant="pisici"
-                href="servicii/pisici"
-                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
-              />
+            {/* Contact Info */}
+            <div className="bg-slate-900 text-white rounded-xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <Phone className="w-5 h-5 text-emerald-400" />
+                Contact Rapid
+              </h3>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-slate-400 shrink-0" />
+                  <p>Strada Exemplului nr. 12, Timișoara</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-slate-400 shrink-0" />
+                  <p>
+                    <a href="tel:0712345678" className="hover:text-emerald-400 transition-colors">0712 345 678</a>
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-slate-400 shrink-0" />
+                  <div>
+                    <p>Luni - Vineri: 09:00 - 20:00</p>
+                    <p>Sâmbătă: 10:00 - 14:00</p>
+                    <p className="text-slate-400">Duminică: Închis</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div
-              className="animate-fade-in-up"
-              style={{ animationDelay: "0.25s" }}
-            >
-              <ServiceCard
-                title="Păsări"
-                subtitle="Evaluări, tratamente, consiliere"
-                image={bird}
-                variant="pasari"
-                href="servicii/pasari"
-                className="w-full h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]"
-              />
+            {/* Why Choose Us */}
+            <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">De ce să alegi Cabinet Sorin?</h3>
+              <ul className="space-y-3">
+                {[
+                  "Echipă cu experiență vastă",
+                  "Aparatură modernă",
+                  "Mediu steril și sigur",
+                  "Abordare blândă și empatică",
+                  "Gamă completă de servicii"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
+
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        {/* Footer CTA */}
-        <footer
-          className="pb-[calc(env(safe-area-inset-bottom)+12px)] pt-10 sm:pt-0 text-center shrink-0 animate-fade-in-up"
-          style={{ animationDelay: "0.35s" }}
-        >
-          <div className="flex md:pt-20 sm:pt-6 items-center justify-center gap-3 sm:gap-4 flex-wrap">
-            <a
-              href="tel:+40123456789"
-              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg border-2 border-slate-900 bg-white text-xs sm:text-sm font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                />
-              </svg>
-              Contact rapid
-            </a>
+// --- ServiceCategoryCard Component (Updated for new colors and Lucide icons) ---
+interface ServiceCategoryCardProps {
+  title: string;
+  description: string;
+  href: string;
+  Icon: React.ComponentType<{ className?: string, strokeWidth?: number }>;
+}
 
-            <a
-              href="#programare"
-              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg border-2 border-slate-900 bg-gradient-to-r from-orange-500 to-orange-600 text-xs sm:text-sm font-bold text-slate-900 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              Programare online
-            </a>
-          </div>
-        </footer>
-      </section>
+function ServiceCategoryCard({ title, description, href, Icon }: ServiceCategoryCardProps) {
+  const primaryText = `text-[${PRIMARY_COLOR}]`;
+  const secondaryText = `text-[${SECONDARY_COLOR}]`;
+  const lightBg = "bg-gray-100";
+  const hoverBg = "bg-white";
 
-      <style jsx>{`
-        @keyframes fade-in-down {
-          from {
-            opacity: 0;
-            transform: translateY(-16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) translateX(0px);
-          }
-          33% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          66% {
-            transform: translateY(10px) translateX(-10px);
-          }
-        }
-        .animate-fade-in-down {
-          animation: fade-in-down 0.7s ease-out forwards;
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.7s ease-out forwards;
-          opacity: 0;
-        }
-        .animate-float {
-          animation: float ease-in-out infinite;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-fade-in-down,
-          .animate-fade-in-up,
-          .animate-float {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-          }
-        }
-      `}</style>
-    </main>
+  return (
+    <Link 
+      href={href}
+      className={`group block p-6 rounded-xl border border-gray-200 transition-all duration-300 ${lightBg} hover:${hoverBg} hover:shadow-md hover:border-[${SECONDARY_COLOR}] hover:-translate-y-0.5`}
+    >
+      <div className="flex items-start justify-between mb-4">
+        <h3 className={`text-xl font-bold text-slate-900`}>{title}</h3>
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${lightBg} ${primaryText} transition-all duration-300 group-hover:${secondaryText}`}>
+          <Icon className="w-6 h-6" strokeWidth={2} />
+        </div>
+      </div>
+      <p className="text-slate-600 text-sm mb-4 min-h-[60px]">
+        {description}
+      </p>
+      <div className={`flex items-center gap-2 text-sm font-semibold ${primaryText} group-hover:${secondaryText} group-hover:translate-x-1 transition-transform`}>
+        Citește mai mult <ArrowRight className="w-4 h-4" />
+      </div>
+    </Link>
+  );
+}
+
+// --- FAQItem Component (Updated for new colors) ---
+function FAQItem({ question, answer, secondaryColor, lightBg }: { 
+    question: string; 
+    answer: string; 
+    secondaryColor: string;
+    lightBg: string;
+  }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const secondaryText = `text-[${secondaryColor}]`;
+
+  return (
+    <div className="border border-slate-200 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between p-4 text-left bg-white hover:${lightBg} transition-colors`}
+      >
+        <span className="font-semibold text-slate-900">{question}</span>
+        {isOpen ? (
+          <ChevronUp className={`w-5 h-5 ${secondaryText}`} />
+        ) : (
+          <ChevronDown className={`w-5 h-5 ${secondaryText}`} />
+        )}
+      </button>
+      {isOpen && (
+        <div className={`p-4 ${lightBg} border-t border-slate-200 text-slate-700 text-sm leading-relaxed`}>
+          {answer}
+        </div>
+      )}
+    </div>
   );
 }

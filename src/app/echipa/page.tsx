@@ -11,6 +11,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+// Define your custom colors
+const PRIMARY_COLOR = "#224e4d"; // Dark Green
+const SECONDARY_COLOR = "#356154"; // Medium Green
+const LIGHT_ACCENT = "#e0ebeb"; // Custom light background/ring color
+const LIGHTER_BG = "#f0fdf4"; // Very light green background
+
 const TeamPage = () => {
   const headerRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -55,7 +61,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
       bio: "Passionate about providing compassionate care with advanced surgical techniques.",
       icon: <Stethoscope className="w-5 h-5" />,
-      color: "from-orange-400 to-red-400",
+      // Replaced with a Green/Teal gradient
+      color: "from-green-500 to-teal-500",
     },
     {
       name: "Dr. Michael Chen",
@@ -66,7 +73,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
       bio: "Specializes in critical care and emergency medicine for all pet types.",
       icon: <Heart className="w-5 h-5" />,
-      color: "from-rose-400 to-pink-400",
+      // Replaced with a Blue/Cyan gradient
+      color: "from-blue-500 to-cyan-500",
     },
     {
       name: "Dr. Emily Rodriguez",
@@ -77,7 +85,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop",
       bio: "Expert in dental health, ensuring bright smiles for your furry friends.",
       icon: <Award className="w-5 h-5" />,
-      color: "from-amber-400 to-orange-400",
+      // Replaced with a Lime/Green gradient
+      color: "from-lime-500 to-green-500",
     },
     {
       name: "Dr. James Williams",
@@ -88,7 +97,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
       bio: "Dedicated to restoring mobility and quality of life through advanced surgery.",
       icon: <GraduationCap className="w-5 h-5" />,
-      color: "from-yellow-400 to-amber-400",
+      // Replaced with a Violet/Purple gradient
+      color: "from-violet-500 to-purple-500",
     },
     {
       name: "Dr. Lisa Thompson",
@@ -99,7 +109,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
       bio: "Focused on wellness exams and preventive medicine for long, healthy lives.",
       icon: <Heart className="w-5 h-5" />,
-      color: "from-green-400 to-emerald-400",
+      // Replaced with a Yellow/Lime gradient
+      color: "from-yellow-400 to-lime-400",
     },
     {
       name: "Dr. David Park",
@@ -110,7 +121,8 @@ const TeamPage = () => {
         "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
       bio: "Expert care for birds, reptiles, and other unique companions.",
       icon: <Award className="w-5 h-5" />,
-      color: "from-teal-400 to-cyan-400",
+      // Replaced with a Cyan/Blue gradient
+      color: "from-cyan-400 to-blue-400",
     },
   ];
 
@@ -133,13 +145,14 @@ const TeamPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
+    // Updated background gradient from orange/yellow to soft greens/blues
+    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-[${LIGHTER_BG}] to-cyan-50`}>
       <style>{`
         .fade-up { 
           opacity: 0; 
           transform: translateY(40px); 
           transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .fade-up.animate-in { 
           opacity: 1; 
@@ -150,7 +163,7 @@ const TeamPage = () => {
           opacity: 0; 
           transform: scale(0.92) translateY(20px); 
           transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .scale-in.animate-in { 
           opacity: 1; 
@@ -174,7 +187,8 @@ const TeamPage = () => {
           left: 0;
           right: 0;
           height: 6px;
-          background: linear-gradient(90deg, #fb923c, #f97316);
+          /* Updated top border to Primary Green */
+          background: linear-gradient(90deg, ${PRIMARY_COLOR}, ${SECONDARY_COLOR});
           transform: scaleX(0);
           transform-origin: left;
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -186,7 +200,8 @@ const TeamPage = () => {
         
         .team-card:hover { 
           transform: translateY(-12px); 
-          box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15);
+          /* Updated hover shadow to Primary Green */
+          box-shadow: 0 20px 40px ${PRIMARY_COLOR}26;
         }
         
         .team-card-image-wrapper {
@@ -200,7 +215,8 @@ const TeamPage = () => {
           width: 160px; 
           height: 160px; 
           border-radius: 50%; 
-          background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); 
+          /* Updated image background to soft green gradient */
+          background: linear-gradient(135deg, ${LIGHT_ACCENT} 0%, #e8f5e9 100%); 
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
           position: absolute;
           top: 0;
@@ -254,12 +270,14 @@ const TeamPage = () => {
         
         .stat-card:hover { 
           transform: translateY(-8px); 
-          box-shadow: 0 12px 32px rgba(249, 115, 22, 0.12); 
+          /* Updated stat card hover shadow */
+          box-shadow: 0 12px 32px ${PRIMARY_COLOR}1f; 
         }
         
         .feature-card {
           transition: all 0.3s ease;
-          background: linear-gradient(135deg, #fff 0%, #fef3c7 100%);
+          /* Updated feature card background to soft green/white */
+          background: linear-gradient(135deg, #fff 0%, ${LIGHTER_BG} 100%);
           border-radius: 16px;
           padding: 2rem;
         }
@@ -270,10 +288,16 @@ const TeamPage = () => {
         }
         
         .gradient-text {
-          background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+          /* Updated gradient text to Primary/Secondary Green */
+          background: linear-gradient(135deg, ${PRIMARY_COLOR} 0%, ${SECONDARY_COLOR} 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+        }
+        
+        .primary-icon-bg {
+            /* Primary button/icon background */
+            background: linear-gradient(135deg, ${SECONDARY_COLOR} 0%, ${PRIMARY_COLOR} 100%);
         }
       `}</style>
 
@@ -283,8 +307,9 @@ const TeamPage = () => {
           ref={headerRef}
           className="fade-up text-center mb-16 pt-12 md:pt-0"
         >
-          <div className="inline-block mb-4 px-4 py-2 bg-orange-100 rounded-full">
-            <span className="text-orange-600 font-semibold text-sm">
+          {/* Updated accent tag color */}
+          <div className="inline-block mb-4 px-4 py-2 bg-green-100 rounded-full">
+            <span className="text-green-700 font-semibold text-sm">
               Our Veterinary Team
             </span>
           </div>
@@ -302,8 +327,9 @@ const TeamPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat, index) => (
               <div key={index} className="stat-card text-center">
-                <div className="bg-gradient-to-br from-orange-100 to-amber-100 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <div className="text-orange-500">{stat.icon}</div>
+                {/* Updated stat icon background and color */}
+                <div className={`bg-[${LIGHT_ACCENT}] w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+                  <div style={{ color: PRIMARY_COLOR }}>{stat.icon}</div>
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                   {stat.value}
@@ -331,6 +357,7 @@ const TeamPage = () => {
                 {/* Circle Background with Image */}
                 <div className="team-card-image-wrapper">
                   <div
+                    // Member-specific color is kept but updated to general green-themed colors
                     className={`team-card-bg bg-gradient-to-br ${member.color}`}
                   ></div>
                   <Image
@@ -348,8 +375,9 @@ const TeamPage = () => {
                     {member.name}
                   </h3>
                   <div className="flex items-center justify-center space-x-2 mb-2">
-                    <div className="text-orange-500">{member.icon}</div>
-                    <p className="text-orange-600 font-semibold text-sm">
+                    {/* Updated role icon color */}
+                    <div style={{ color: PRIMARY_COLOR }}>{member.icon}</div>
+                    <p style={{ color: SECONDARY_COLOR }} className="font-semibold text-sm">
                       {member.role}
                     </p>
                   </div>
@@ -362,7 +390,8 @@ const TeamPage = () => {
 
                   {/* Info that appears on hover */}
                   <div className="team-info">
-                    <div className="h-px bg-gradient-to-r from-transparent via-orange-200 to-transparent mb-3"></div>
+                    {/* Updated divider line color */}
+                    <div className={`h-px bg-gradient-to-r from-transparent via-[${SECONDARY_COLOR}50] to-transparent mb-3`}></div>
                     <p className="text-gray-600 text-sm leading-relaxed px-2">
                       {member.bio}
                     </p>
@@ -375,8 +404,9 @@ const TeamPage = () => {
 
         {/* Why Choose Us Section */}
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-100 to-transparent rounded-full blur-3xl opacity-50"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-yellow-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+          {/* Updated background blurs to green/cyan */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-100 to-transparent rounded-full blur-3xl opacity-50"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-cyan-100 to-transparent rounded-full blur-3xl opacity-50"></div>
 
           <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold text-center text-gray-900 mb-4">
@@ -388,8 +418,10 @@ const TeamPage = () => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Feature Card 1: Expert Care */}
               <div className="feature-card text-center">
-                <div className="bg-gradient-to-br from-orange-500 to-red-500 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                {/* Updated icon background to Primary/Secondary Green */}
+                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Award className="w-8 h-8 text-white" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900 mb-3">
@@ -401,8 +433,10 @@ const TeamPage = () => {
                 </p>
               </div>
 
+              {/* Feature Card 2: Compassionate Approach */}
               <div className="feature-card text-center">
-                <div className="bg-gradient-to-br from-pink-500 to-rose-500 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                {/* Updated icon background to Primary/Secondary Green */}
+                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Heart className="w-8 h-8 text-white" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900 mb-3">
@@ -414,8 +448,10 @@ const TeamPage = () => {
                 </p>
               </div>
 
+              {/* Feature Card 3: Advanced Technology */}
               <div className="feature-card text-center">
-                <div className="bg-gradient-to-br from-amber-500 to-orange-500 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                {/* Updated icon background to Primary/Secondary Green */}
+                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <Stethoscope className="w-8 h-8 text-white" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900 mb-3">

@@ -1,10 +1,13 @@
-// src/components/Navbar.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowRight, FiMenu, FiX } from "react-icons/fi";
 import { SiInstagram, SiLinkedin, SiX, SiYoutube } from "react-icons/si";
+
+// Brand colors
+const PRIMARY_COLOR = "#224e4d"; // Dark Green
+const SECONDARY_COLOR = "#336154"; // Medium Green (updated)
 
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,8 +19,21 @@ export const Nav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const lightBg = "bg-green-50";
+
+  // Gradients using CSS variables
+  const gradient =
+    "bg-gradient-to-r from-[var(--nav-primary)] to-[var(--nav-secondary)]";
+  const gradientReverse =
+    "bg-gradient-to-r from-[var(--nav-secondary)] to-[var(--nav-primary)]";
+
+  const brandStyle = {
+    "--nav-primary": PRIMARY_COLOR,
+    "--nav-secondary": SECONDARY_COLOR,
+  } as React.CSSProperties;
+
   return (
-    <>
+    <div style={brandStyle}>
       {/* Main Navbar */}
       <motion.nav
         initial={{ y: -100 }}
@@ -37,8 +53,12 @@ export const Nav = () => {
               whileTap={{ scale: 0.95 }}
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl blur-sm opacity-75 group-hover:opacity-100 transition-opacity" />
-                <div className="relative bg-gradient-to-br from-orange-500 to-amber-600 p-2.5 rounded-xl">
+                {/* Logo Glow */}
+                <div
+                  className={`absolute inset-0 ${gradient} rounded-xl blur-sm opacity-75 group-hover:opacity-100 transition-opacity`}
+                />
+                {/* Logo Background */}
+                <div className={`relative ${gradient} p-2.5 rounded-xl`}>
                   <svg
                     width="28"
                     height="28"
@@ -54,16 +74,14 @@ export const Nav = () => {
                   </svg>
                 </div>
               </div>
+              {/* Logo Text */}
               <span
-                className={`text-xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent transition-colors ${
-                  scrolled ? "" : "text-white"
-                }`}
+                className={`text-xl font-bold bg-clip-text text-transparent ${gradient}`}
               >
                 PetCare
               </span>
             </motion.a>
 
-            {/* Desktop Menu */}
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center space-x-1">
               {LINKS.map((link, idx) => (
@@ -74,14 +92,14 @@ export const Nav = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1, duration: 0.4 }}
                   className={`px-4 py-2 rounded-lg transition-all relative group
-        text-lg md:text-xl font-extrabold tracking-tight
-        text-black hover:text-orange-500`} // <- mereu negru, fără ternar
+                    text-lg md:text-xl font-extrabold tracking-tight
+                    text-slate-900 hover:text-[var(--nav-primary)]`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="relative z-10">{link.title}</span>
                   <motion.div
-                    className="absolute inset-0 bg-orange-50 rounded-lg -z-0"
+                    className={`absolute inset-0 ${lightBg} rounded-lg -z-0`}
                     initial={{ scale: 0, opacity: 0 }}
                     whileHover={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.2 }}
@@ -96,22 +114,23 @@ export const Nav = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.4 }}
-              className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className={`hidden lg:flex items-center gap-2 ${gradient} text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all relative overflow-hidden group`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10">Contact Us</span>
               <FiArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Hover effect gradient flip */}
+              <div
+                className={`absolute inset-0 ${gradientReverse} opacity-0 group-hover:opacity-100 transition-opacity`}
+              />
             </motion.a>
 
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
               className={`lg:hidden p-2 rounded-xl transition-colors ${
-                scrolled
-                  ? "bg-orange-50 text-orange-500"
-                  : "bg-orange-50 text-orange-500"
+                scrolled ? `${lightBg} text-[var(--nav-primary)]` : `${lightBg} text-[var(--nav-primary)]`
               }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -145,7 +164,7 @@ export const Nav = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay + Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -168,7 +187,7 @@ export const Nav = () => {
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between p-6 border-b border-slate-200">
                   <div className="flex items-center space-x-2">
-                    <div className="bg-gradient-to-br from-orange-500 to-amber-600 p-2 rounded-lg">
+                    <div className={`${gradient} p-2 rounded-lg`}>
                       <svg
                         width="24"
                         height="24"
@@ -183,7 +202,9 @@ export const Nav = () => {
                         />
                       </svg>
                     </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                    <span
+                      className={`text-xl font-bold ${gradient} bg-clip-text text-transparent`}
+                    >
                       PetCare
                     </span>
                   </div>
@@ -207,7 +228,7 @@ export const Nav = () => {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1, duration: 0.3 }}
-                        className="block px-4 py-4 rounded-xl text-xl font-extrabold text-slate-900 hover:bg-orange-50 hover:text-orange-700 transition-all group" // CHANGED
+                        className={`block px-4 py-4 rounded-xl text-xl font-extrabold text-slate-900 hover:bg-green-50 hover:text-[var(--nav-primary)] transition-all group`}
                         onClick={() => setIsOpen(false)}
                         whileHover={{ x: 8 }}
                       >
@@ -225,7 +246,7 @@ export const Nav = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.3 }}
-                    className="mt-8 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white px-6 py-4 rounded-xl font-semibold shadow-lg"
+                    className={`mt-8 flex items-center justify-center gap-2 ${gradient} text-white px-6 py-4 rounded-xl font-semibold shadow-lg`}
                     onClick={() => setIsOpen(false)}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -251,7 +272,7 @@ export const Nav = () => {
                         <motion.a
                           key={idx}
                           href={social.href}
-                          className="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 hover:bg-orange-50 hover:text-orange-600 flex items-center justify-center transition-colors"
+                          className={`w-10 h-10 rounded-lg bg-slate-100 text-slate-600 hover:bg-green-50 hover:text-[var(--nav-secondary)] flex items-center justify-center transition-colors`}
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           whileTap={{ scale: 0.9 }}
                         >
@@ -266,7 +287,7 @@ export const Nav = () => {
           </>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 
@@ -274,6 +295,8 @@ const LINKS = [
   { title: "Acasa", href: "/" },
   { title: "Echipa", href: "/echipa" },
   { title: "Servicii", href: "/servicii" },
+  { title: "Blog", href: "/blog" },
+  { title: "Programare", href: "/programare" },
   { title: "Contact", href: "/contact" },
 ];
 
