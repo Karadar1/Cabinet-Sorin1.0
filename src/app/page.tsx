@@ -3,62 +3,98 @@
 
 import React from "react";
 import Image from "next/image";
-import { PawPrint, Syringe, Scissors } from "lucide-react";
+import { PawPrint, Syringe, Scissors, ChevronRight } from "lucide-react";
 import hero from "../../public/hero4.jpg";
 import about from "../../public/hero2.png";
 import ServiceCard from "@/components/ServiceCards";
 import ClinicGallery from "@/components/ClinicGallery";
+import Link from "next/link";
 
 export default function Page() {
   return (
     <>
-      {/* HERO - Mobile optimized with better spacing */}
-      <section className="relative min-h-screen h-screen overflow-hidden">
-        <Image
-          src={hero}
-          alt="Two happy bulldogs in a park"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40" />
+      {/* 
+        HERO SECTION 
+        - Changed h-screen to min-h-[100svh] for better mobile browser support 
+      */}
+      <section className="relative min-h-[100svh] w-full overflow-hidden flex flex-col justify-between">
 
-        <div className="relative z-10 h-full flex flex-col">
-          <div className="mx-auto w-full max-w-6xl flex-1 flex flex-col px-6 sm:px-6">
-            {/* Top text block - better mobile spacing */}
-            <div className="text-white text-center sm:text-left pt-32 sm:pt-40 lg:pt-64 flex-shrink-0">
-              <h1 className="mx-auto sm:mx-0 max-w-2xl text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight drop-shadow-md">
-                Because they aren't just pets,
-                <span className="block mt-2 text-emerald-400">they are companions</span>
+        {/* Background Image */}
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src={hero}
+            alt="Two happy bulldogs in a park"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Gradient Overlay: Darker at bottom for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/80" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 flex flex-col h-full pt-32 pb-8 md:pt-40 md:pb-12">
+
+          {/* Text Area */}
+          <div className="flex-1 flex flex-col justify-center md:justify-start md:mt-20">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] drop-shadow-lg tracking-tight">
+                Because they aren't <br className="hidden sm:block" />
+                just pets,
+                <span className="block text-emerald-400 mt-2">they are family.</span>
               </h1>
 
-              <a
-                href="#appointment"
-                className="mt-8 sm:mt-8 inline-flex items-center rounded-xl bg-emerald-600 px-8 py-4 text-base sm:text-lg font-bold shadow-lg shadow-emerald-900/20 transition hover:scale-[1.02] hover:bg-emerald-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-transparent"
-              >
-                Make an Appointment
-              </a>
+              <p className="mt-6 text-lg text-gray-200 max-w-xl font-medium drop-shadow-md hidden sm:block">
+                Providing top-tier veterinary care with a gentle touch.
+                Your best friend deserves the best health.
+              </p>
+
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 pb-12">
+                <Link
+                  href="#appointment"
+                  className="inline-flex justify-center items-center rounded-xl bg-emerald-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-900/30 transition transform hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
+                >
+                  Make an Appointment
+                </Link>
+              </div>
             </div>
+          </div>
 
-            {/* Spacer to push cards down */}
-            <div className="flex-1 min-h-[2rem]" />
+          {/* 
+               MOBILE & DESKTOP SERVICE CARDS 
+               - Mobile: Horizontal Scroll Snap
+               - Desktop: Grid
+            */}
+          <div className="mt-auto md:mt-0 w-full">
+            {/* Label for mobile only */}
 
-            {/* Card tray - better mobile spacing from bottom */}
-            <div className="flex-shrink-0 pb-12 sm:pb-16 pt-8">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-6 md:gap-8">
+
+            <div className="
+                    flex md:grid md:grid-cols-3 gap-4 
+                    overflow-x-auto md:overflow-visible 
+                    snap-x snap-mandatory 
+                    pb-4 md:pb-0
+                    -mx-4 px-4 md:mx-0 md:px-0
+                    scrollbar-hide
+                ">
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<PawPrint />}
                   title="Dentistry"
                   description="Keeping your dog's teeth and gums healthy."
                   href="#dentistry"
                 />
+              </div>
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<Syringe />}
                   title="Pet Vaccination"
                   description="Pet health and wellness that's one step ahead."
                   href="#vaccination"
                 />
+              </div>
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<Scissors />}
                   title="Spay & Neuter"
@@ -69,103 +105,95 @@ export default function Page() {
             </div>
           </div>
         </div>
-
-        <div id="appointment" className="sr-only" aria-hidden />
       </section>
 
-      {/* ABOUT SECTION - Mobile optimized */}
-      <section className="relative bg-white min-h-screen">
-        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-4 sm:px-6 py-12 sm:py-16 md:grid-cols-2 md:gap-12 lg:gap-20 md:min-h-screen">
-          {/* LEFT: image */}
-          <div className="order-1 md:order-none">
-            <div className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">
+      {/* ABOUT SECTION */}
+      <section className="relative bg-white py-16 sm:py-24 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* IMAGE - Order 2 on mobile (below text), Order 1 on desktop */}
+            <div className="order-2 lg:order-1 relative mx-auto w-full max-w-md lg:max-w-full">
+              <div className="aspect-[4/5] relative rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
+                {/* Decorative box behind */}
+                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-emerald-100 rounded-2xl -z-10 hidden sm:block" />
+
                 <Image
                   src={about}
                   alt="Veterinarian caring for a happy dog"
                   fill
-                  sizes="(min-width: 1024px) 480px, (min-width: 768px) 420px, 90vw"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
-                  style={{
-                    WebkitMaskImage:
-                      "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%, rgba(0,0,0,1) 86%, rgba(0,0,0,0) 100%)",
-                    maskImage:
-                      "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 14%, rgba(0,0,0,1) 86%, rgba(0,0,0,0) 100%)",
-                  }}
                 />
+                {/* Subtle gradient at bottom for better integration */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60" />
+              </div>
+
+              {/* Floating Stat Card - Mobile friendly positioning */}
+              <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/20 max-w-[160px]">
+                <p className="text-3xl font-black text-emerald-600">25+</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Years of Experience</p>
               </div>
             </div>
-          </div>
 
-          {/* RIGHT: text */}
-          <div>
-            <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wide text-emerald-600 shadow-sm ring-1 ring-black/5">
-              About Us
-            </span>
+            {/* TEXT - Order 1 on mobile, Order 2 on desktop */}
+            <div className="order-1 lg:order-2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                About Us
+              </span>
 
-            <h2 className="mt-4 sm:mt-4 text-2xl sm:text-4xl md:text-5xl font-black leading-tight text-slate-900">
-              We Love to Take Care of Your Pets
-            </h2>
+              <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1]">
+                We Love to Take Care of Your Pets
+              </h2>
 
-            <p className="mt-4 sm:mt-4 max-w-prose text-sm sm:text-base leading-relaxed sm:leading-7 text-slate-600">
-              Alta Vista Animal Hospital was founded in 1998 and since that time
-              our family pet hospital has been proudly serving Vancouver, BC by
-              providing standard and vet services.
-            </p>
+              <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600">
+                Alta Vista Animal Hospital was founded in 1998. Since then,
+                our family pet hospital has been proudly serving Vancouver, BC
+                by providing standard and emergency vet services.
+              </p>
 
-            <ul className="mt-6 sm:mt-8 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2">
-              {[
-                "Skilled Personnel",
-                "Pets Care",
-                "Best Veterinarians",
-                "Quality Food",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5 sm:gap-3">
-                  <span className="grid h-7 w-7 sm:h-9 sm:w-9 flex-shrink-0 place-content-center rounded-md bg-emerald-500 text-white shadow-sm">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      className="sm:w-[18px] sm:h-[18px]"
-                    >
-                      <path
-                        d="M20 6L9 17l-5-5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="font-semibold text-slate-900 text-sm sm:text-base">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
+              {/* Features Grid */}
+              <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  "Skilled Personnel",
+                  "Compassionate Care",
+                  "Best Veterinarians",
+                  "Quality Food",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                    </span>
+                    <span className="font-semibold text-slate-800 text-sm">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
-              <a
-                href="#"
-                className="inline-flex justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-              >
-                Book an Appointment
-              </a>
-              <a
-                href="#"
-                className="inline-flex justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
-              >
-                Learn More
-              </a>
+              {/* Buttons - Full width on mobile */}
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#"
+                  className="w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-emerald-600 px-6 py-3.5 text-sm font-bold text-white shadow-md hover:bg-emerald-700 transition-colors"
+                >
+                  Book an Appointment
+                </a>
+                <a
+                  href="#"
+                  className="w-full sm:w-auto inline-flex justify-center items-center rounded-xl border-2 border-slate-200 px-6 py-3.5 text-sm font-bold text-slate-700 hover:border-emerald-600 hover:text-emerald-600 transition-colors bg-transparent"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CLINIC GALLERY SECTION */}
       <ClinicGallery />
     </>
   );

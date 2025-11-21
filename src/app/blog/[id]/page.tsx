@@ -1,13 +1,21 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Tag, Share2, Clock } from "lucide-react";
+import {
+    ArrowLeft,
+    Calendar,
+    User,
+    Tag,
+    Share2,
+    Clock,
+    Stethoscope,
+    ChevronRight
+} from "lucide-react";
 import prisma from "@/lib/db";
 import { format } from "date-fns";
 import { ro } from "date-fns/locale";
 import * as motion from "framer-motion/client";
 
-// Force dynamic rendering since we're using database
 export const dynamic = 'force-dynamic';
 
 interface BlogPostPageProps {
@@ -20,135 +28,200 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const { id } = await params;
     const postId = parseInt(id);
 
-    if (isNaN(postId)) {
-        notFound();
-    }
+    if (isNaN(postId)) notFound();
 
     const post = await prisma.blogPost.findUnique({
         where: { id: postId },
     });
 
-    if (!post) {
-        notFound();
-    }
+    if (!post) notFound();
 
     const formattedDate = format(new Date(post.createdAt), "d MMMM yyyy", { locale: ro });
+    const wordCount = post.content.split(/\s+/g).length;
+    const readingTime = Math.ceil(wordCount / 200);
+
+    // Animation settings
+    const fadeInUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    };
 
     return (
-        <div className="min-h-screen bg-slate-50 font-sans selection:bg-[#224e4d] selection:text-white">
-            {/* Hero Section with Parallax-like effect */}
-            <div className="relative h-[70vh] min-h-[500px] w-full overflow-hidden">
-                <div className="absolute inset-0 bg-slate-900/40 z-10" /> {/* Base Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent z-10" /> {/* Gradient Overlay */}
+        <div className="min-h-screen bg-[#fcfbf9] font-sans selection:bg-[#224e4d] selection:text-white">
 
-                {post.image ? (
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#224e4d] to-[#1a3b3a]" />
-                )}
+            {/* 1. HEADER SECTION */}
+            <header className="pt-32 pb-12 md:pt-40 md:pb-16 px-6">
+                <div className="container mx-auto max-w-5xl text-center">
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ duration: 0.6 }}
+                        variants={fadeInUp}
+                        className="space-y-8"
+                    >
+                        {/* Breadcrumb */}
+                        <div className="flex justify-center items-center gap-2 text-sm font-medium text-stone-500 mb-8">
+                            <Link href="/blog" className="hover:text-[#224e4d] transition-colors">Blog</Link>
+                            <ChevronRight className="w-3 h-3" />
+                            <span className="text-[#224e4d] bg-[#224e4d]/5 px-2 py-0.5 rounded-md">
+                                {post.category}
+                            </span>
+                        </div>
 
-                <div className="absolute inset-0 z-20 flex items-end pb-20 md:pb-32">
-                    <div className="container mx-auto px-4 max-w-4xl">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="space-y-6"
+                        {/* Title */}
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-stone-900 tracking-tight leading-[1.1] max-w-4xl mx-auto">
+                            {post.title}
+                        </h1>
+
+                        {/* Meta Data */}
+                        <div className="flex flex-wrap justify-center items-center gap-6 text-stone-500 text-sm md:text-base border-t border-b border-stone-200 py-6 w-fit mx-auto px-8 md:px-12">
+                            <div className="flex items-center gap-2">
+                                <Calendar className="w-4 h-4 text-[#224e4d]" />
+                                {formattedDate}
+                            </div>
+                            <div className="w-1 h-1 bg-stone-300 rounded-full" />
+                            <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-[#224e4d]" />
+                                {readingTime} min citire
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </header>
+
+            {/* 2. IMAGE SECTION (UPDATED) */}
+            <div className="container mx-auto max-w-5xl px-4 md:px-6 mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    // Removed "aspect-ratio" class. 
+                    // "overflow-hidden" keeps the rounded corners clean.
+                    // "bg-stone-100" provides a nice background while image loads.
+                    className="relative w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#224e4d]/10 bg-stone-100 border border-stone-100"
+                >
+                    {post.image ? (
+                        // Using width/height={0} + sizes + "w-full h-auto" allows the image to 
+                        // maintain its natural aspect ratio so nothing is cropped.
+                        <Image
+                            src={post.image}
+                            alt={post.title}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            className="w-full h-auto object-contain"
+                            priority
+                        />
+                    ) : (
+                        // Fallback if no image
+                        <div className="w-full h-[400px] bg-gradient-to-br from-[#224e4d] to-[#1a3b3a] flex items-center justify-center">
+                            <Stethoscope className="w-20 h-20 text-white/20" />
+                        </div>
+                    )}
+                </motion.div>
+            </div>
+
+            {/* 3. CONTENT GRID */}
+            <div className="container mx-auto max-w-6xl px-4 md:px-6 pb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                    {/* SIDEBAR (Sticky on Desktop) */}
+                    <aside className="lg:col-span-3 hidden lg:block">
+                        <div className="sticky top-32 space-y-8">
+                            {/* Author Card */}
+                            <div className="bg-white p-6 rounded-2xl shadow-sm border border-stone-100 text-center">
+                                <div className="w-20 h-20 mx-auto rounded-full bg-stone-100 border-2 border-white shadow-md mb-4 overflow-hidden flex items-center justify-center">
+                                    <User className="w-8 h-8 text-stone-400" />
+                                </div>
+                                <p className="text-xs uppercase tracking-widest text-stone-400 font-bold mb-1">Scris de</p>
+                                <h3 className="font-bold text-stone-800 text-lg">{post.author}</h3>
+                                <p className="text-xs text-[#224e4d] font-medium mt-1">Medic Veterinar</p>
+                            </div>
+
+                            {/* Buttons */}
+                            <div className="flex flex-col gap-3">
+                                <Link
+                                    href="/blog"
+                                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50 hover:border-stone-300 transition-all text-sm font-semibold"
+                                >
+                                    <ArrowLeft className="w-4 h-4" />
+                                    Înapoi
+                                </Link>
+                                <button className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#224e4d] text-white hover:bg-[#1a3b3a] transition-all text-sm font-semibold shadow-lg shadow-[#224e4d]/20">
+                                    <Share2 className="w-4 h-4" />
+                                    Distribuie
+                                </button>
+                            </div>
+                        </div>
+                    </aside>
+
+                    {/* MAIN ARTICLE */}
+                    <main className="lg:col-span-8 lg:col-start-5">
+                        <motion.article
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeInUp}
+                            transition={{ delay: 0.4 }}
                         >
-                            {/* Metadata Pills */}
-                            <div className="flex flex-wrap items-center gap-3 text-white/90 text-sm font-medium tracking-wide">
-                                <span className="bg-[#356154]/90 backdrop-blur-md px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg shadow-black/5 border border-white/10">
+                            {/* Resume Quote */}
+                            {post.resume && (
+                                <div className="mb-12 relative">
+                                    <div className="absolute -left-4 top-0 bottom-0 w-1 bg-[#224e4d] rounded-full opacity-30 hidden md:block" />
+                                    <p className="text-xl md:text-2xl leading-relaxed text-stone-600 font-serif italic pl-0 md:pl-8">
+                                        {post.resume}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Text Content */}
+                            <div className="prose prose-lg md:prose-xl prose-stone max-w-none
+                                prose-headings:font-bold prose-headings:text-[#1c1c1c] prose-headings:tracking-tight
+                                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                                prose-p:text-stone-600 prose-p:leading-[1.8]
+                                prose-a:text-[#224e4d] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                                prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-10
+                                prose-blockquote:border-l-4 prose-blockquote:border-[#224e4d] prose-blockquote:bg-[#224e4d]/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+                                prose-li:marker:text-[#224e4d]
+                            ">
+                                <div className="whitespace-pre-wrap">
+                                    {post.content}
+                                </div>
+                            </div>
+
+                            {/* Mobile Author (visible only on phone) */}
+                            <div className="lg:hidden mt-12 pt-8 border-t border-stone-200">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center">
+                                        <User className="w-6 h-6 text-stone-400" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-stone-400 uppercase font-bold">Autor</p>
+                                        <p className="font-bold text-stone-900">{post.author}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Categories */}
+                            <div className="mt-16 flex flex-wrap gap-2">
+                                <span className="px-4 py-2 rounded-full bg-stone-100 text-stone-600 text-sm font-medium flex items-center gap-2">
                                     <Tag className="w-3.5 h-3.5" />
                                     {post.category}
                                 </span>
-                                <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full shadow-lg shadow-black/5 border border-white/10">
-                                    <Calendar className="w-3.5 h-3.5" />
-                                    {formattedDate}
-                                </span>
                             </div>
 
-                            {/* Title */}
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg">
-                                {post.title}
-                            </h1>
-
-                            {/* Author */}
-                            <div className="flex items-center gap-4 pt-2">
-                                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
-                                    <User className="w-6 h-6 text-white" />
+                            {/* Medical Disclaimer */}
+                            <div className="mt-12 p-6 bg-amber-50 border border-amber-100 rounded-xl flex gap-4 items-start">
+                                <div className="mt-1 text-amber-600">
+                                    <Stethoscope className="w-5 h-5" />
                                 </div>
-                                <div className="flex flex-col text-white">
-                                    <span className="text-xs font-medium text-white/70 uppercase tracking-wider">Autor</span>
-                                    <span className="font-semibold text-lg">{post.author}</span>
+                                <div className="text-sm text-amber-900/80 leading-relaxed">
+                                    <strong>Notă Medicală:</strong> Informațiile prezentate în acest articol au scop pur informativ și educațional. Nu înlocuiesc consultația medicală de specialitate. Pentru orice problemă de sănătate a animalului dumneavoastră, vă rugăm să ne contactați pentru o programare.
                                 </div>
                             </div>
-                        </motion.div>
-                    </div>
+
+                        </motion.article>
+                    </main>
                 </div>
-            </div>
-
-            {/* Content Section */}
-            <div className="container mx-auto px-4 max-w-4xl -mt-20 relative z-30 mb-24">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 p-8 md:p-16 border border-slate-100"
-                >
-                    {/* Back Button */}
-                    <Link
-                        href="/blog"
-                        className="inline-flex items-center text-slate-400 hover:text-[#224e4d] transition-colors mb-10 group font-medium text-sm uppercase tracking-wide"
-                    >
-                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                        Înapoi la Blog
-                    </Link>
-
-                    {/* Resume/Intro */}
-                    {post.resume && (
-                        <div className="mb-12 p-8 bg-[#224e4d]/5 rounded-2xl border-l-4 border-[#224e4d]">
-                            <p className="text-xl md:text-2xl text-[#224e4d] font-serif italic leading-relaxed">
-                                &ldquo;{post.resume}&rdquo;
-                            </p>
-                        </div>
-                    )}
-
-                    {/* Main Content */}
-                    <article className="prose prose-lg md:prose-xl prose-slate max-w-none 
-                        prose-headings:font-bold prose-headings:text-slate-900 prose-headings:tracking-tight
-                        prose-p:text-slate-600 prose-p:leading-loose
-                        prose-a:text-[#224e4d] prose-a:no-underline prose-a:border-b prose-a:border-[#224e4d]/30 hover:prose-a:border-[#224e4d] prose-a:transition-colors
-                        prose-strong:text-slate-900 prose-strong:font-bold
-                        prose-blockquote:border-l-[#224e4d] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-slate-700
-                        prose-img:rounded-2xl prose-img:shadow-lg"
-                    >
-                        {/* Drop Cap Effect for the first paragraph */}
-                        <div className="whitespace-pre-wrap first-letter:text-7xl first-letter:font-bold first-letter:text-[#224e4d] first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8]">
-                            {post.content}
-                        </div>
-                    </article>
-
-                    {/* Footer of the article */}
-                    <div className="mt-16 pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div className="text-slate-400 text-sm font-medium">
-                            Publicat în <span className="text-slate-900">{post.category}</span>
-                        </div>
-
-                        <div className="flex items-center gap-4">
-                            <span className="text-slate-500 text-sm font-medium">Distribuie:</span>
-                            <button className="w-10 h-10 rounded-full bg-slate-50 hover:bg-[#224e4d] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 border border-slate-200 hover:border-transparent">
-                                <Share2 className="w-4 h-4" />
-                            </button>
-                            {/* Add more social buttons here if needed */}
-                        </div>
-                    </div>
-                </motion.div>
             </div>
         </div>
     );
