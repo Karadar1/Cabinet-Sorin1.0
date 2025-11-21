@@ -11,11 +11,24 @@ interface SlotsResponse {
   slots: Slot[];
 }
 
+// Define the shape of the slot object returned by genDailySlots
+interface DailySlot {
+  start: Date;
+  end: Date;
+}
+
+// Define the shape of the result from the Prisma query
+interface AppointmentStart {
+  start: Date;
+}
+
 /**
  * GET /api/slots?date=YYYY-MM-DD&doctorId=1
  */
+// The 'req' parameter is typed by Next.js as 'Request'
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
+  // 'searchParams' is typed as URLSearchParams
+  const { searchParams }: { searchParams: URLSearchParams } = new URL(req.url);
 
   // Explicitly type 'date' as string | null
   const date: string | null = searchParams.get("date");
@@ -27,15 +40,18 @@ export async function GET(req: Request) {
     return NextResponse.json<SlotsResponse>({ slots: [] });
   }
 
-  const day = new Date(date + "T00:00:00.000Z"); // ISO
-  // The type of 'all' is inferred from genDailySlots, but we can assume it's an array of objects
-  // similar to what is mapped at the end (with Date objects for start/end).
-  const all: { start: Date; end: Date }[] = genDailySlots(day);
+  // 'day' is typed as Date
+  const day: Date = new Date(date + "T00:00:00.000Z"); // ISO
+
+  // Explicitly type 'all' based on the interface DailySlot
+  const all: DailySlot[] = genDailySlots(day);
 
   // scoatem sloturile deja ocupate pentru doctorul ales
-  const nextDay = new Date(day.getTime() + 24 * 60 * 60 * 1000);
+  // 'nextDay' is typed as Date
+  const nextDay: Date = new Date(day.getTime() + 24 * 60 * 60 * 1000);
 
-  const exists = await db.appointment.findMany({
+  // 'exists' is typed based on the AppointmentStart interface
+  const exists: AppointmentStart[] = await db.appointment.findMany({
     where: {
       doctorId,
       start: { gte: day, lt: nextDay },
@@ -43,15 +59,24 @@ export async function GET(req: Request) {
     select: { start: true },
   });
 
-  const taken = new Set(exists.map((e) => e.start.toISOString()));
+  // 'taken' is typed as a Set of strings (ISO Date strings)
+  interface AppointmentStart {
+    start: Date;
+  }
 
-  // The type of 'free' is the same as 'all'
-  const free: { start: Date; end: Date }[] = all.filter(
-    (s) => !taken.has(s.start.toISOString())
+  // ... inside the GET function ...
+
+  const taken: Set<string> = new Set(
+    exists.map((e: AppointmentStart) => e.start.toISOString())
+  );
+  // Explicitly type 'free' based on the interface DailySlot
+  const free: DailySlot[] = all.filter(
+    (s: DailySlot) => !taken.has(s.start.toISOString())
   );
 
   return NextResponse.json<SlotsResponse>({
-    slots: free.map((s) => ({
+    // 's' is typed as DailySlot within the map function
+    slots: free.map((s: DailySlot) => ({
       start: s.start.toISOString(),
       end: s.end.toISOString(),
     })),
