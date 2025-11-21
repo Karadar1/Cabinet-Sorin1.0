@@ -66,7 +66,7 @@ function CardBody({ icon, title, description }: CardBodyProps) {
           className: "w-5 h-5 sm:w-6 sm:h-6", // Reduced icon element size
           strokeWidth: 2,
           // Allow icon to keep its own className if it had one
-          ...("className" in icon.props ? { className: icon.props.className + " w-5 h-5 sm:w-6 sm:h-6" } : {}),
+          ...("className" in (icon.props as any) ? { className: (icon.props as any).className + " w-5 h-5 sm:w-6 sm:h-6" } : {}),
         } as any)}
       </div>
 

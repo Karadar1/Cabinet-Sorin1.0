@@ -52,21 +52,18 @@ export default function Page() {
                   title="Dentistry"
                   description="Keeping your dog's teeth and gums healthy."
                   href="#dentistry"
-                  variant="default"
                 />
                 <ServiceCard
                   icon={<Syringe />}
                   title="Pet Vaccination"
                   description="Pet health and wellness that's one step ahead."
                   href="#vaccination"
-                  variant="default"
                 />
                 <ServiceCard
                   icon={<Scissors />}
                   title="Spay & Neuter"
                   description="Keeping your dogs healthy & away from risks."
                   href="#spay-neuter"
-                  variant="default"
                 />
               </div>
             </div>
