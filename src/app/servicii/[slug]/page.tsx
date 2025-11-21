@@ -1,16 +1,16 @@
-"use client";
+
 
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  Phone, 
-  MapPin, 
-  Clock, 
-  ArrowLeft, 
-  CheckCircle2, 
-  HelpCircle, 
-  ChevronDown, 
+import {
+  Phone,
+  MapPin,
+  Clock,
+  ArrowLeft,
+  CheckCircle2,
+  HelpCircle,
+  ChevronDown,
   Wallet
 } from "lucide-react";
 import { services } from "@/lib/services-data";
@@ -64,10 +64,10 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-          
+
           {/* Main Content Column */}
           <div className="lg:col-span-2 space-y-16">
-            
+
             {/* Overview */}
             <section className="prose prose-lg prose-slate max-w-none">
               <div dangerouslySetInnerHTML={{ __html: service.fullContent }} />
@@ -133,7 +133,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
 
           {/* Sidebar Column */}
           <div className="lg:col-span-1 space-y-8">
-            
+
             {/* Pricing Card */}
             {service.pricing && (
               <div className="bg-slate-900 text-white rounded-xl p-6 shadow-xl relative overflow-hidden">

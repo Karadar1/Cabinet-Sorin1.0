@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 
-const PRIMARY_COLOR = "#224e4d";   // Dark green (brand)
+const PRIMARY_COLOR = "#224e4d"; // Dark green (brand)
 const SECONDARY_COLOR = "#356154"; // Medium green (accent)
 
 type FeatureCardProps = {
@@ -25,7 +25,10 @@ const baseClasses =
     "relative flex flex-col items-start",
     "h-full overflow-hidden",
     "rounded-xl border border-gray-100 bg-white",
-    "p-6 shadow-lg",
+    // --- START: Changes for Smaller Mobile Size ---
+    // Original: p-6
+    "p-4 sm:p-6 shadow-lg", // Reduced padding from p-6 to p-4 on small screens
+    // --- END: Changes for Smaller Mobile Size ---
     "transition-all duration-300 ease-out",
     "hover:-translate-y-0.5 hover:shadow-xl",
     // Color flip on hover using CSS vars
@@ -46,7 +49,8 @@ type CardBodyProps = Pick<FeatureCardProps, "icon" | "title" | "description">;
 function CardBody({ icon, title, description }: CardBodyProps) {
   const iconWrapperClasses =
     [
-      "mb-4 flex h-12 w-12 items-center justify-center rounded-lg",
+      // Original: h-12 w-12
+      "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg", // Reduced icon size
       // Subtle tinted background + brand-colored icon
       "bg-emerald-50 text-[var(--card-primary)]",
       "transition-all duration-300",
@@ -58,20 +62,23 @@ function CardBody({ icon, title, description }: CardBodyProps) {
       {/* Icon badge */}
       <div className={iconWrapperClasses}>
         {React.cloneElement(icon, {
-          className: "w-6 h-6",
+          // Original: w-6 h-6
+          className: "w-5 h-5 sm:w-6 sm:h-6", // Reduced icon element size
           strokeWidth: 2,
           // Allow icon to keep its own className if it had one
-          ...("className" in icon.props ? { className: icon.props.className + " w-6 h-6" } : {}),
+          ...("className" in icon.props ? { className: icon.props.className + " w-5 h-5 sm:w-6 sm:h-6" } : {}),
         } as any)}
       </div>
 
       {/* Title */}
-      <h3 className="mb-2 text-lg font-bold leading-snug text-gray-900 transition-colors duration-300 group-hover:text-white">
+      {/* Original: text-lg font-bold */}
+      <h3 className="mb-1 text-base sm:text-lg font-bold leading-snug text-gray-900 transition-colors duration-300 group-hover:text-white">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="flex-grow text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-white/80">
+      {/* Original: text-sm leading-relaxed */}
+      <p className="flex-grow text-xs sm:text-sm leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-white/80">
         {description}
       </p>
     </>

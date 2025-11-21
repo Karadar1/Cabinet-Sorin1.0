@@ -7,7 +7,7 @@ export type Service = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: string | any;
   icon?: string; // Lucide icon name
-  
+
   // New Fields
   benefits: { title: string; description: string }[];
   process: { step: number; title: string; description: string }[];
@@ -21,6 +21,7 @@ export const services: Service[] = [
     title: "Chirurgie Generală",
     shortDescription: "Intervenții chirurgicale complexe realizate în condiții de maximă siguranță și sterilitate.",
     image: "/hero2.png",
+    icon: "Heart",
     fullContent: `
       <h3>Servicii de Chirurgie Veterinară Avansată</h3>
       <p>Echipa noastră de chirurgi veterinari dispune de experiența și echipamentele necesare pentru a efectua o gamă largă de intervenții chirurgicale, de la proceduri de rutină (sterilizări) până la operații complexe de țesuturi moi.</p>
@@ -49,6 +50,7 @@ export const services: Service[] = [
     title: "Dermatologie",
     shortDescription: "Diagnostic și tratament pentru afecțiuni ale pielii, blănii și urechilor.",
     image: "/cat.png",
+    icon: "ClipboardList",
     fullContent: `
       <h3>Diagnostic și Tratament Dermatologic</h3>
       <p>Afecțiunile dermatologice sunt printre cele mai frecvente motive de prezentare la medicul veterinar. Mâncărimea, căderea părului sau modificările pielii pot ascunde alergii, paraziți sau boli hormonale.</p>
@@ -77,6 +79,7 @@ export const services: Service[] = [
     title: "Medicină Internă",
     shortDescription: "Abordare integrată pentru diagnosticul și tratamentul bolilor sistemice.",
     image: "/hero2.png",
+    icon: "Stethoscope",
     fullContent: `
       <h3>Medicină Internă Veterinară</h3>
       <p>Medicina internă se ocupă cu prevenirea, diagnosticul și tratamentul nechirurgical al bolilor organelor interne. Abordăm fiecare caz cu răbdare și minuțiozitate, punând cap la cap toate semnele clinice.</p>
@@ -103,6 +106,7 @@ export const services: Service[] = [
     title: "Vaccinare și Deparazitare",
     shortDescription: "Prevenția este cheia sănătății. Scheme complete de imunizare.",
     image: "/bird.png",
+    icon: "Syringe",
     fullContent: `
       <h3>Profilaxie: Vaccinare și Deparazitare</h3>
       <p>Cel mai bun tratament este prevenția. Vaccinarea anuală și deparazitarea periodică protejează animalul tău de boli grave, unele dintre ele transmisibile și la om (zoonoze).</p>
@@ -130,6 +134,7 @@ export const services: Service[] = [
     title: "Stomatologie",
     shortDescription: "Detartraj cu ultrasunete și igienă orală pentru un zâmbet sănătos.",
     image: "/cat.png",
+    icon: "Sparkles",
     fullContent: `
       <h3>Stomatologie Veterinară</h3>
       <p>Sănătatea orală influențează starea generală de bine a animalului. Tartrul și gingivita pot duce la pierderea dinților și pot afecta inima, ficatul sau rinichii prin diseminarea bacteriilor.</p>

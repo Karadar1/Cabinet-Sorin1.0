@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Assuming this is needed, replacing usage with simple img tag for portability
-import { 
-  Phone, 
-  MapPin, 
+import {
+  Phone,
+  MapPin,
   Clock,
   ArrowRight,
   ChevronDown,
@@ -13,34 +12,33 @@ import {
   Stethoscope,
   Heart,
   Syringe,
-  ClipboardList
+  ClipboardList,
+  Sparkles,
+  Activity
 } from "lucide-react";
+import { services } from "@/lib/services-data";
 
 // --- Custom Colors ---
 const PRIMARY_COLOR = "#224e4d"; // Dark Green
 const SECONDARY_COLOR = "#356154"; // Medium Green (Accent)
 const LIGHT_ACCENT_BG = "bg-green-50"; // Standard Tailwind light green background
-const LIGHT_ACCENT_TEXT = "text-green-700"; // Standard Tailwind light green text
 // ---------------------
 
-// Placeholder for service data since the original import is external
-const services = [
-  { slug: 'consultatii', title: 'Consultații Generale', shortDescription: 'Evaluări anuale de sănătate, vaccinări și sfaturi preventive personalizate.', icon: Stethoscope },
-  { slug: 'chirurgie', title: 'Chirurgie', shortDescription: 'Intervenții de la sterilizări la proceduri ortopedice complexe, efectuate în condiții de maximă siguranță.', icon: Heart },
-  { slug: 'vaccinari', title: 'Vaccinări', shortDescription: 'Programe complete de vaccinare adaptate nevoilor și stilului de viață al animalului tău.', icon: Syringe },
-  { slug: 'dermatologie', title: 'Dermatologie', shortDescription: 'Diagnostic și tratament pentru afecțiuni ale pielii, blănii și alergiilor.', icon: ClipboardList },
-];
+// Icon Mapping
+const ICON_MAP: Record<string, any> = {
+  "Stethoscope": Stethoscope,
+  "Heart": Heart,
+  "Syringe": Syringe,
+  "ClipboardList": ClipboardList,
+  "Sparkles": Sparkles,
+  "Activity": Activity
+};
 
 export default function ServicesPage() {
-  
-  // Custom Tailwind classes using arbitrary values
-  const primaryBg = `bg-[${PRIMARY_COLOR}]`;
-  const secondaryBg = `bg-[${SECONDARY_COLOR}]`;
-  const secondaryText = `text-[${SECONDARY_COLOR}]`;
 
   return (
     <div className="min-h-screen bg-white text-slate-800 font-sans pt-20">
-      
+
       {/* --- HERO / HEADER SECTION --- */}
       <div className={`bg-gray-50/50 border-b border-gray-100`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -56,10 +54,10 @@ export default function ServicesPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          
+
           {/* Main Content Column */}
           <div className="lg:col-span-2 space-y-12">
-            
+
             {/* Intro Text */}
             <section className="prose prose-slate max-w-none">
               <p className="text-lg leading-relaxed text-slate-600">
@@ -73,16 +71,19 @@ export default function ServicesPage() {
                 Lista Procedurilor
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {services.map((service, index) => (
-                  // Uses the updated ServiceCategoryCard logic
-                  <ServiceCategoryCard 
-                    key={service.slug}
-                    title={service.title}
-                    description={service.shortDescription}
-                    href={`/servicii/${service.slug}`}
-                    Icon={service.icon}
-                  />
-                ))}
+                {services.map((service) => {
+                  const IconComponent = service.icon ? ICON_MAP[service.icon] : Stethoscope;
+
+                  return (
+                    <ServiceCategoryCard
+                      key={service.slug}
+                      title={service.title}
+                      description={service.shortDescription}
+                      href={`/servicii/${service.slug}`}
+                      Icon={IconComponent}
+                    />
+                  );
+                })}
               </div>
             </section>
 
@@ -92,20 +93,20 @@ export default function ServicesPage() {
                 Întrebări frecvente
               </h2>
               <div className="space-y-4">
-                <FAQItem 
-                  question="Când este necesară o consultație?" 
+                <FAQItem
+                  question="Când este necesară o consultație?"
                   answer="Recomandăm un control periodic la fiecare 6-12 luni. De asemenea, orice schimbare în comportamentul, apetitul sau nivelul de energie al animalului necesită o vizită la medic."
                   secondaryColor={SECONDARY_COLOR}
                   lightBg={LIGHT_ACCENT_BG}
                 />
-                <FAQItem 
-                  question="Cum pregătesc animalul pentru operație?" 
+                <FAQItem
+                  question="Cum pregătesc animalul pentru operație?"
                   answer="De regulă, este necesar un post alimentar de 12 ore înainte de anestezie. Apa poate fi lăsată la discreție. Medicul vă va oferi instrucțiuni specifice în funcție de intervenție."
                   secondaryColor={SECONDARY_COLOR}
                   lightBg={LIGHT_ACCENT_BG}
                 />
-                <FAQItem 
-                  question="Oferiți servicii de urgență?" 
+                <FAQItem
+                  question="Oferiți servicii de urgență?"
                   answer="Da, preluăm urgențe în timpul programului de lucru. Pentru urgențe în afara programului, vă rugăm să ne contactați telefonic pentru îndrumare."
                   secondaryColor={SECONDARY_COLOR}
                   lightBg={LIGHT_ACCENT_BG}
@@ -116,16 +117,16 @@ export default function ServicesPage() {
           </div>
 
           {/* Sidebar Column */}
-           <div className="lg:col-span-1 space-y-8">
-            
+          <div className="lg:col-span-1 space-y-8">
+
             {/* Appointment CTA */}
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
               <h3 className="text-lg font-bold text-slate-900 mb-4">Programează o vizită</h3>
               <p className="text-slate-600 text-sm mb-6">
                 Evită așteptarea și asigură-te că primești atenția necesară la ora potrivită.
               </p>
-              <Link 
-                href="/#programare" 
+              <Link
+                href="/#programare"
                 className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm hover:shadow-md"
               >
                 Programare Online
@@ -201,7 +202,7 @@ function ServiceCategoryCard({ title, description, href, Icon }: ServiceCategory
   const hoverBg = "bg-white";
 
   return (
-    <Link 
+    <Link
       href={href}
       className={`group block p-6 rounded-xl border border-gray-200 transition-all duration-300 ${lightBg} hover:${hoverBg} hover:shadow-md hover:border-[${SECONDARY_COLOR}] hover:-translate-y-0.5`}
     >
@@ -222,12 +223,12 @@ function ServiceCategoryCard({ title, description, href, Icon }: ServiceCategory
 }
 
 // --- FAQItem Component (Updated for new colors) ---
-function FAQItem({ question, answer, secondaryColor, lightBg }: { 
-    question: string; 
-    answer: string; 
-    secondaryColor: string;
-    lightBg: string;
-  }) {
+function FAQItem({ question, answer, secondaryColor, lightBg }: {
+  question: string;
+  answer: string;
+  secondaryColor: string;
+  lightBg: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const secondaryText = `text-[${secondaryColor}]`;
 

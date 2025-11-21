@@ -7,6 +7,7 @@ import { PawPrint, Syringe, Scissors } from "lucide-react";
 import hero from "../../public/hero4.jpg";
 import about from "../../public/hero2.png";
 import ServiceCard from "@/components/ServiceCards";
+import ClinicGallery from "@/components/ClinicGallery";
 
 export default function Page() {
   return (
@@ -166,6 +167,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* CLINIC GALLERY SECTION */}
+      <ClinicGallery />
     </>
   );
 }
