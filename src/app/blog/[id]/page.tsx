@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, User, Tag, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, User, Tag, Share2, Clock } from "lucide-react";
 import prisma from "@/lib/db";
 import { format } from "date-fns";
 import { ro } from "date-fns/locale";
@@ -35,10 +35,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const formattedDate = format(new Date(post.createdAt), "d MMMM yyyy", { locale: ro });
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-slate-50 font-sans selection:bg-[#224e4d] selection:text-white">
             {/* Hero Section with Parallax-like effect */}
-            <div className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
-                <div className="absolute inset-0 bg-slate-900/30 z-10" /> {/* Overlay */}
+            <div className="relative h-[70vh] min-h-[500px] w-full overflow-hidden">
+                <div className="absolute inset-0 bg-slate-900/40 z-10" /> {/* Base Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent z-10" /> {/* Gradient Overlay */}
+
                 {post.image ? (
                     <Image
                         src={post.image}
@@ -48,39 +50,42 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         priority
                     />
                 ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#224e4d] to-[#356154]" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#224e4d] to-[#1a3b3a]" />
                 )}
 
-                <div className="absolute inset-0 z-20 flex items-end pb-16 md:pb-24">
+                <div className="absolute inset-0 z-20 flex items-end pb-20 md:pb-32">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="space-y-4"
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            className="space-y-6"
                         >
-                            <div className="flex flex-wrap items-center gap-3 text-white/90 text-sm md:text-base font-medium">
-                                <span className="bg-[#356154]/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
-                                    <Tag className="w-4 h-4" />
+                            {/* Metadata Pills */}
+                            <div className="flex flex-wrap items-center gap-3 text-white/90 text-sm font-medium tracking-wide">
+                                <span className="bg-[#356154]/90 backdrop-blur-md px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg shadow-black/5 border border-white/10">
+                                    <Tag className="w-3.5 h-3.5" />
                                     {post.category}
                                 </span>
-                                <span className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                                    <Calendar className="w-4 h-4" />
+                                <span className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full shadow-lg shadow-black/5 border border-white/10">
+                                    <Calendar className="w-3.5 h-3.5" />
                                     {formattedDate}
                                 </span>
                             </div>
 
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight shadow-sm">
+                            {/* Title */}
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg">
                                 {post.title}
                             </h1>
 
-                            <div className="flex items-center gap-3 text-white/90">
-                                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <User className="w-5 h-5" />
+                            {/* Author */}
+                            <div className="flex items-center gap-4 pt-2">
+                                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+                                    <User className="w-6 h-6 text-white" />
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-sm font-medium text-white/60">Autor</span>
-                                    <span className="font-semibold">{post.author}</span>
+                                <div className="flex flex-col text-white">
+                                    <span className="text-xs font-medium text-white/70 uppercase tracking-wider">Autor</span>
+                                    <span className="font-semibold text-lg">{post.author}</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -89,17 +94,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {/* Content Section */}
-            <div className="container mx-auto px-4 max-w-4xl -mt-10 relative z-30 mb-20">
+            <div className="container mx-auto px-4 max-w-4xl -mt-20 relative z-30 mb-24">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="bg-white rounded-2xl shadow-xl p-6 md:p-12 border border-slate-100"
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 p-8 md:p-16 border border-slate-100"
                 >
                     {/* Back Button */}
                     <Link
                         href="/blog"
-                        className="inline-flex items-center text-slate-500 hover:text-[#224e4d] transition-colors mb-8 group"
+                        className="inline-flex items-center text-slate-400 hover:text-[#224e4d] transition-colors mb-10 group font-medium text-sm uppercase tracking-wide"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                         Înapoi la Blog
@@ -107,28 +112,40 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                     {/* Resume/Intro */}
                     {post.resume && (
-                        <div className="mb-10 p-6 bg-[#f1f5f9] rounded-xl border-l-4 border-[#224e4d]">
-                            <p className="text-lg md:text-xl text-slate-700 italic leading-relaxed">
-                                {post.resume}
+                        <div className="mb-12 p-8 bg-[#224e4d]/5 rounded-2xl border-l-4 border-[#224e4d]">
+                            <p className="text-xl md:text-2xl text-[#224e4d] font-serif italic leading-relaxed">
+                                &ldquo;{post.resume}&rdquo;
                             </p>
                         </div>
                     )}
 
                     {/* Main Content */}
-                    <article className="prose prose-lg prose-slate max-w-none prose-headings:text-[#224e4d] prose-a:text-[#356154] prose-img:rounded-xl">
-                        {/* We render content as is, assuming it might be markdown later, but for now just text with newlines */}
-                        <div className="whitespace-pre-wrap text-slate-700 leading-relaxed">
+                    <article className="prose prose-lg md:prose-xl prose-slate max-w-none 
+                        prose-headings:font-bold prose-headings:text-slate-900 prose-headings:tracking-tight
+                        prose-p:text-slate-600 prose-p:leading-loose
+                        prose-a:text-[#224e4d] prose-a:no-underline prose-a:border-b prose-a:border-[#224e4d]/30 hover:prose-a:border-[#224e4d] prose-a:transition-colors
+                        prose-strong:text-slate-900 prose-strong:font-bold
+                        prose-blockquote:border-l-[#224e4d] prose-blockquote:bg-slate-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-slate-700
+                        prose-img:rounded-2xl prose-img:shadow-lg"
+                    >
+                        {/* Drop Cap Effect for the first paragraph */}
+                        <div className="whitespace-pre-wrap first-letter:text-7xl first-letter:font-bold first-letter:text-[#224e4d] first-letter:mr-3 first-letter:float-left first-letter:leading-[0.8]">
                             {post.content}
                         </div>
                     </article>
 
                     {/* Footer of the article */}
-                    <div className="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center">
-                        <div className="text-slate-400 text-sm">
-                            Articol publicat în {post.category}
+                    <div className="mt-16 pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="text-slate-400 text-sm font-medium">
+                            Publicat în <span className="text-slate-900">{post.category}</span>
                         </div>
-                        <div className="flex gap-4">
-                            {/* Share buttons could go here */}
+
+                        <div className="flex items-center gap-4">
+                            <span className="text-slate-500 text-sm font-medium">Distribuie:</span>
+                            <button className="w-10 h-10 rounded-full bg-slate-50 hover:bg-[#224e4d] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 border border-slate-200 hover:border-transparent">
+                                <Share2 className="w-4 h-4" />
+                            </button>
+                            {/* Add more social buttons here if needed */}
                         </div>
                     </div>
                 </motion.div>

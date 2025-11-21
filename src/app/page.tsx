@@ -25,17 +25,17 @@ export default function Page() {
         <div className="absolute inset-0 bg-black/40" />
 
         <div className="relative z-10 h-full flex flex-col">
-          <div className="mx-auto w-full max-w-6xl flex-1 flex flex-col px-4 sm:px-6">
+          <div className="mx-auto w-full max-w-6xl flex-1 flex flex-col px-6 sm:px-6">
             {/* Top text block - better mobile spacing */}
-            <div className="text-white text-center sm:text-left pt-40  lg:pt-64 flex-shrink-0">
-              <h1 className="mx-auto sm:mx-0 max-w-2xl text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+            <div className="text-white text-center sm:text-left pt-32 sm:pt-40 lg:pt-64 flex-shrink-0">
+              <h1 className="mx-auto sm:mx-0 max-w-2xl text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight drop-shadow-md">
                 Because they aren't just pets,
-                <span className="block mt-1">they are companions</span>
+                <span className="block mt-2 text-emerald-400">they are companions</span>
               </h1>
 
               <a
                 href="#appointment"
-                className="mt-6 sm:mt-5 inline-flex items-center rounded-xl bg-emerald-600 px-5 py-3 text-sm sm:text-base font-semibold shadow transition hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-transparent"
+                className="mt-8 sm:mt-8 inline-flex items-center rounded-xl bg-emerald-600 px-8 py-4 text-base sm:text-lg font-bold shadow-lg shadow-emerald-900/20 transition hover:scale-[1.02] hover:bg-emerald-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 Make an Appointment
               </a>
@@ -45,8 +45,8 @@ export default function Page() {
             <div className="flex-1 min-h-[2rem]" />
 
             {/* Card tray - better mobile spacing from bottom */}
-            <div className="flex-shrink-0 pb-6 sm:pb-8 pt-4">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 md:gap-6">
+            <div className="flex-shrink-0 pb-12 sm:pb-16 pt-8">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-6 md:gap-8">
                 <ServiceCard
                   icon={<PawPrint />}
                   title="Dentistry"
