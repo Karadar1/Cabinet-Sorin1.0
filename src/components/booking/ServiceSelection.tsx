@@ -77,19 +77,8 @@ export function ServiceSelection({ data, updateData }: ServiceSelectionProps) {
             </select>
           </div>
         </div>
-        
-        <div className="flex items-center gap-2 pt-2">
-           <input 
-             type="checkbox" 
-             id="newClient"
-             checked={data.isNewClient}
-             onChange={(e) => updateData({ isNewClient: e.target.checked })}
-             className="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary"
-           />
-           <Label htmlFor="newClient" className="font-normal cursor-pointer">
-             Suntem clienți noi la această clinică
-           </Label>
-        </div>
+
+
       </div>
     </div>
   );

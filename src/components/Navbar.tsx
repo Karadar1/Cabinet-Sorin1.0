@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowRight, FiMenu, FiX } from "react-icons/fi";
 import { SiInstagram, SiLinkedin, SiX, SiYoutube } from "react-icons/si";
+import Image from "next/image";
+import Link from "next/link";
 
 // Brand colors
 const PRIMARY_COLOR = "#224e4d"; // Dark Green
@@ -39,49 +41,21 @@ export const Nav = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.a
-              href="/"
-              className="flex items-center space-x-2 group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="relative">
-                {/* Logo Glow */}
-                <div
-                  className={`absolute inset-0 ${gradient} rounded-xl blur-sm opacity-75 group-hover:opacity-100 transition-opacity`}
-                />
-                {/* Logo Background */}
-                <div className={`relative ${gradient} p-2.5 rounded-xl`}>
-                  <svg
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-white"
-                  >
-                    <path
-                      d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-              </div>
-              {/* Logo Text */}
-              <span
-                className={`text-xl font-bold bg-clip-text text-transparent ${gradient}`}
-              >
-                PetCare
-              </span>
-            </motion.a>
-
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo-clinica-veterinara.png"
+                alt="Logo"
+                width={220}
+                height={220}
+                className="object-contain"
+              />
+            </Link>
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center space-x-1">
               {LINKS.map((link, idx) => (
@@ -110,7 +84,7 @@ export const Nav = () => {
 
             {/* CTA Button Desktop */}
             <motion.a
-              href="#contact"
+              href="/contact"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.4 }}
@@ -118,7 +92,7 @@ export const Nav = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10">Contact Us</span>
+              <span className="relative z-10">Contact</span>
               <FiArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
               {/* Hover effect gradient flip */}
               <div
@@ -129,9 +103,8 @@ export const Nav = () => {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className={`lg:hidden p-2 rounded-xl transition-colors ${
-                scrolled ? `${lightBg} text-[var(--nav-primary)]` : `${lightBg} text-[var(--nav-primary)]`
-              }`}
+              className={`lg:hidden p-2 rounded-xl transition-colors ${scrolled ? `${lightBg} text-[var(--nav-primary)]` : `${lightBg} text-[var(--nav-primary)]`
+                }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Toggle menu"
@@ -187,26 +160,7 @@ export const Nav = () => {
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between p-6 border-b border-slate-200">
                   <div className="flex items-center space-x-2">
-                    <div className={`${gradient} p-2 rounded-lg`}>
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="text-white"
-                      >
-                        <path
-                          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                    <span
-                      className={`text-xl font-bold ${gradient} bg-clip-text text-transparent`}
-                    >
-                      PetCare
-                    </span>
+
                   </div>
                   <motion.button
                     onClick={() => setIsOpen(false)}
@@ -242,7 +196,7 @@ export const Nav = () => {
 
                   {/* Mobile CTA */}
                   <motion.a
-                    href="#contact"
+                    href="/contact"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.3 }}
@@ -250,7 +204,7 @@ export const Nav = () => {
                     onClick={() => setIsOpen(false)}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Contact Us
+                    Contact
                     <FiArrowRight />
                   </motion.a>
                 </div>

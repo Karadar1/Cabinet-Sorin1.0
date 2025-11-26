@@ -1,16 +1,52 @@
 // app/page.tsx
-"use client";
+
 
 import React from "react";
 import Image from "next/image";
+import fs from "fs";
+import path from "path";
 import { PawPrint, Syringe, Scissors, ChevronRight } from "lucide-react";
 import hero from "../../public/hero4.jpg";
 import about from "../../public/hero2.png";
 import ServiceCard from "@/components/ServiceCards";
 import ClinicGallery from "@/components/ClinicGallery";
 import Link from "next/link";
+import { Metadata } from "next";
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: "Acasă | Clinica Bioveti",
+  description: "Clinica Bioveti oferă servicii veterinare complete în Timișoara: consultații, chirurgie, analize, vaccinări și urgențe.",
+};
+
+async function getGalleryCategories() {
+  const publicDir = path.join(process.cwd(), "public");
+  const items = await fs.promises.readdir(publicDir, { withFileTypes: true });
+  const categoryFolders = items.filter((item) => item.isDirectory());
+
+  const categories = await Promise.all(
+    categoryFolders.map(async (folder) => {
+      const folderPath = path.join(publicDir, folder.name);
+      const files = await fs.promises.readdir(folderPath);
+      const images = files
+        .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file))
+        .map((file) => ({
+          src: `/${folder.name}/${file}`,
+          alt: `${folder.name} image`,
+        }));
+
+      return {
+        id: folder.name.toLowerCase().replace(/\s+/g, "-"),
+        label: folder.name,
+        images,
+      };
+    })
+  );
+
+  return categories.filter((c) => c.images.length > 0);
+}
+
+export default async function Page() {
+  const categories = await getGalleryCategories();
   return (
     <>
       {/* 
@@ -23,7 +59,7 @@ export default function Page() {
         <div className="absolute inset-0 w-full h-full">
           <Image
             src={hero}
-            alt="Two happy bulldogs in a park"
+            alt="Doi buldogi fericiți în parc"
             fill
             priority
             sizes="100vw"
@@ -34,28 +70,28 @@ export default function Page() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 flex flex-col h-full pt-32 pb-8 md:pt-40 md:pb-12">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 flex flex-col h-full pt-28 pb-4 md:pt-32 md:pb-8">
 
           {/* Text Area */}
           <div className="flex-1 flex flex-col justify-center md:justify-start md:mt-20">
             <div className="max-w-3xl">
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] drop-shadow-lg tracking-tight">
-                Because they aren't <br className="hidden sm:block" />
-                just pets,
-                <span className="block text-emerald-400 mt-2">they are family.</span>
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-white leading-[1.1] drop-shadow-lg tracking-tight">
+                Pentru că nu sunt doar <br className="hidden sm:block" />
+                animale de companie,
+                <span className="block text-emerald-400 mt-2">sunt familie.</span>
               </h1>
 
-              <p className="mt-6 text-lg text-gray-200 max-w-xl font-medium drop-shadow-md hidden sm:block">
-                Providing top-tier veterinary care with a gentle touch.
-                Your best friend deserves the best health.
+              <p className="mt-4 text-base sm:text-lg text-gray-200 max-w-xl font-medium drop-shadow-md hidden sm:block">
+                Oferim îngrijire veterinară de top cu o atingere blândă.
+                Cel mai bun prieten al tău merită cea mai bună sănătate.
               </p>
 
-              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 pb-12">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-4 pb-8">
                 <Link
-                  href="#appointment"
+                  href="/programare"
                   className="inline-flex justify-center items-center rounded-xl bg-emerald-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-900/30 transition transform hover:scale-[1.02] hover:bg-emerald-500 active:scale-95"
                 >
-                  Make an Appointment
+                  Fă o Programare
                 </Link>
               </div>
             </div>
@@ -81,24 +117,24 @@ export default function Page() {
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<PawPrint />}
-                  title="Dentistry"
-                  description="Keeping your dog's teeth and gums healthy."
+                  title="Stomatologie"
+                  description="Menținem dinții și gingiile câinelui tău sănătoase."
                   href="#dentistry"
                 />
               </div>
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<Syringe />}
-                  title="Pet Vaccination"
-                  description="Pet health and wellness that's one step ahead."
+                  title="Vaccinare"
+                  description="Sănătatea și bunăstarea animalului tău, cu un pas înainte."
                   href="#vaccination"
                 />
               </div>
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
                 <ServiceCard
                   icon={<Scissors />}
-                  title="Spay & Neuter"
-                  description="Keeping your dogs healthy & away from risks."
+                  title="Sterilizare"
+                  description="Menținem câinii sănătoși și departe de riscuri."
                   href="#spay-neuter"
                 />
               </div>
@@ -120,7 +156,7 @@ export default function Page() {
 
                 <Image
                   src={about}
-                  alt="Veterinarian caring for a happy dog"
+                  alt="Veterinar având grijă de un câine fericit"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
@@ -132,7 +168,7 @@ export default function Page() {
               {/* Floating Stat Card - Mobile friendly positioning */}
               <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/20 max-w-[160px]">
                 <p className="text-3xl font-black text-emerald-600">25+</p>
-                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Years of Experience</p>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Ani de Experiență</p>
               </div>
             </div>
 
@@ -140,26 +176,26 @@ export default function Page() {
             <div className="order-1 lg:order-2">
               <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                About Us
+                Despre Noi
               </span>
 
               <h2 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-[1.1]">
-                We Love to Take Care of Your Pets
+                Ne place să avem grijă de animalele tale
               </h2>
 
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600">
-                Alta Vista Animal Hospital was founded in 1998. Since then,
-                our family pet hospital has been proudly serving Vancouver, BC
-                by providing standard and emergency vet services.
+                Cabinetul Veterinar Sorin a fost fondat în 1998. De atunci,
+                spitalul nostru de familie pentru animale servește cu mândrie comunitatea
+                oferind servicii veterinare standard și de urgență.
               </p>
 
               {/* Features Grid */}
               <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  "Skilled Personnel",
-                  "Compassionate Care",
-                  "Best Veterinarians",
-                  "Quality Food",
+                  "Personal Calificat",
+                  "Îngrijire cu Compasiune",
+                  "Cei Mai Buni Veterinari",
+                  "Hrană de Calitate",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
@@ -177,16 +213,16 @@ export default function Page() {
               {/* Buttons - Full width on mobile */}
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#"
+                  href="/programare"
                   className="w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-emerald-600 px-6 py-3.5 text-sm font-bold text-white shadow-md hover:bg-emerald-700 transition-colors"
                 >
-                  Book an Appointment
+                  Programează o Vizită
                 </a>
                 <a
-                  href="#"
+                  href="/servicii"
                   className="w-full sm:w-auto inline-flex justify-center items-center rounded-xl border-2 border-slate-200 px-6 py-3.5 text-sm font-bold text-slate-700 hover:border-emerald-600 hover:text-emerald-600 transition-colors bg-transparent"
                 >
-                  Learn More
+                  Află Mai Multe
                 </a>
               </div>
             </div>
@@ -194,7 +230,7 @@ export default function Page() {
         </div>
       </section>
 
-      <ClinicGallery />
+      <ClinicGallery categories={categories} />
     </>
   );
 }

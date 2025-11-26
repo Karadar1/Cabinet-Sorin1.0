@@ -126,7 +126,7 @@ export default function ServicesPage() {
                 Evită așteptarea și asigură-te că primești atenția necesară la ora potrivită.
               </p>
               <Link
-                href="/#programare"
+                href="/programare"
                 className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm hover:shadow-md"
               >
                 Programare Online
@@ -142,19 +142,21 @@ export default function ServicesPage() {
               <div className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-slate-400 shrink-0" />
-                  <p>Strada Exemplului nr. 12, Timișoara</p>
+                  <p>Timisoara Str.Crisan Nr.8, Timișoara</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-slate-400 shrink-0" />
                   <p>
-                    <a href="tel:0712345678" className="hover:text-emerald-400 transition-colors">0712 345 678</a>
+                    <a href="tel:0712345678" className="hover:text-emerald-400 transition-colors">0256442989</a>
+                    <br />
+                    <a href="tel:0712345678" className="hover:text-emerald-400 transition-colors">0755090880</a>
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-slate-400 shrink-0" />
                   <div>
-                    <p>Luni - Vineri: 09:00 - 20:00</p>
-                    <p>Sâmbătă: 10:00 - 14:00</p>
+                    <p>Luni - Vineri: 08:00 - 18:00</p>
+                    <p>Sâmbătă: 8:30 - 14:00</p>
                     <p className="text-slate-400">Duminică: Închis</p>
                   </div>
                 </div>
@@ -163,7 +165,7 @@ export default function ServicesPage() {
 
             {/* Why Choose Us */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">De ce să alegi Cabinet Sorin?</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-4">De ce să alegi Cabinet Veterinar Bioveti?</h3>
               <ul className="space-y-3">
                 {[
                   "Echipă cu experiență vastă",

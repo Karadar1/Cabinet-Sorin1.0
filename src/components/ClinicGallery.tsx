@@ -5,57 +5,22 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 
-// Import existing images for placeholders
-import hero1 from "../../public/hero1.jpg";
-import hero2 from "../../public/hero2.png";
-import hero3 from "../../public/hero3.png";
-import hero4 from "../../public/hero4.jpg";
-import hero from "../../public/hero.jpg";
-import cat from "../../public/cat.png";
-import bird from "../../public/bird.png";
+export interface Category {
+    id: string;
+    label: string;
+    images: { src: string; alt: string }[];
+}
 
-// Define categories and their images
-const CATEGORIES = [
-    {
-        id: "receptie",
-        label: "Recepție",
-        images: [
-            { src: hero1, alt: "Zona de recepție primitoare" },
-            { src: hero3, alt: "Sala de așteptare spațioasă" },
-        ],
-    },
-    {
-        id: "cabinet",
-        label: "Cabinet Consultații",
-        images: [
-            { src: hero2, alt: "Cabinet de consultații modern" },
-            { src: hero4, alt: "Echipamente de diagnostic" },
-        ],
-    },
-    {
-        id: "chirurgie",
-        label: "Chirurgie",
-        images: [
-            { src: hero, alt: "Sală de chirurgie sterilă" },
-            { src: hero2, alt: "Monitorizare anestezie" }, // Reusing hero2 for demo
-        ],
-    },
-    {
-        id: "internare",
-        label: "Internare",
-        images: [
-            { src: cat, alt: "Spațiu de internare pentru pisici" },
-            { src: bird, alt: "Îngrijire specializată" },
-        ],
-    },
-];
+interface ClinicGalleryProps {
+    categories: Category[];
+}
 
-export default function ClinicGallery() {
-    const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id);
+export default function ClinicGallery({ categories }: ClinicGalleryProps) {
+    const [activeCategory, setActiveCategory] = useState(categories[0]?.id || "");
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isFullScreen, setIsFullScreen] = useState(false);
 
-    const currentCategory = CATEGORIES.find((c) => c.id === activeCategory) || CATEGORIES[0];
+    const currentCategory = categories.find((c) => c.id === activeCategory) || categories[0];
     const images = currentCategory.images;
 
     const handleCategoryChange = (categoryId: string) => {
@@ -107,13 +72,13 @@ export default function ClinicGallery() {
 
                 {/* Mini Navbar (Tabs) */}
                 <div className="flex flex-wrap justify-center gap-2 mb-10">
-                    {CATEGORIES.map((category) => (
+                    {categories.map((category) => (
                         <button
                             key={category.id}
                             onClick={() => handleCategoryChange(category.id)}
                             className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeCategory === category.id
-                                    ? "bg-[#224e4d] text-white shadow-lg scale-105"
-                                    : "bg-white text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200"
+                                ? "bg-[#224e4d] text-white shadow-lg scale-105"
+                                : "bg-white text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 border border-slate-200"
                                 }`}
                         >
                             {category.label}
@@ -123,7 +88,7 @@ export default function ClinicGallery() {
 
                 {/* Carousel Container */}
                 <div
-                    className="relative max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 aspect-video md:aspect-[16/9] cursor-pointer group"
+                    className="relative max-w-5xl mx-auto bg-slate-900 rounded-2xl shadow-xl overflow-hidden border border-slate-100 aspect-video md:aspect-[16/9] cursor-pointer group"
                     onClick={toggleFullScreen}
                 >
 
@@ -140,16 +105,11 @@ export default function ClinicGallery() {
                                 src={images[currentImageIndex].src}
                                 alt={images[currentImageIndex].alt}
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="object-contain transition-transform duration-700 group-hover:scale-105"
                                 priority
                             />
 
-                            {/* Image Caption Overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 md:p-8">
-                                <p className="text-white text-lg md:text-xl font-medium">
-                                    {images[currentImageIndex].alt}
-                                </p>
-                            </div>
+
 
                             {/* Hover Hint */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-sm rounded-full p-4">

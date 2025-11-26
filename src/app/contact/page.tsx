@@ -7,10 +7,10 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
-// Define your custom colors using Tailwind arbitrary values for clarity and reuse
+// Constants for consistency, used in inline styles and logic
 const PRIMARY_COLOR = "#224e4d"; // Dark Green
 const SECONDARY_COLOR = "#356154"; // Medium Green
-const LIGHT_ACCENT = "#e0ebeb"; // Custom light minty background for chips
+const LIGHT_ACCENT = "#e0ebeb"; // Custom light minty background
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -64,19 +64,21 @@ const ContactPage = () => {
         const textEl = texts[i];
         gsap.set(el, {
           width: 56, // visible ball
-          height: 56,
+          height: 56, // Fixed height for initial ball state
           borderRadius: 9999,
           paddingLeft: 0,
           paddingRight: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
           justifyContent: "center",
           gap: 0,
           opacity: 1,
         });
+
+        // Use autoAlpha for better performance than display/opacity combo
         gsap.set(textEl, {
-          opacity: 0,
-          display: "none",
+          autoAlpha: 0,
           x: 8,
-          ariaHidden: true as any, // avoids SSR warnings
         });
       });
 
@@ -97,16 +99,17 @@ const ContactPage = () => {
 
             tl.to(el, {
               width: "100%",
-              height: 56,
+              height: "auto", // Auto height to fit content
               borderRadius: 9999,
               paddingLeft: 16,
               paddingRight: 20,
+              paddingTop: 12,
+              paddingBottom: 12,
               justifyContent: "flex-start",
               gap: 12,
               duration: 0.6,
             })
-              .set(textEl, { display: "block" }, "<")
-              .to(textEl, { opacity: 1, x: 0, duration: 0.35 }, "-=0.2");
+              .to(textEl, { autoAlpha: 1, x: 0, duration: 0.35 }, "-=0.2");
 
             io.unobserve(el);
           });
@@ -147,7 +150,6 @@ const ContactPage = () => {
     const newErrors = validateForm();
     if (Object.keys(newErrors).length === 0) {
       setSubmitted(true);
-      // Simulate API call and success state
       setTimeout(() => {
         setFormData({
           name: "",
@@ -165,56 +167,53 @@ const ContactPage = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      detail: "+1 (555) 123-4567",
-      href: "tel:+15551234567",
+      detail: "0755 090 880\n0256 442 989",
+      href: "tel:0755090880",
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      detail: "care@petcompanions.com",
-      href: "mailto:care@petcompanions.com",
+      detail: "clinicabioveti@gmail.com",
+      href: "mailto:clinicabioveti@gmail.com",
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Address",
-      detail: "123 Pet Care Lane, Suite 100, Cityville, ST 12345",
-      href: "#",
+      detail: "Str. Crișan Nr.8, Timișoara",
+      href: "#map-location",
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: "Hours",
-      detail: "Mon–Fri: 8AM–6PM, Sat: 9AM–4PM",
+      detail: "L-V: 08:00–18:00\nSâmb: 08:30–14:00",
       href: "#",
     },
   ];
 
-  // IMPORTANT: reset refs length each render so indices match map order
+  // Reset refs on each render to ensure indices match current render cycle
   chipsRef.current = [];
   textsRef.current = [];
 
   return (
-    // Updated background gradient for a cooler, greener feel
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-cyan-50 pt-20">
       <style>{`
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .fade-up.animate-in { opacity: 1; transform: translateY(0); }
         .input-focus { transition: all 0.3s ease; }
-        /* Use PRIMARY_COLOR for focus glow */
         .input-focus:focus { transform: translateY(-2px); box-shadow: 0 4px 12px ${PRIMARY_COLOR}30; } 
       `}</style>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16 pt-20 md:pt-0">
           <h2 className="text-5xl font-bold text-gray-800 mb-4">
-            Get in <span style={{ color: PRIMARY_COLOR }}>Touch</span>
+            Contactează-<span style={{ color: PRIMARY_COLOR }}>ne</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            We're here to help your furry companions. Reach out to us for
-            appointments, questions, or just to say hello!
+            Suntem aici pentru a ajuta prietenii tăi necuvântători. Contactează-ne pentru programări sau urgențe.
           </p>
         </div>
 
-        {/* Tubular contact chips — GSAP animates from balls → pills */}
+        {/* Tubular contact chips */}
         <div
           ref={chipsScope}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12"
@@ -229,21 +228,22 @@ const ContactPage = () => {
                 aria-label={
                   typeof info.detail === "string" ? info.detail : "contact"
                 }
+                // Tailwind classes fixed: Removed template literals from class strings
                 className="
                   group flex items-center overflow-hidden
-                  rounded-full border border-[${LIGHT_ACCENT}] bg-white
-                  h-14 shadow-sm
-                  transition-all hover:shadow-md hover:border-[${SECONDARY_COLOR}]
-                  focus:outline-none focus:ring-2 focus:ring-[${SECONDARY_COLOR}]
+                  rounded-full border border-[#e0ebeb] bg-white
+                  min-h-[56px] h-auto shadow-sm
+                  transition-all hover:shadow-md hover:border-[#356154]
+                  focus:outline-none focus:ring-2 focus:ring-[#356154]
                 "
-                // NOTE: no `w-full` here; GSAP controls width
               >
                 <span
                   style={{ backgroundColor: LIGHT_ACCENT, color: PRIMARY_COLOR }}
+                  // Tailwind classes fixed: Removed template literals from class strings
                   className="
                     ml-2 grid h-10 w-10 place-content-center
-                    rounded-full ring-1 ring-inset ring-[${LIGHT_ACCENT}]
-                    transition group-hover:text-white group-hover:bg-[${PRIMARY_COLOR}]
+                    rounded-full ring-1 ring-inset ring-[#e0ebeb]
+                    transition group-hover:text-white group-hover:bg-[#224e4d]
                     flex-shrink-0
                   "
                 >
@@ -254,7 +254,7 @@ const ContactPage = () => {
                   ref={(el) => {
                     if (el) textsRef.current[index] = el;
                   }}
-                  className="ml-3 mr-4 truncate text-sm font-medium text-gray-800"
+                  className="ml-3 mr-4 text-sm font-medium text-gray-800 leading-tight whitespace-pre-line"
                   style={{ willChange: "opacity, transform" }}
                 >
                   {info.detail}
@@ -264,36 +264,35 @@ const ContactPage = () => {
           ))}
         </div>
 
-        {/* Form + Map */}
+        {/* Form + Map Container */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Form */}
           <div ref={formRef} className="fade-up">
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <h3 className="text-3xl font-bold text-gray-800 mb-6">
-                Send us a <span style={{ color: PRIMARY_COLOR }}>Message</span>
+                Trimite un <span style={{ color: PRIMARY_COLOR }}>Mesaj</span>
               </h3>
 
               {submitted && (
-                // Used a lighter green for the success message
                 <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-                  Thank you! We'll get back to you soon.
+                  Mulțumim! Te vom contacta în curând.
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Name *
+                    Numele tău *
                   </label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
-                    placeholder="John Doe"
+                    // Tailwind classes fixed: Removed template literals
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.name ? "border-red-500" : "border-gray-300"
+                      } focus:outline-none focus:border-[#224e4d] input-focus`}
+                    placeholder="Ion Popescu"
                   />
                   {errors.name && (
                     <p className="text-red-500 text-sm mt-1">{errors.name}</p>
@@ -302,17 +301,16 @@ const ContactPage = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
+                    Email *
                   </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.email ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
-                    placeholder="john@example.com"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.email ? "border-red-500" : "border-gray-300"
+                      } focus:outline-none focus:border-[#224e4d] input-focus`}
+                    placeholder="ion@example.com"
                   />
                   {errors.email && (
                     <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -321,17 +319,16 @@ const ContactPage = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
+                    Telefon *
                   </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.phone ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
-                    placeholder="(555) 123-4567"
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? "border-red-500" : "border-gray-300"
+                      } focus:outline-none focus:border-[#224e4d] input-focus`}
+                    placeholder="07xx xxx xxx"
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
@@ -340,21 +337,21 @@ const ContactPage = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Service Interested In *
+                    Serviciu dorit *
                   </label>
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.service ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus`}
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.service ? "border-red-500" : "border-gray-300"
+                      } focus:outline-none focus:border-[#224e4d] input-focus`}
                   >
-                    <option value="">Select a service</option>
-                    <option value="dentistry">Dentistry</option>
-                    <option value="vaccination">Pet Vaccination</option>
-                    <option value="spay-neuter">Spay & Neuter</option>
-                    <option value="general">General Inquiry</option>
+                    <option value="">Selectează un serviciu</option>
+                    <option value="consultation">Consultație Generală</option>
+                    <option value="vaccination">Vaccinare</option>
+                    <option value="surgery">Chirurgie</option>
+                    <option value="analysis">Analize</option>
+                    <option value="other">Altceva</option>
                   </select>
                   {errors.service && (
                     <p className="text-red-500 text-sm mt-1">
@@ -365,17 +362,16 @@ const ContactPage = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message *
+                    Mesaj *
                   </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.message ? "border-red-500" : "border-gray-300"
-                    } focus:outline-none focus:border-[${PRIMARY_COLOR}] input-focus resize-none`}
-                    placeholder="Tell us about your pet and how we can help..."
+                    className={`w-full px-4 py-3 rounded-lg border ${errors.message ? "border-red-500" : "border-gray-300"
+                      } focus:outline-none focus:border-[#224e4d] input-focus resize-none`}
+                    placeholder="Spune-ne cu ce te putem ajuta..."
                   />
                   {errors.message && (
                     <p className="text-red-500 text-sm mt-1">
@@ -387,9 +383,9 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   style={{ backgroundColor: PRIMARY_COLOR }}
-                  className="w-full hover:bg-[${SECONDARY_COLOR}] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                  className="w-full hover:bg-[#356154] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                 >
-                  <span>Send Message</span>
+                  <span>Trimite Mesaj</span>
                   <Send className="w-5 h-5" />
                 </button>
               </form>
@@ -397,47 +393,46 @@ const ContactPage = () => {
           </div>
 
           {/* Map / Location panel */}
-          <div className="space-y-8">
+          <div className="space-y-8" id="map-location">
             <div ref={mapRef} className="fade-up">
               <div className="bg-white rounded-2xl shadow-xl p-8 h-full">
                 <h3 className="text-3xl font-bold text-gray-800 mb-4">
-                  Find us on the <span style={{ color: PRIMARY_COLOR }}>Map</span>
+                  Unde ne <span style={{ color: PRIMARY_COLOR }}>Găsești</span>
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  We’re conveniently located with parking available. Tap the map
-                  for directions.
+                  Clinica este situată central în Timișoara, pe strada Crișan.
                 </p>
-                <div className="aspect-video w-full overflow-hidden rounded-xl">
+                <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
                   <iframe
-                    title="Clinic location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509553!2d144.95373631531674!3d-37.81627974201248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577c1b3a51f!2sYour%20Clinic!5e0!3m2!1sen!2s!4v1611812441422!5m2!1sen!2s"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    scrolling="no"
+                    marginHeight={0}
+                    marginWidth={0}
+                    src="https://maps.google.com/maps?q=Strada+Crisan+Nr.8,+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    title="Locație Clinica Bioveti"
                     className="h-full w-full border-0"
-                  />
+                  ></iframe>
                 </div>
                 <div className="mt-4 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
-                    <span>
-                      123 Pet Care Lane, Suite 100, Cityville, ST 12345
+                    <span className="font-medium">
+                      Strada Crișan Nr. 8, Timișoara
                     </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-[${LIGHT_ACCENT}]">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#e0ebeb]">
               <p className="text-sm text-gray-700">
-                Emergencies after hours? Visit our{" "}
-                <a
-                  href="#"
-                  style={{ color: PRIMARY_COLOR }}
-                  className="font-semibold underline-offset-2 hover:underline"
-                >
-                  urgent care
-                </a>{" "}
-                page for 24/7 options.
+                Pentru urgențe în afara programului, vă rugăm să apelați la{" "}
+                <span style={{ color: PRIMARY_COLOR, fontWeight: "bold" }}>
+                  112
+                </span>{" "}
+                sau la cel mai apropiat spital veterinar non-stop.
               </p>
             </div>
           </div>
