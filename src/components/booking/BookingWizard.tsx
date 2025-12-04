@@ -125,7 +125,7 @@ export default function BookingWizard() {
           or kept at top-0 if the navbar scrolls away. 
           Currently set to `top-[60px]` assuming a standard ~60px fixed navbar. 
           Adjust `top-[X]` to match your actual navbar height. */}
-      <div className="md:hidden bg-white/95 backdrop-blur-sm px-4 py-4 border-b border-slate-100 sticky top-[60px] z-30 -mt-8 mb-6 transition-all">
+      <div className="md:hidden bg-white/95 backdrop-blur-sm px-4 py-8 border-b border-slate-100 sticky top-[60px] z-30 -mt-8 mb-6 transition-all">
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <PawPrint className="w-5 h-5 text-primary" /> Programare

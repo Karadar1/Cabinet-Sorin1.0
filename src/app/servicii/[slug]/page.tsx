@@ -74,60 +74,66 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
             </section>
 
             {/* Benefits Grid */}
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
-                <CheckCircle2 className="w-6 h-6 text-emerald-500" />
-                Beneficii Cheie
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {service.benefits.map((benefit, idx) => (
-                  <div key={idx} className="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {service.benefits.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+                  Beneficii Cheie
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {service.benefits.map((benefit, idx) => (
+                    <div key={idx} className="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:shadow-md transition-shadow">
+                      <h3 className="font-bold text-slate-900 mb-2">{benefit.title}</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{benefit.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Process Timeline */}
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-8">Cum decurge procesul?</h2>
-              <div className="relative border-l-2 border-emerald-100 ml-3 space-y-12">
-                {service.process.map((step, idx) => (
-                  <div key={idx} className="relative pl-8">
-                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-white" />
-                    <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1 block">
-                      Pasul {step.step}
-                    </span>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
-                    <p className="text-slate-600">{step.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {service.process.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">Cum decurge procesul?</h2>
+                <div className="relative border-l-2 border-emerald-100 ml-3 space-y-12">
+                  {service.process.map((step, idx) => (
+                    <div key={idx} className="relative pl-8">
+                      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-white" />
+                      <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1 block">
+                        Pasul {step.step}
+                      </span>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
+                      <p className="text-slate-600">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* FAQ Section (using details/summary for server-side interactivity) */}
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
-                <HelpCircle className="w-6 h-6 text-emerald-500" />
-                Întrebări Frecvente
-              </h2>
-              <div className="space-y-4">
-                {service.faq.map((item, idx) => (
-                  <details key={idx} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
-                    <summary className="flex items-center justify-between p-4 cursor-pointer list-none hover:bg-slate-50 transition-colors">
-                      <span className="font-semibold text-slate-900">{item.question}</span>
-                      <span className="transition-transform group-open:rotate-180">
-                        <ChevronDown className="w-5 h-5 text-slate-400" />
-                      </span>
-                    </summary>
-                    <div className="px-4 pb-4 pt-0 text-slate-600 text-sm leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
-                      {item.answer}
-                    </div>
-                  </details>
-                ))}
-              </div>
-            </section>
+            {service.faq.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
+                  <HelpCircle className="w-6 h-6 text-emerald-500" />
+                  Întrebări Frecvente
+                </h2>
+                <div className="space-y-4">
+                  {service.faq.map((item, idx) => (
+                    <details key={idx} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
+                      <summary className="flex items-center justify-between p-4 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                        <span className="font-semibold text-slate-900">{item.question}</span>
+                        <span className="transition-transform group-open:rotate-180">
+                          <ChevronDown className="w-5 h-5 text-slate-400" />
+                        </span>
+                      </summary>
+                      <div className="px-4 pb-4 pt-0 text-slate-600 text-sm leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
+                        {item.answer}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
 
           </div>
 

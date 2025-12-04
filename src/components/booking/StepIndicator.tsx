@@ -8,14 +8,14 @@ interface StepIndicatorProps {
 
 export function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
   return (
-    <div className="w-full py-4">
+    <div className="w-full pt-16 pb-4 md:py-4">
       <div className="relative flex items-center justify-between w-full">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-muted -z-10 rounded-full" />
-        <div 
+        <div
           className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary -z-10 rounded-full transition-all duration-500 ease-in-out"
           style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
         />
-        
+
         {steps.map((step, index) => {
           const stepNum = index + 1;
           const isActive = stepNum === currentStep;
@@ -29,8 +29,8 @@ export function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
                   isActive
                     ? "border-primary bg-primary text-primary-foreground scale-110 shadow-lg shadow-primary/20"
                     : isCompleted
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-muted-foreground/30 text-muted-foreground bg-background"
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-muted-foreground/30 text-muted-foreground bg-background"
                 )}
               >
                 {isCompleted ? <Check className="w-4 h-4" /> : stepNum}

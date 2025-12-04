@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import fs from "fs";
 import path from "path";
-import { PawPrint, Syringe, Scissors, ChevronRight } from "lucide-react";
+import { PawPrint, Syringe, Scissors, ChevronRight, Stethoscope, Activity, FileText, FlaskConical } from "lucide-react";
 import hero from "../../public/hero4.jpg";
 import about from "../../public/hero2.png";
 import ServiceCard from "@/components/ServiceCards";
@@ -97,11 +97,7 @@ export default async function Page() {
             </div>
           </div>
 
-          {/* 
-               MOBILE & DESKTOP SERVICE CARDS 
-               - Mobile: Horizontal Scroll Snap
-               - Desktop: Grid
-            */}
+
           <div className="mt-auto md:mt-0 w-full">
             {/* Label for mobile only */}
 
@@ -115,29 +111,60 @@ export default async function Page() {
                     scrollbar-hide
                 ">
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                {/*done*/}
                 <ServiceCard
-                  icon={<PawPrint />}
-                  title="Stomatologie"
-                  description="Menținem dinții și gingiile câinelui tău sănătoase."
-                  href="#dentistry"
+                  icon={<Stethoscope />}
+                  title="Consultații"
+                  description="Oferim consultații veterinare complete pentru evaluarea stării de sănătate, diagnostic rapid și recomandări personalizate pentru fiecare animal de companie."
+                  href="/servicii/consultatii"
                 />
               </div>
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                {/*done*/}
+                <ServiceCard
+                  icon={<Activity />}
+                  title="Tratamente de specialitate"
+                  description="Intervenim cu tratamente avansate pentru afecțiuni dermatologice, digestive, respiratorii, oncologice și alte probleme medicale complexe."
+                  href="/servicii/consultatii-specialitate"
+                />
+              </div>
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                {/*done*/}
                 <ServiceCard
                   icon={<Syringe />}
-                  title="Vaccinare"
-                  description="Sănătatea și bunăstarea animalului tău, cu un pas înainte."
-                  href="#vaccination"
+                  title="Tratamente profilactice (vaccinări / deparazitări)"
+                  description="Asigurăm scheme de vaccinare și deparazitare adaptate fiecărui pacient, pentru protecție eficientă împotriva celor mai frecvente boli."
+                  href="/servicii/vaccinari-profilaxie"
                 />
               </div>
               <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                { /*done*/}
                 <ServiceCard
-                  icon={<Scissors />}
-                  title="Sterilizare"
-                  description="Menținem câinii sănătoși și departe de riscuri."
-                  href="#spay-neuter"
+                  icon={<FileText />}
+                  title="Servicii administrative"
+                  description="Eliberăm carnet de sănătate, pașaport european, microcipare și înregistrare în RECS, alături de gestionarea digitală completă a istoricului medical."
+                  href="/servicii/servicii-administrative"
                 />
               </div>
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                {/*done*/}
+                <ServiceCard
+                  icon={<Scissors />}
+                  title="Chirurgie"
+                  description="Realizăm intervenții chirurgicale în condiții de siguranță maximă: sterilizări, castrări, extirpări de formațiuni tumorale, chirurgie de țesuturi moi și tratamente postoperatorii."
+                  href="/servicii/interventii-urgente"
+                />
+              </div>
+              <div className="min-w-[85%] sm:min-w-[350px] md:min-w-0 snap-center">
+                {/*done*/}
+                <ServiceCard
+                  icon={<FlaskConical />}
+                  title="Analize de laborator"
+                  description="Oferim analize rapide și precise: hemoleucogramă, biochimie, examen de urină, teste rapide, microscopie și investigații specializate."
+                  href="/servicii/diagnostic-analize"
+                />
+              </div>
+
             </div>
           </div>
         </div>
@@ -184,9 +211,8 @@ export default async function Page() {
               </h2>
 
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-600">
-                Cabinetul Veterinar Sorin a fost fondat în 1998. De atunci,
-                spitalul nostru de familie pentru animale servește cu mândrie comunitatea
-                oferind servicii veterinare standard și de urgență.
+                Clinica Veterinară Bioveti a luat naștere din dorința de a oferi animalelor de companie
+                îngrijire medicală modernă, sigură și empatică. De peste 30 de ani, suntem partenerul tău de încredere.
               </p>
 
               {/* Features Grid */}
@@ -219,7 +245,7 @@ export default async function Page() {
                   Programează o Vizită
                 </a>
                 <a
-                  href="/servicii"
+                  href="/despre-noi"
                   className="w-full sm:w-auto inline-flex justify-center items-center rounded-xl border-2 border-slate-200 px-6 py-3.5 text-sm font-bold text-slate-700 hover:border-emerald-600 hover:text-emerald-600 transition-colors bg-transparent"
                 >
                   Află Mai Multe
@@ -228,7 +254,7 @@ export default async function Page() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       <ClinicGallery categories={categories} />
     </>

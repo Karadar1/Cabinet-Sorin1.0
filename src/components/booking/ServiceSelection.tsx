@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Stethoscope, Syringe, Scissors, Activity, PawPrint } from "lucide-react";
+import { Stethoscope, Syringe, FileText, Microscope, Scan, Award, Siren, Bed } from "lucide-react";
 
 interface ServiceSelectionProps {
   data: any;
@@ -9,10 +9,14 @@ interface ServiceSelectionProps {
 }
 
 const services = [
-  { id: "consult", name: "Consultație Generală", icon: Stethoscope, desc: "Control de rutină pentru sănătatea animalului." },
-  { id: "vaccine", name: "Vaccinare", icon: Syringe, desc: "Imunizare anuală și deparazitare." },
-  { id: "surgery", name: "Chirurgie / Sterilizare", icon: Activity, desc: "Intervenții chirurgicale și monitorizare." },
-  { id: "grooming", name: "Toaletaj", icon: Scissors, desc: "Spălare, tuns și îngrijire." },
+  { id: "consultatii", name: "Consultații generale", icon: Stethoscope, desc: "Evaluare completă și recomandări personalizate." },
+  { id: "vaccinari-profilaxie", name: "Vaccinări & Profilaxie", icon: Syringe, desc: "Scheme de vaccinare și deparazitare." },
+  { id: "servicii-administrative", name: "Identificare & Documente", icon: FileText, desc: "Pașaport, microcipare, RECS." },
+  { id: "diagnostic-analize", name: "Diagnostic & Analize", icon: Microscope, desc: "Analize de laborator și teste rapide." },
+  { id: "imagistica", name: "Imagistică", icon: Scan, desc: "Ecografie și endoscopie." },
+  { id: "consultatii-specialitate", name: "Consultații specialitate", icon: Award, desc: "Dermatologie, oncologie, stomatologie." },
+  { id: "interventii-urgente", name: "Chirurgie & Urgențe", icon: Siren, desc: "Intervenții chirurgicale și terapie intensivă." },
+  { id: "spitalizare", name: "Spitalizare", icon: Bed, desc: "Îngrijire și monitorizare post-operatorie." },
 ];
 
 export function ServiceSelection({ data, updateData }: ServiceSelectionProps) {

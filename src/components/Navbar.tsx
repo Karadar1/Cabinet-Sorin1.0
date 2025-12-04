@@ -247,7 +247,7 @@ export const Nav = () => {
 
 const LINKS = [
   { title: "Acasa", href: "/" },
-  { title: "Echipa", href: "/echipa" },
+  { title: "Despre noi", href: "/despre-noi" },
   { title: "Servicii", href: "/servicii" },
   { title: "Blog", href: "/blog" },
   { title: "Programare", href: "/programare" },

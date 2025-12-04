@@ -14,7 +14,15 @@ import {
   Syringe,
   ClipboardList,
   Sparkles,
-  Activity
+  Activity,
+  FileText,
+  FlaskConical,
+  Scan,
+  Award,
+  Siren,
+  Bed,
+  Scissors,
+  Microscope
 } from "lucide-react";
 import { services } from "@/lib/services-data";
 
@@ -31,7 +39,15 @@ const ICON_MAP: Record<string, any> = {
   "Syringe": Syringe,
   "ClipboardList": ClipboardList,
   "Sparkles": Sparkles,
-  "Activity": Activity
+  "Activity": Activity,
+  "FileText": FileText,
+  "FlaskConical": FlaskConical,
+  "Scan": Scan,
+  "Award": Award,
+  "Siren": Siren,
+  "Bed": Bed,
+  "Scissors": Scissors,
+  "Microscope": Microscope
 };
 
 export default function ServicesPage() {
