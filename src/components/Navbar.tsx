@@ -83,22 +83,7 @@ export const Nav = () => {
             </div>
 
             {/* CTA Button Desktop */}
-            <motion.a
-              href="/contact"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.4 }}
-              className={`hidden lg:flex items-center gap-2 ${gradient} text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all relative overflow-hidden group`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">Contact</span>
-              <FiArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
-              {/* Hover effect gradient flip */}
-              <div
-                className={`absolute inset-0 ${gradientReverse} opacity-0 group-hover:opacity-100 transition-opacity`}
-              />
-            </motion.a>
+
 
             {/* Mobile Menu Button */}
             <motion.button
@@ -248,6 +233,7 @@ export const Nav = () => {
 const LINKS = [
   { title: "Acasa", href: "/" },
   { title: "Despre noi", href: "/despre-noi" },
+  { title: "Echipa", href: "/echipa" },
   { title: "Servicii", href: "/servicii" },
   { title: "Blog", href: "/blog" },
   { title: "Programare", href: "/programare" },

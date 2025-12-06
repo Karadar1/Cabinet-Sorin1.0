@@ -77,7 +77,7 @@ export default function ServicesPage() {
             {/* Intro Text */}
             <section className="prose prose-slate max-w-none">
               <p className="text-lg leading-relaxed text-slate-600">
-                La Cabinet Sorin, oferim o gamă completă de servicii medicale veterinare. Fiecare procedură este efectuată cu atenție la detalii, folosind echipamente moderne și protocoale actualizate.
+                La Clinica Veterinară Bioveti, oferim o gamă completă de servicii medicale veterinare. Fiecare procedură este efectuată cu atenție la detalii, folosind echipamente moderne și protocoale actualizate.
               </p>
             </section>
 
@@ -181,7 +181,7 @@ export default function ServicesPage() {
 
             {/* Why Choose Us */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">De ce să alegi Cabinet Veterinar Bioveti?</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-4">De ce să alegi Clinica Veterinară Bioveti?</h3>
               <ul className="space-y-3">
                 {[
                   "Echipă cu experiență vastă",

@@ -178,8 +178,8 @@ const ContactPage = () => {
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Address",
-      detail: "Str. Crișan Nr.8, Timișoara",
+      title: "Locații",
+      detail: "Timișoara (Mehala, Girocului),\nJimbolia, Săcălaz, Lovrin, Făget",
       href: "#map-location",
     },
     {
@@ -399,30 +399,144 @@ const ContactPage = () => {
                 <h3 className="text-3xl font-bold text-gray-800 mb-4">
                   Unde ne <span style={{ color: PRIMARY_COLOR }}>Găsești</span>
                 </h3>
-                <p className="text-gray-600 mb-4">
-                  Clinica este situată central în Timișoara, pe strada Crișan.
+                <p className="text-gray-600 mb-6">
+                  Suntem prezenți în 6 locații pentru a fi mai aproape de tine și prietenul tău.
                 </p>
-                <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    marginHeight={0}
-                    marginWidth={0}
-                    src="https://maps.google.com/maps?q=Strada+Crisan+Nr.8,+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                    title="Locație Clinica Bioveti"
-                    className="h-full w-full border-0"
-                  ></iframe>
-                </div>
-                <div className="mt-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" style={{ color: PRIMARY_COLOR }} />
-                    <span className="font-medium">
-                      Strada Crișan Nr. 8, Timișoara
-                    </span>
+                
+                <div className="space-y-12">
+                  {/* 1. Bioveti Mehala */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Mehala Farmacie Veterinara
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Crisan nr.8, Timisoara, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Strada+Crisan+Nr.8,+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Mehala"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+
+                  {/* 2. Bioveti Sacalaz */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Sacalaz Farmacie Veterinara
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Complexului 7, Sacalaz, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Complexului+7,+Sacalaz,+Romania&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Sacalaz"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+
+                  {/* 3. Bioveti Jimbolia */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Jimbolia Farmacie Veterinara
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Str. Republicii nr. 47, Jimbolia, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Strada+Republicii+Nr.47,+Jimbolia,+Romania&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Jimbolia"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+
+                  {/* 4. Bioveti Lovrin */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Lovrin Farmacie Veterinara
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Lovrin nr.254, Lovrin, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Lovrin+Nr.254,+Lovrin,+Romania&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Lovrin"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+
+                  {/* 5. Bioveti Girocului */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Girocului Farmacie Veterinara
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Strada Constantin Prezan nr.67, Timișoara</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Strada+Constantin+Prezan+nr.67,+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Girocului"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+
+                  {/* 6. Bioveti Faget */}
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Bioveti Faget Magazin de furaje & Pet shop
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Str Independentei nr 12, Faget, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Str+Independentei+nr+12,+Faget,+Romania&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Faget"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
 

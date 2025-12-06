@@ -11,7 +11,6 @@ export type Service = {
   benefits: { title: string; description: string }[];
   process: { step: number; title: string; description: string }[];
   faq: { question: string; answer: string }[];
-  pricing?: { startingPrice: number; currency: string; note?: string };
 };
 
 export const services: Service[] = [
@@ -46,7 +45,6 @@ export const services: Service[] = [
       { question: "Cât de des trebuie vaccinat câinele?", answer: "Schema de vaccinare este anuală pentru adulți, dar puii necesită rapeluri lunare la început." },
       { question: "Este necesară programarea?", answer: "Da, pentru a evita timpii de așteptare, recomandăm programarea." }
     ],
-    pricing: { startingPrice: 150, currency: "RON", note: "Consultație generală." }
   },
   {
     slug: "vaccinari-profilaxie",
@@ -78,7 +76,6 @@ export const services: Service[] = [
       { question: "Când se face primul vaccin la pui?", answer: "Primul vaccin se administrează de obicei la vârsta de 6 săptămâni." },
       { question: "Pot spăla câinele după vaccin?", answer: "Recomandăm evitarea băii timp de 3-5 zile după vaccinare pentru a nu scădea imunitatea." }
     ],
-    pricing: { startingPrice: 70, currency: "RON", note: "Preț per doză vaccin." }
   },
   {
     slug: "servicii-administrative",
@@ -111,7 +108,6 @@ export const services: Service[] = [
     faq: [
       { question: "Este obligatorie microciparea?", answer: "Da, conform legii, câinii cu stăpân trebuie microcipați și înregistrați." }
     ],
-    pricing: { startingPrice: 100, currency: "RON", note: "Microcipare + RECS." }
   },
   {
     slug: "diagnostic-analize",
@@ -142,7 +138,6 @@ export const services: Service[] = [
       { step: 3, title: "Rezultat", description: "Interpretarea rezultatelor de către medic." }
     ],
     faq: [],
-    pricing: { startingPrice: 80, currency: "RON", note: "Preț per analiză specifică." }
   },
   {
     slug: "imagistica",
@@ -169,7 +164,6 @@ export const services: Service[] = [
       { step: 3, title: "Raport", description: "Interpretarea imaginilor și diagnostic." }
     ],
     faq: [],
-    pricing: { startingPrice: 150, currency: "RON", note: "Ecografie abdominală." }
   },
   {
     slug: "consultatii-specialitate",
@@ -197,7 +191,6 @@ export const services: Service[] = [
     faq: [
       { question: "Cât durează un detartraj?", answer: "Procedura se face sub anestezie și durează aprox. 45-60 min." }
     ],
-    pricing: { startingPrice: 200, currency: "RON", note: "Consultație specialist." }
   },
   {
     slug: "interventii-urgente",
@@ -227,7 +220,6 @@ export const services: Service[] = [
       { step: 3, title: "Trezire", description: "Supraveghere în spațiul de terapie intensivă." }
     ],
     faq: [],
-    pricing: { startingPrice: 500, currency: "RON", note: "Variază în funcție de complexitate." }
   },
   {
     slug: "spitalizare",
@@ -249,7 +241,6 @@ export const services: Service[] = [
     ],
     process: [],
     faq: [],
-    pricing: { startingPrice: 100, currency: "RON", note: "Per zi (fără tratamente incluse)." }
   },
   {
     slug: "cosmetica",
@@ -268,6 +259,5 @@ export const services: Service[] = [
     benefits: [],
     process: [],
     faq: [],
-    pricing: { startingPrice: 0, currency: "RON", note: "Indisponibil." }
   }
 ];

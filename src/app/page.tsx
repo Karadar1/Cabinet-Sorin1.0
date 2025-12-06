@@ -42,7 +42,33 @@ async function getGalleryCategories() {
     })
   );
 
-  return categories.filter((c) => c.images.length > 0);
+  // Post-processing: Merge "Cladire" and "Farmacie" and capitalize labels
+  const processedCategories: typeof categories = [];
+  const farmacieImages: any[] = [];
+
+  categories.forEach((cat) => {
+    const lowerLabel = cat.label.toLowerCase();
+
+    // Merge logic
+    if (lowerLabel.includes("cladire") || lowerLabel.includes("farmacie")) {
+      farmacieImages.push(...cat.images);
+    } else {
+      // Capitalize first letter
+      const capitalizedLabel = cat.label.charAt(0).toUpperCase() + cat.label.slice(1);
+      processedCategories.push({ ...cat, label: capitalizedLabel });
+    }
+  });
+
+  // Add merged Cladire category to the beginning
+  if (farmacieImages.length > 0) {
+    processedCategories.unshift({
+      id: "cladire",
+      label: "Cladire",
+      images: farmacieImages,
+    });
+  }
+
+  return processedCategories.filter((c) => c.images.length > 0);
 }
 
 export default async function Page() {

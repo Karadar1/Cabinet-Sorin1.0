@@ -10,7 +10,8 @@ import {
     Syringe,
     ShoppingBag,
     Truck,
-    Wheat
+    Wheat,
+    Globe
 } from "lucide-react";
 
 // Brand colors
@@ -30,7 +31,7 @@ export default function AboutPage() {
                             Povestea Noastră
                         </span>
                         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-                            Despre <span style={{ color: PRIMARY_COLOR }}>Bioveti</span>
+                            Despre Clinica Veterinară <span style={{ color: PRIMARY_COLOR }}>Bioveti</span>
                         </h1>
                         <p className="text-lg text-slate-600 leading-relaxed">
                             Clinica Veterinară Bioveti a luat naștere din dorința de a oferi animalelor de companie îngrijire medicală modernă, sigură și empatică. De peste 30 de ani, misiunea noastră este să fim un partener de încredere pentru familiile care aleg să își protejeze și să iubească animalele la fel de mult ca noi.
@@ -146,36 +147,47 @@ export default function AboutPage() {
                     <div className="text-center mb-12">
                         <span className="text-emerald-600 font-bold tracking-wider uppercase text-sm">Bine de știut!</span>
                         <h2 className="text-3xl font-bold text-slate-900 mt-2">Bioveti Farm Impex – Despre companie</h2>
-                        <p className="mt-4 text-slate-600 max-w-3xl mx-auto">
+                        <p className="mt-4 text-slate-600 max-w-4xl mx-auto text-lg leading-relaxed">
                             Bioveti Farm Impex este o companie cu activitate complexă în domeniul veterinar, construită pe experiență, profesionalism și dorința de a sprijini atât medicii veterinari, cât și proprietarii de animale.
+                            <br /><br />
+                            Societatea a luat ființă în anul 1994 sub forma unui cabinet veterinar având un singur angajat. Pas cu pas societatea și-a diversificat activitatea, iar în prezent are 20 angajați. Principalele domenii de activitate ale societății sunt:
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <CompanyActivityCard
-                            icon={<Truck className="w-6 h-6" />}
-                            title="1. Distribuție produse veterinare"
-                            description="Oferim o gamă variată de medicamente, suplimente, accesorii și produse de îngrijire destinate cabinetelor și fermelor, asigurând livrare rapidă și stocuri actualizate."
-                        />
+                        {/* 1. Servicii veterinare */}
                         <CompanyActivityCard
                             icon={<Stethoscope className="w-6 h-6" />}
-                            title="2. Servicii veterinare"
-                            description="Prin clinica noastră, punem la dispoziție consultații, tratamente, chirurgie, analize și servicii complete pentru animalele de companie."
+                            title="1. Servicii veterinare"
+                            description="Prin clinica noastră, care este dotată cu spații și aparatură moderne, specifice activităților sanitar veterinare, punem la dispoziția clienților noștri consultații, tratamente, intervenții chirurgicale și obstetricale, analize și servicii complete pentru animalele de companie."
                         />
-                        <CompanyActivityCard
-                            icon={<Wheat className="w-6 h-6" />}
-                            title="3. Producție de furaje"
-                            description="Fabricăm furaje de calitate pentru diverse specii de animale, folosind rețete echilibrate și ingrediente sigure."
-                        />
+
+                        {/* 2. Farmacie veterinară & Pet Shop */}
                         <CompanyActivityCard
                             icon={<ShoppingBag className="w-6 h-6" />}
-                            title="4. Importator direct de hrană"
-                            description="Suntem importator oficial al unor branduri premium din Spania, oferind clienților hrană sănătoasă, nutritivă și atent selecționată."
+                            title="2. Farmacie veterinară & Pet Shop"
+                            description="În locația noastră din Timișoara (Crișan nr 8 parter), precum și în celelalte localități (Săcălaz, Jimbolia, Lovrin și Făget) găsiți medicamente, suplimente, diete veterinare, produse antiparazitare, accesorii, jucării, hrană de calitate, furaje și tot ce este necesar pentru bunăstarea animalelor."
                         />
+
+                        {/* 3. Distribuție produse veterinare */}
                         <CompanyActivityCard
-                            icon={<Building2 className="w-6 h-6" />}
-                            title="5. Farmacie veterinară & Pet Shop"
-                            description="În locația noastră (Crisan nr 8 parter) găsiți medicamente, suplimente, diete veterinare, produse antiparazitare, accesorii, jucării, hrană de calitate, furaje și tot ce este necesar pentru bunăstarea animalelor."
+                            icon={<Truck className="w-6 h-6" />}
+                            title="3. Distribuție produse veterinare"
+                            description="Prin depozitul situat în localitatea Săcălaz, județ Timiș, oferim o gamă variată de medicamente, suplimente, accesorii și produse de îngrijire destinate cabinetelor și fermelor, asigurând livrare rapidă și stocuri actualizate."
+                        />
+
+                        {/* 4. Importator direct */}
+                        <CompanyActivityCard
+                            icon={<Globe className="w-6 h-6" />}
+                            title="4. Importator direct de hrană"
+                            description="Suntem importator oficial al unor branduri Premium din Spania, oferind clienților hrană sănătoasă, nutritivă și atent selecționată, precum și produse dietetice pentru acestea."
+                        />
+
+                        {/* 5. Producție de furaje */}
+                        <CompanyActivityCard
+                            icon={<Wheat className="w-6 h-6" />}
+                            title="5. Producție de furaje"
+                            description="Prin fabrica de furaje din Săcălaz județul Timiș, producem furaje de calitate pentru diverse specii de animale, folosind rețete echilibrate și ingrediente sigure."
                         />
                     </div>
                 </div>

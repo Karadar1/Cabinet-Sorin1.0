@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+
 import {
   Phone,
   MapPin,
@@ -33,33 +33,15 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
 
   return (
     <div className="min-h-screen bg-white text-slate-800 font-sans">
-      {/* Hero Section */}
-      <div className="relative h-[400px] lg:h-[500px] w-full bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-50">
-          <Image
-            src={service.image}
-            alt={service.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16">
-          <Link
-            href="/servicii"
-            className="inline-flex items-center gap-2 text-slate-300 hover:text-white mb-6 transition-colors w-fit"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Înapoi la Servicii
-          </Link>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-            {service.title}
-          </h1>
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl">
-            {service.shortDescription}
-          </p>
-        </div>
+      {/* Header Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
+       
+        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+          {service.title}
+        </h1>
+        <p className="text-lg md:text-xl text-slate-600 max-w-2xl">
+          {service.shortDescription}
+        </p>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -140,24 +122,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
           {/* Sidebar Column */}
           <div className="lg:col-span-1 space-y-8">
 
-            {/* Pricing Card */}
-            {service.pricing && (
-              <div className="bg-slate-900 text-white rounded-xl p-6 shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <Wallet className="w-24 h-24" />
-                </div>
-                <h3 className="text-lg font-medium text-slate-300 mb-1">Prețuri începând de la</h3>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-4xl font-bold text-white">{service.pricing.startingPrice}</span>
-                  <span className="text-xl font-medium text-emerald-400">{service.pricing.currency}</span>
-                </div>
-                {service.pricing.note && (
-                  <p className="text-sm text-slate-400 border-t border-slate-700 pt-4 mt-4">
-                    * {service.pricing.note}
-                  </p>
-                )}
-              </div>
-            )}
+          
 
             {/* CTA Card */}
             <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-6">
@@ -201,15 +166,18 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
               <ul className="space-y-4 text-sm text-slate-600">
                 <li className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-emerald-500 shrink-0" />
-                  <span>0712 345 678</span>
+                  <span>0755 090 880</span>
+                  <span>0256 442 989</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-emerald-500 shrink-0" />
-                  <span>Strada Exemplului nr. 12, Timișoara</span>
+                  <span>Str. Crișan Nr.8, Timișoara</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-emerald-500 shrink-0" />
-                  <span>Luni - Vineri: 09:00 - 20:00</span>
+                  <span>L-V: 08:00–18:00</span>
+                  <span>S: 08:30–14:00</span>
+                  <span>D: Închis</span>
                 </li>
               </ul>
             </div>
