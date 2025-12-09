@@ -18,6 +18,7 @@ const TeamPage = () => {
   const headerRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
   const teamCardsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const whyUsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observerOptions: IntersectionObserverInit = {
@@ -35,6 +36,7 @@ const TeamPage = () => {
 
     if (headerRef.current) observer.observe(headerRef.current);
     if (heroRef.current) observer.observe(heroRef.current);
+    if (whyUsRef.current) observer.observe(whyUsRef.current);
 
     teamCardsRef.current.forEach((card, index) => {
       if (card) {
@@ -101,7 +103,7 @@ const TeamPage = () => {
           opacity: 0; 
           transform: translateY(40px); 
           transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+                      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .fade-up.animate-in { 
           opacity: 1; 
@@ -112,7 +114,7 @@ const TeamPage = () => {
           opacity: 0; 
           transform: scale(0.92) translateY(20px); 
           transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+                      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .scale-in.animate-in { 
           opacity: 1; 
@@ -193,28 +195,18 @@ const TeamPage = () => {
           box-shadow: 0 12px 32px rgba(0,0,0,0.2); 
         }
         
-        .stat-card { 
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-          background: white;
-          border-radius: 16px;
-          padding: 2rem;
-        }
-        
-        .stat-card:hover { 
-          transform: translateY(-8px); 
-          box-shadow: 0 12px 32px ${PRIMARY_COLOR}1f; 
-        }
-        
         .feature-card {
           transition: all 0.3s ease;
-          background: linear-gradient(135deg, #fff 0%, ${LIGHTER_BG} 100%);
+          background: white;
           border-radius: 16px;
-          padding: 2rem;
+          padding: 1.5rem;
+          border: 1px solid #e5e7eb;
         }
         
         .feature-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+          transform: translateY(-4px);
+          box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+          border-color: ${PRIMARY_COLOR}40;
         }
         
         .gradient-text {
@@ -229,46 +221,67 @@ const TeamPage = () => {
         }
       `}</style>
 
-      {/* Hero Section */}
+      {/* Hero Section Split Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <div
-          ref={headerRef}
-          className="fade-up text-center mb-16 pt-12 md:pt-0"
-        >
-          <div className="inline-block mb-4 px-4 py-2 bg-green-100 rounded-full">
-            <span className="text-green-700 font-semibold text-sm">
-              Echipa Noastră Veterinară
-            </span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24">
+          
+          {/* Text Content */}
+          <div ref={headerRef} className="fade-up order-2 lg:order-1 text-center lg:text-left">
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              Cunoaște echipa de <br/> <span className="gradient-text">Medici Veterinari</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
+              Medicii noștri dedicați combină anii de experiență cu o compasiune autentică pentru a oferi cea mai bună îngrijire pentru companionii tăi iubiți.
+            </p>
+            <div className="flex justify-center lg:justify-start gap-4">
+              <a href="#echipa" className="px-8 py-4 bg-[#224e4d] text-white rounded-xl font-bold shadow-lg shadow-emerald-900/20 hover:bg-[#356154] transition-all hover:-translate-y-1">
+                Vezi Specialiștii
+              </a>
+            </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Cunoaște Echipa de <span className="gradient-text">Veterinari</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Veterinarii noștri dedicați combină anii de experiență cu o compasiune autentică pentru a oferi cea mai bună îngrijire pentru companionii tăi iubiți.
-          </p>
+
+          {/* New Image 1 */}
+          <div ref={heroRef} className="scale-in order-1 lg:order-2 relative">
+              <div className="absolute inset-0 bg-green-200 rounded-[32px] rotate-3 blur-sm transform scale-105 opacity-50"></div>
+              <div className="relative rounded-[32px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
+                <Image
+                  src="/team2.jpeg"
+                  alt="Echipa Bioveti - Poză de grup"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              </div>
+              {/* Floating Badge */}
+              <div className="absolute -bottom-6 -right-6 lg:-left-6 bg-white p-4 rounded-xl shadow-xl border border-green-50 animate-bounce-slow hidden md:block">
+                <div className="flex items-center gap-3">
+                   <div className="p-2 bg-green-100 rounded-full text-green-700">
+                     <Award className="w-6 h-6" />
+                   </div>
+                   <div>
+                     <p className="text-sm font-bold text-gray-900">100% Dedicare</p>
+                   </div>
+                </div>
+              </div>
+          </div>
         </div>
 
         {/* Team Grid */}
-        <div
-          ref={heroRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
-        >
+        <div id="echipa" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
           {teamMembers.map((member, index) => (
             <div
               key={member.name}
               ref={(el) => {
                 teamCardsRef.current[index] = el;
               }}
-              // ADDED: h-full here
               className="scale-in h-full"
             >
-              {/* ADDED: h-full here */}
               <div className="team-card h-full">
                 {/* Circle Background with Image */}
                 <div className="team-card-image-wrapper">
-                  <div
-                    className="team-card-bg"
-                  ></div>
+                  <div className="team-card-bg"></div>
                   <Image
                     width={100}
                     height={100}
@@ -278,72 +291,86 @@ const TeamPage = () => {
                   />
                 </div>
 
-                {/* Card Content - No extra info added */}
-                <div className="text-center">
+                {/* Card Content - Minimalist as requested */}
+                <div className="text-center mt-4">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                     {member.name}
                   </h3>
-                   
-                  
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Why Choose Us Section */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-100 to-transparent rounded-full blur-3xl opacity-50"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-cyan-100 to-transparent rounded-full blur-3xl opacity-50"></div>
-
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-bold text-center text-gray-900 mb-4">
-              De ce să alegi <span className="gradient-text">Echipa Noastră</span>
-            </h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-              Experimentează diferența unei îngrijiri veterinare care combină expertiza, compasiunea și tehnologia de ultimă oră.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Feature Card 1 */}
-              <div className="feature-card text-center">
-                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Award className="w-8 h-8 text-white" />
+        {/* Redesigned Why Choose Us Section - Split Layout */}
+        <div ref={whyUsRef} className="bg-white rounded-[40px] shadow-xl p-8 md:p-12 overflow-hidden relative border border-green-50">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-green-50 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              
+              {/* Image Column */}
+              <div className="relative h-full min-h-[400px]  overflow-hidden group flex items-center justify-center">
+                <div className="relative w-full h-full min-h-[400px]">
+                  {/* Updated Image to be fully visible (object-contain) and removed hover scale to prevent clipping */}
+                  <Image
+                    src="/team1.jpeg"
+                    alt="Echipa Bioveti în acțiune"
+                    fill
+                    className="object-contain transition-transform duration-700"
+                  />
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  Îngrijire Expertă
-                </h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Veterinarii noștri sunt specialiști certificați cu zeci de ani de experiență combinată în îngrijirea animalelor.
-                </p>
               </div>
 
-              {/* Feature Card 2 */}
-              <div className="feature-card text-center">
-                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Heart className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  Abordare cu Compasiune
-                </h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Tratăm fiecare animal de companie ca și cum ar fi al nostru, oferind îngrijire blândă și iubitoare la fiecare vizită.
+              {/* Content Column with Updated Text */}
+              <div>
+                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  De ce Bioveti este <span className="gradient-text">Alegerea Potrivită</span>
+                </h2>
+                <p className="text-gray-600 mb-10 text-lg leading-relaxed">
+                  Combinăm expertiza medicală de vârf cu o empatie profundă pentru a oferi îngrijirea pe care o merită fiecare membru necuvântător al familiei.
                 </p>
-              </div>
 
-              {/* Feature Card 3 */}
-              <div className="feature-card text-center">
-                <div className="primary-icon-bg w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <Stethoscope className="w-8 h-8 text-white" />
+                <div className="space-y-6">
+                  {/* Feature Item 1 */}
+                  <div className="feature-card flex items-start gap-4">
+                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Award className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Excelență Medicală Dovedită</h4>
+                      <p className="text-gray-500 text-sm leading-relaxed">
+                        Echipa noastră este formată din medici veterinari și conferențiari universitari, asigurând accesul la cele mai noi protocoale de tratament.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Feature Item 2 */}
+                  <div className="feature-card flex items-start gap-4">
+                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Heart className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Empatie în Fiecare Interacțiune</h4>
+                      <p className="text-gray-500 text-sm leading-relaxed">
+                        Înțelegem legătura specială dintre tine și companionul tău. Tratăm fiecare pacient cu blândețe, răbdare și respect.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Feature Item 3 */}
+                  <div className="feature-card flex items-start gap-4">
+                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Stethoscope className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Diagnosticare de Precizie</h4>
+                      <p className="text-gray-500 text-sm leading-relaxed">
+                        Investim constant în tehnologie de ultimă generație pentru a identifica rapid și corect problemele de sănătate, de la analize la imagistică.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  Tehnologie Avansată
-                </h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Echipamentele și tehnicile de ultimă generație asigură cea mai înaltă calitate a îngrijirii pentru companionii tăi.
-                </p>
               </div>
-            </div>
           </div>
         </div>
       </div>

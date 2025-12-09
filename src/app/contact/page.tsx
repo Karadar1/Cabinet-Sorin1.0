@@ -408,6 +408,26 @@ const ContactPage = () => {
                   <div>
                     <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
                       <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
+                      Clinica Veterinară Bioveti 
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-3">Crisan nr.8, Timisoara, Romania</p>
+                    <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight={0}
+                        marginWidth={0}
+                        src="https://maps.google.com/maps?q=Strada+Crisan+Nr.8,+Timisoara&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        title="Locație Bioveti Mehala"
+                        className="h-full w-full border-0"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
+                      <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
                       Bioveti Mehala Farmacie Veterinara
                     </h4>
                     <p className="text-sm text-gray-600 mb-3">Crisan nr.8, Timisoara, Romania</p>
