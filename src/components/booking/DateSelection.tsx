@@ -1,20 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { 
-  format, 
-  addMonths, 
-  subMonths, 
-  startOfMonth, 
-  endOfMonth, 
-  startOfWeek, 
-  endOfWeek, 
-  eachDayOfInterval, 
-  isSameMonth, 
-  isSameDay, 
-  isToday, 
-  isBefore, 
-  startOfDay 
+import {
+  format,
+  addMonths,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
+  isToday,
+  isBefore,
+  startOfDay
 } from "date-fns";
 import { ro } from "date-fns/locale";
 import { ChevronLeft, ChevronRight, Clock, Calendar as CalendarIcon } from "lucide-react";
@@ -33,12 +33,12 @@ interface DateSelectionProps {
   selectedSlot?: AvailableSlot | null;
 }
 
-export function DateSelection({ 
-  onSelectDateTime, 
-  unavailableDates = [], 
+export function DateSelection({
+  onSelectDateTime,
+  unavailableDates = [],
   availableTimeSlots,
   selectedDate,
-  selectedSlot 
+  selectedSlot
 }: DateSelectionProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [slots, setSlots] = useState<AvailableSlot[]>([]);
@@ -81,7 +81,7 @@ export function DateSelection({
   const handleDateClick = (day: Date) => {
     // Prevent selecting past dates or unavailable dates
     if (isBefore(day, startOfDay(new Date())) && !isToday(day)) return;
-    
+
     // Check if unavailable (simple check for now)
     const isUnavailable = unavailableDates.some(d => isSameDay(d, day));
     if (isUnavailable) return;
@@ -101,7 +101,7 @@ export function DateSelection({
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
       <div className="grid lg:grid-cols-2 gap-8">
-        
+
         {/* Calendar Section */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
           {/* Header */}
@@ -111,14 +111,14 @@ export function DateSelection({
               {format(currentMonth, "MMMM yyyy", { locale: ro })}
             </h2>
             <div className="flex gap-1">
-              <button 
+              <button
                 onClick={prevMonth}
                 className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-600"
                 disabled={isBefore(endOfMonth(subMonths(currentMonth, 1)), startOfDay(new Date()))}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <button 
+              <button
                 onClick={nextMonth}
                 className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-600"
               >
@@ -154,8 +154,8 @@ export function DateSelection({
                       disabled={isDisabled}
                       className={cn(
                         "w-full h-full rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200 relative",
-                        isSelected 
-                          ? "bg-primary text-white shadow-md scale-105" 
+                        isSelected
+                          ? "bg-primary text-white shadow-md scale-105"
                           : isDisabled
                             ? "text-slate-300 cursor-not-allowed bg-slate-50"
                             : "text-slate-700 hover:bg-primary/10 hover:text-primary hover:scale-110",
@@ -187,7 +187,7 @@ export function DateSelection({
             {!selectedDate ? (
               <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-center">
                 <CalendarIcon className="w-12 h-12 mb-3 opacity-20" />
-                <p className="text-sm">Selectează o dată din calendar<br/>pentru a vedea orele disponibile.</p>
+                <p className="text-sm">Selectează o dată din calendar<br />pentru a vedea orele disponibile.</p>
               </div>
             ) : loadingSlots ? (
               <div className="flex-1 flex items-center justify-center">
@@ -226,7 +226,7 @@ export function DateSelection({
               </div>
             )}
           </div>
-          
+
           {/* Footer Info */}
           {selectedDate && (
             <div className="p-4 bg-slate-50 border-t border-slate-100 text-center text-xs text-slate-500">

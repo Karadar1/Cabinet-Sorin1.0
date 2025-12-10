@@ -1,16 +1,16 @@
 import { addMinutes, set, isBefore, addMilliseconds } from "date-fns";
 
 export const VISIT_MIN = 30;
-export const BUFFER_MIN = 10;
+export const BUFFER_MIN = 0;
 
 const WEEKLY: Record<number, { start: string; end: string } | null> = {
   0: null,
-  1: { start: "09:00", end: "17:00" },
-  2: { start: "09:00", end: "17:00" },
-  3: { start: "09:00", end: "17:00" },
-  4: { start: "09:00", end: "17:00" },
-  5: { start: "09:00", end: "17:00" },
-  6: null,
+  1: { start: "08:30", end: "17:30" },
+  2: { start: "08:30", end: "17:30" },
+  3: { start: "08:30", end: "17:30" },
+  4: { start: "08:30", end: "17:30" },
+  5: { start: "08:30", end: "17:30" },
+  6: { start: "09:00", end: "13:30" },
 };
 
 function parseHM(day: Date, hm: string) {
