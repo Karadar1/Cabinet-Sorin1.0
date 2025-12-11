@@ -206,14 +206,14 @@ export function DateSelection({
                   // I'll stick to 24h for consistency with locale 'ro' but if strictly 12h needed I can change.
                   // Prompt said: "Use a 12-hour format (e.g., 9:00 AM, 1:30 PM)."
                   const dateObj = new Date(slot.start);
-                  const timeLabel = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                  const timeLabel = dateObj.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', hour12: false });
 
                   return (
                     <button
                       key={slot.start}
                       onClick={() => handleSlotClick(slot)}
                       className={cn(
-                        "py-2 px-3 rounded-lg text-sm font-medium border transition-all duration-200",
+                        "py-2 px-3 h-11 rounded-lg text-sm font-medium border transition-all duration-200 flex items-center justify-center",
                         isSelected
                           ? "bg-secondary text-white border-secondary shadow-md scale-105"
                           : "bg-white border-slate-200 text-slate-700 hover:border-secondary/50 hover:text-secondary hover:bg-secondary/5"
