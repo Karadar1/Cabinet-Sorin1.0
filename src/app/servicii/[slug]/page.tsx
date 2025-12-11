@@ -74,7 +74,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
             )}
 
             {/* Process Timeline */}
-            {service.process.length > 0 && (
+            {service.process && service.process.length > 0 && (
               <section>
                 <h2 className="text-2xl font-bold text-slate-900 mb-8">Cum decurge procesul?</h2>
                 <div className="relative border-l-2 border-emerald-100 ml-3 space-y-12">
@@ -133,7 +133,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
                 Asigură-te că prietenul tău primește cea mai bună îngrijire.
               </p>
               <Link
-                href="/#programare"
+                href="/programare"
                 className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition-colors shadow-sm hover:shadow-md"
               >
                 Programează Online
