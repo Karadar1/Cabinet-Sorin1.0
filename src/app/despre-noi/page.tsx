@@ -113,13 +113,7 @@ export default function AboutPage() {
                                 <h2 className="text-3xl md:text-4xl font-bold mb-6">De ce Bioveti?</h2>
                                 <div className="space-y-4">
                                     {[
-                                        "Experiență vastă de peste 30 de ani",
-                                        "Servicii complete în aceeași locație",
-                                        "Echipamente moderne și proceduri actualizate",
-                                        "Abordare personalizată pentru fiecare pacient",
-                                        "Monitorizare digitală și notificări automate",
-                                        "Medici dedicați, empatici și mereu pregătiți",
-                                        "Focus pe prevenție și educație pentru proprietari"
+                                        "Peste 30 ani de excelenta veterinara confirmata de numeroșii clienți care ne-au calcat pragul da si de premiile si trofeele anuale oferite in ultimi 15-20 ani de către Camera de Comerț, Industrie si Agricultura Timiș precum si de alte instituții din domeniul sanitar veterinar.",
                                     ].map((item, index) => (
                                         <div key={index} className="flex items-center gap-3">
                                             <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />

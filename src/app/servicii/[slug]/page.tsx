@@ -35,7 +35,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
     <div className="min-h-screen bg-white text-slate-800 font-sans">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
-       
+
         <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
           {service.title}
         </h1>
@@ -122,7 +122,7 @@ async function ServicePageContent({ params }: { params: Promise<{ slug: string }
           {/* Sidebar Column */}
           <div className="lg:col-span-1 space-y-8">
 
-          
+
 
             {/* CTA Card */}
             <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Pill } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -166,9 +166,15 @@ const ContactPage = () => {
   const contactInfo = [
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
-      detail: "0755 090 880\n0256 442 989",
+      title: "Contact Cabinet",
+      detail: "Clinica Veterinară Bioveti\n0755 090 880\n0256 442 989",
       href: "tel:0755090880",
+    },
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "Farmacie Crișan",
+      detail: "Farmacia Bioveti\n0745 657 168",
+      href: "tel:0745657168",
     },
     {
       icon: <Mail className="w-6 h-6" />,
@@ -402,13 +408,13 @@ const ContactPage = () => {
                 <p className="text-gray-600 mb-6">
                   Suntem prezenți în 6 locații pentru a fi mai aproape de tine și prietenul tău.
                 </p>
-                
+
                 <div className="space-y-12">
                   {/* 1. Bioveti Mehala */}
                   <div>
                     <h4 className="font-bold text-lg text-gray-800 mb-2 flex items-center gap-2">
                       <MapPin className="w-5 h-5" style={{ color: PRIMARY_COLOR }} />
-                      Clinica Veterinară Bioveti 
+                      Clinica Veterinară Bioveti
                     </h4>
                     <p className="text-sm text-gray-600 mb-3">Crisan nr.8, Timisoara, Romania</p>
                     <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">

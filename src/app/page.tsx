@@ -42,31 +42,40 @@ async function getGalleryCategories() {
     })
   );
 
-  // Post-processing: Merge "Cladire" and "Farmacie" and capitalize labels
-  const processedCategories: typeof categories = [];
-  const farmacieImages: any[] = [];
+  // Define the desired order and custom labels
+  const orderMap: Record<string, { index: number; label: string }> = {
+    "cladire": { index: 1, label: "Clădire" },
+    "echipa": { index: 2, label: "Echipa" },
+    "sala asteptare": { index: 3, label: "Sala Așteptare" },
+    "consultatii si tratamente": { index: 4, label: "Sala Consultații și Tratamente" },
+    "ecografie si terapie intensiva": { index: 5, label: "Ecografie și Terapie Intensivă" },
+    "laborator-clinic veterinar": { index: 6, label: "Laborator Clinic Veterinar" },
+    "sala de operatie (chirurgie)": { index: 7, label: "Sala de Operație" },
+    "internare zi-noapte": { index: 8, label: "Internare Zi/Noapte" },
+    "salon de coafura": { index: 9, label: "Salon de Coafură" },
+    "farmacie & pet shop": { index: 10, label: "Farmacie și Petshop" },
+  };
 
-  categories.forEach((cat) => {
-    const lowerLabel = cat.label.toLowerCase();
+  const processedCategories = categories
+    .map((cat) => {
+      const lowerName = cat.label.toLowerCase();
+      // Try to find a match in the orderMap. 
+      // Note: folder names in public might vary slightly in casing, so we used lowerName logic above.
+      // We need to be careful with exact matches. 
+      // Let's rely on the folder name keys I saw in `list_dir`.
 
-    // Merge logic
-    if (lowerLabel.includes("cladire") || lowerLabel.includes("farmacie")) {
-      farmacieImages.push(...cat.images);
-    } else {
-      // Capitalize first letter
-      const capitalizedLabel = cat.label.charAt(0).toUpperCase() + cat.label.slice(1);
-      processedCategories.push({ ...cat, label: capitalizedLabel });
-    }
-  });
+      const config = orderMap[lowerName] || { index: 999, label: cat.label };
 
-  // Add merged Cladire category to the beginning
-  if (farmacieImages.length > 0) {
-    processedCategories.unshift({
-      id: "cladire",
-      label: "Cladire",
-      images: farmacieImages,
-    });
-  }
+      return {
+        ...cat,
+        label: config.label, // Use the custom label
+        order: config.index,
+      };
+    })
+    .sort((a, b) => a.order - b.order);
+
+  // Filter out categories that might have been processed but we want to ensure we only return the ones we found/mapped or all of them sorted.
+  // The previous logic filtered empty images, we should keep that.
 
   return processedCategories.filter((c) => c.images.length > 0);
 }
@@ -220,7 +229,7 @@ export default async function Page() {
 
               {/* Floating Stat Card - Mobile friendly positioning */}
               <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/20 max-w-[160px]">
-                <p className="text-3xl font-black text-emerald-600">25+</p>
+                <p className="text-3xl font-black text-emerald-600">30+</p>
                 <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Ani de Experiență</p>
               </div>
             </div>

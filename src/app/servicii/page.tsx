@@ -77,7 +77,8 @@ export default function ServicesPage() {
             {/* Intro Text */}
             <section className="prose prose-slate max-w-none">
               <p className="text-lg leading-relaxed text-slate-600">
-                La Clinica Veterinară Bioveti, oferim o gamă completă de servicii medicale veterinare. Fiecare procedură este efectuată cu atenție la detalii, folosind echipamente moderne și protocoale actualizate.
+                La Clinica Veterinară Bioveti, oferim o gamă completă de servicii medicale veterinare. Fiecare procedură este efectuată cu atenție la detalii, folosind echipamente moderne, aparatura de ultima generație și protocoale actualizate.
+
               </p>
             </section>
 

@@ -9,7 +9,7 @@ export type Service = {
 
   // New Fields
   benefits: { title: string; description: string }[];
-  process: { step: number; title: string; description: string }[];
+  process?: { step: number; title: string; description: string }[];
   faq: { question: string; answer: string }[];
 };
 
@@ -24,10 +24,10 @@ export const services: Service[] = [
       <h3>Sănătatea animalului tău începe aici</h3>
       <p>Oferim servicii medicale complete pentru a asigura o viață lungă și sănătoasă prietenului tău necuvântător.</p>
       <ul class="list-disc pl-5 space-y-2 mt-4">
-        <li><strong>Consultații generale:</strong> Evaluăm complet starea de sănătate a animalului, stabilim diagnosticul și oferim cele mai bune soluții terapeutice.</li>
-        <li><strong>Consultații de specialitate:</strong> Examinări avansate în dermatologie, nutriție, oncologie, ginecologie, stomatologie și alte domenii.</li>
-        <li><strong>Tratamente de specialitate:</strong> Terapie adaptată fiecărei afecțiuni, bazată pe protocoale moderne și monitorizare atentă.</li>
-        <li><strong>Tratamente profilactice:</strong> Vaccinări, deparazitări interne și externe, planuri personalizate de prevenție și reamintiri automate pentru rapeluri.</li>
+        <li><strong>Prevenție proactivă a afecțiunilor:</strong> Identificăm și intervenim în fazele incipiente ale potențialelor probleme de sănătate.</li>
+        <li><strong>Monitorizare continuă și pe termen lung:</strong> Asigurăm urmărirea evolutivă a pacientului pentru optimizarea rezultatelor terapeutice.</li>
+        <li><strong>Terapii personalizate și adaptate:</strong> Protocoale individualizate, elaborate pe baza vârstei, raselor și istoricului medical specific.</li>
+        <li><strong>Expertiză clinică și protocoale actualizate:</strong> Intervenții bazate pe evidențe științifice și practici medicale contemporane.</li>
       </ul>
     `,
     benefits: [
@@ -35,20 +35,18 @@ export const services: Service[] = [
       { title: "Personalizare", description: "Tratamente adaptate vârstei și istoricului medical." },
       { title: "Monitorizare", description: "Urmărim evoluția pacientului pe termen lung." }
     ],
-    process: [
-      { step: 1, title: "Programare", description: "Contactați-ne telefonic sau online." },
-      { step: 2, title: "Evaluare", description: "Examen clinic complet efectuat de medic." },
-      { step: 3, title: "Diagnostic", description: "Stabilirea cauzelor și explicarea tratamentului." },
-      { step: 4, title: "Tratament", description: "Administrarea terapiei și planul de acasă." }
-    ],
+    process: [],
     faq: [
-      { question: "Cât de des trebuie vaccinat câinele?", answer: "Schema de vaccinare este anuală pentru adulți, dar puii necesită rapeluri lunare la început." },
-      { question: "Este necesară programarea?", answer: "Da, pentru a evita timpii de așteptare, recomandăm programarea." }
+      { question: "Ce tipuri de consultații oferă clinica veterinară Bioveti?", answer: "Clinica oferă consultații generale pentru evaluarea completă a sănătății și stabilirea diagnosticului, precum și consultații de specialitate avansate în domenii precum dermatologie, nutriție, oncologie, ginecologie și stomatologie." },
+      { question: "Ce înseamnă „tratamente profilactice” și ce servicii includ acestea?", answer: "Tratamentele profilactice sunt măsuri preventive pentru a menține sănătatea animalului. Acestea includ vaccinări, deparazitări interne și externe, planuri personalizate de prevenție și sistem de reamintiri automate pentru rapeluri." },
+      {
+        question: "Care sunt principalele beneficii menționate pentru serviciile medicale veterinare oferite?", answer: "Principalele beneficii sunt: Prevenția (identificarea problemelor înainte să devină grave), Monitorizarea atentă a stării de sănătate, și Personalizarea tratamentelor în funcție de vârstă și istoric medical."
+      },
     ],
   },
   {
     slug: "vaccinari-profilaxie",
-    title: "Vaccinări & Profilaxie",
+    title: "Vaccinări & Deparazitări",
     shortDescription: "Scheme complete de vaccinare și deparazitare pentru imunizarea animalului tău.",
     image: "/cat.png",
     icon: "Syringe",
@@ -63,18 +61,35 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Imunitate", description: "Protecție împotriva parvovirozei, jigodiei, leptospirozei etc." },
-      { title: "Siguranță Publică", description: "Vaccinul antirabic este obligatoriu prin lege." },
-      { title: "Sănătatea Familiei", description: "Deparazitarea regulată protejează și membrii familiei umane." }
+      { title: "Protecție Imunitară Țintită și Controlată", description: "Vaccinări conforme cu schemele internaționale, oferind imunitate durabilă împotriva principalelor boli infecțioase (parvoviroză, jigodie, leptospiroză, rabie etc.)." },
+      { title: "Sănătate Integrată: Animal – Familie – Societate", description: "Deparazitarea si vaccinarea regulată asigură o barieră sanitară atât pentru animal, cât și pentru întreaga familie, prevenind zoonozele și creând un mediu sigur." },
+      {
+        title: "Conformitate și Responsabilitate Legală", description: "Asistență în îndeplinirea obligațiilor legale (vaccin antirabic, pașaport european), garantând siguranța publică și libertatea de circulație."
+      },
+      {
+        title: "Planificare Personalizată a Prevenției", description: "Consiliere și scheme adaptate vârstei, stilului de viață și riscurilor specifice ale animalului, pentru o protecție optimă pe termen lung."
+      }
     ],
     process: [
-      { step: 1, title: "Consult sumar", description: "Verificăm starea de sănătate (animalul trebuie să fie clinic sănătos)." },
-      { step: 2, title: "Administrare", description: "Inocularea vaccinului și/sau administrarea deparazitantului." },
-      { step: 3, title: "Parafare", description: "Notarea procedurii în carnetul de sănătate sau pașaport." }
+      { step: 1, title: "Identificarea animalului", description: "Înregistrarea datelor (nume, specie, rasă, vârstă, sex, istoric medical)." },
+      { step: 2, title: "Evaluarea stării de sănătate", description: "Consult veterinar (examen clinic general)." },
+      { step: 3, title: "Stabilirea planului individual", description: "Pentru vaccinare: Se ține cont de vârsta, istoricul vaccinal, riscul epidemiologic, legislație (vaccinuri obligatorii). \n Pentru deparazitare: Se ține cont de tipul parazitului (intern/extern), produsul, frecvența (lunar, trimestrial etc.), sezonul." },
+      {
+        step: 4, title: "Pregătirea", description: "Asigurarea condițiilor optime (animal calm, temperatura ambient). \nPregătirea produselor(verificarea termenului de valabilitate, depozitare corectă)."
+      },
+      { step: 5, title: "Administrare", description: "Vaccinarea de către medicul veterinar." },
+      { step: 6, title: "Documentare OBLIGATORIE", description: "Carnet de sănătate / Pașaport: Înregistrarea tipului de vaccin, numărul de serie, data aplicării, data următoarei doze si parafarea documentelor. \nÎnregistrare internă: In baza de date pentru istoricul deparazitărilor si vaccinărilor." },
+      { step: 7, title: "MONITORIZAREA POST-Administrare", description: "Observarea animalului de către proprietar (24-48 de ore): Semne de reacție adversă  daca apar se anunța imediat medicul veterinar (letargie, umflături, vărsături)." },
+
+
     ],
     faq: [
-      { question: "Când se face primul vaccin la pui?", answer: "Primul vaccin se administrează de obicei la vârsta de 6 săptămâni." },
-      { question: "Pot spăla câinele după vaccin?", answer: "Recomandăm evitarea băii timp de 3-5 zile după vaccinare pentru a nu scădea imunitatea." }
+      { question: "Animăluțul meu stă doar în casă. Chiar are nevoie de vaccinuri și deparazitări regulate?", answer: "Da, absolut. \n Vaccinarea: Tu, membrii familiei sau oaspeții puteți aduce agenții patogeni în casă pe încălțăminte sau haine.Unele virusuri, ca Panleucopenia la pisici sau Parvovirusul la câini, sunt extrem de rezistente în mediu.Vaccinul este singura protecție sigură. Deparazitarea internă: Paraziții interni(viermi) pot ajunge în casă prin intermediul  altor animale, insectelor, a prafului sau a solului de la ghivecele cu plante. Deparazitarea externă: Puricii și căpușele pot fi aduse de la o plimbare scurtă sau de la alte animale.O căpușă poate urca pe tine în parc și să cadă în casă.Acești paraziți pot transmite boli grave. Obligație legală: Vaccinul împotriva rabiei este obligatoriu prin lege, indiferent dacă animalul iese sau nu din casa." },
+      { question: "De ce este atât de importantă deparazitarea internă la 3 luni dacă nu văd niciodată viermi în scaun?", answer: "Pentru că prezența majorității paraziților interni este 'invizibilă'. Ouăle și larvele sunt microscopice și sunt eliminate în mod regulat în excremente.Tu le vezi doar atunci când parazitul este matur(ex.: viermi lungi și albi ca spaghetele), iar acest stadiu este deja avansat. Mulți paraziți nu trăiesc doar în intestin; larvele pot migra prin ficat, plămâni sau alte organe, provocând leziuni fără simptome digestive evidente. Deparazitarea regulată la 3 luni rupe ciclul de reproducere și previne acumularea de paraziți care, pe termen lung, pot duce la malnutriție, anemie(în special la pui) și scăderea imunității." },
+      { question: "De ce are nevoie de atâtea vaccinuri când este pui? Nu este de ajuns o singură doză?", answer: "Schema de vaccinare pentru pui (atât căței, cât și pisoi) este crucială din cauza imunității materne.\n· Puii primesc anticorpi de la mamă, prin laptele matern, care îi protejează în primele săptămâni de viață.\n· Acești anticorpi materni scad treptat. Dacă vaccinăm când încă sunt prezenți în cantitate mare, ei 'neutralizează' vaccinul, împiedicând animalul să-și producă proprii anticorpi.\n· Așadar, vaccinările repetate la 3-4 săptămâni (de exemplu la 8, 12 și 16 săptămâni) reprezintă o încercare de a 'prinde' momentul perfect când imunitatea maternă scade sub un nivel protector, dar animalul este încă tânăr și vulnerabil. Doar astfel garantăm o imunitate solidă și de durată." },
+      { question: "Sunt periculoase vaccinurile? Am auzit povești despre reacții adverse grave.", answer: "Riscul asociat bolilor prevenite prin vaccinare este incomparabil mai mare decât riscul unor reacții adverse la vaccin.\n· Reacții comune și normale: Un animal mai apatic, somnoros sau cu o ușoară sensibilitate la locul injecției pentru 24-48 de ore este o reacție normală a sistemului imunitar care 'lucrează'.\n\n Reacții adverse rare: Reacții alergice (umflare a feței, mâncărimi) sau hipersensibilitate severă sunt foarte rare. Tocmai de aceea, se recomandă ca vaccinarea să fie făcută la cabinet veterinar și animalul să fie observat pentru scurt timp după administrare. Beneficiul >> Riscul: Boli ca Parvoviroza, Leptospiroza sau Rabia pot fi fatale și extrem de costisitoare de tratat. Vaccinarea este cea mai sigură și mai economică metodă de prevenție." },
+
+
     ],
   },
   {
@@ -96,17 +111,22 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Legalitate", description: "Călătoriți fără griji în UE." },
-      { title: "Siguranță", description: "Găsirea rapidă a animalului pierdut prin scanarea microcipului." },
-      { title: "Organizare", description: "Nu uitați niciodată un vaccin datorită alertelor automate." }
+      { title: "Mobilitate și Conformitate Legală Europeană", description: "Pașaport UE și înregistrare RECS pentru călătorii în siguranță și în conformitate cu legislația națională și internațională." },
+      { title: "Identificare Permanentă și Recuperare în Siguranță", description: "Microciparea asigură identificarea sigură și rapidă a animalului în caz de pierdere, facilitând găsirea si revenirea acestuia acasă." },
+      { title: "Gestiune Medicală Digitală Centralizată", description: "Istoric medical digital complet și actualizat automat, oferind acces rapid la datele medicale și schemele de tratament." },
+      { title: "Alerte Proactive pentru Îngrijire Continuă", description: "Notificări automate pentru vaccinări, deparazitări și consultații, asigurând urmărirea fără lacune a sănătății animalului." }
     ],
-    process: [
-      { step: 1, title: "Verificare", description: "Verificăm documentele existente." },
-      { step: 2, title: "Procedură", description: "Implantare microcip sau completare acte." },
-      { step: 3, title: "Înregistrare", description: "Validarea datelor în sistemul național." }
-    ],
+    process: [],
     faq: [
-      { question: "Este obligatorie microciparea?", answer: "Da, conform legii, câinii cu stăpân trebuie microcipați și înregistrați." }
+      {
+        question: "Care sunt serviciile administrative principale oferite pentru identificarea și documentarea animalului de companie?", answer: "Serviciile administrative oferite includ: eliberarea carnetului de sănătate, eliberarea pașaportului UE, microtipare, înregistrarea în RECS (Registrul Electronic Național), menținerea unui istoric medical digital și primirea notificărilor automate."
+      },
+      {
+        question: "De ce este importantă microtipare și care este principalul său beneficiu menționat?", answer: "Microciparea este o metodă de identificare permanentă și sigură, recomandată pentru toate animalele de companie. Principalul său beneficiu este siguranța, permițând găsirea rapidă a animalului în caz că se pierde, prin scanarea cipului."
+      },
+      {
+        question: "Cum asigură clinica respectarea programărilor și a tratamentelor preventive pentru animale?", answer: "Clinica asigură organizarea și respectarea programărilor prin notificări automate. Acestea sunt alerte care avertizează proprietarul cu privire la datele pentru rapeluri de vaccin, deparazitări sau consultații periodice, astfel încât acestea să nu fie uitate."
+      },
     ],
   },
   {
@@ -128,15 +148,12 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Rapiditate", description: "Rezultate pe loc pentru urgențe." },
-      { title: "Precizie", description: "Echipamente de ultimă generație." },
-      { title: "Confort", description: "Metode de recoltare minim invazive." }
+      { title: "Rapiditate în Obținerea și Interpretarea Rezultatelor", description: "Teste rapide și analize on-site pentru un diagnostic imediat, esențial în situații de urgență și pentru inițierea promptă a tratamentului." },
+      { title: "Precizie și Fiabilitate Diagnostică Avansată", description: "Echipamente de laborator de ultimă generație și panouri complete de investigație pentru o evaluare detaliată și precisă a sănătății organismului." },
+      { title: "Tehnici Minim Invazive și Confort Pentru Pacient", description: "Proceduri de prelevare ghidate (ecografic/endoscopic) care asigură colectarea precisă a probelor cu disconfort redus și recuperare rapidă." },
+      { title: "Expertiză și Interpretare Clinică Integrată", description: "Rezultatele sunt analizate și corelate de medici veterinari pentru a oferi un diagnostic clar și un plan de acțiune personalizat, nu doar date brute." }
     ],
-    process: [
-      { step: 1, title: "Recoltare", description: "Prelevarea probelor biologice." },
-      { step: 2, title: "Procesare", description: "Analiza probelor în laborator." },
-      { step: 3, title: "Rezultat", description: "Interpretarea rezultatelor de către medic." }
-    ],
+    process: [],
     faq: [],
   },
   {
@@ -154,16 +171,23 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Non-invaziv", description: "Fără durere și fără riscuri majore." },
-      { title: "Diagnostic Clar", description: "Imagine în timp real a organelor interne." },
-      { title: "Monitorizare Gestație", description: "Urmărirea sigură a sarcinii." }
+      { title: "Diagnostic Avansat și Non-Invaziv", description: "Tehnici de imagistică (ecografie, endoscopie) ce permit explorarea internă precisă fără intervenție chirurgicală, minimizând stresul și riscul pentru pacient." },
+      { title: "Monitorizare Precisă a Sarcinii și a Sănătății Organelor", description: "Ecografie specializată pentru urmărirea dezvoltării fetale și evaluarea în timp real a structurilor interne, esențială pentru diagnostic și planificare terapeutică." },
+      { title: "Vizualizare în Timp Real pentru Decizii Informate", description: "Imagini instantanee și dinamice ale organelor, oferind medicului veterinar informația necesară pentru un diagnostic rapid și o strategie de tratament clară." },
+      {
+        title: "Integrare Cu Investigațiile de Laborator", description: "Corelarea examenelor clinice cu rezultatele imagistice si cu analizele de laborator, pentru o imagine completă și multidimensională a stării de sănătate a animalului."
+      }
     ],
-    process: [
-      { step: 1, title: "Pregătire", description: "Rasul zonei (dacă e necesar) și aplicare gel." },
-      { step: 2, title: "Examinare", description: "Scanarea ecografică sau intervenția endoscopică." },
-      { step: 3, title: "Raport", description: "Interpretarea imaginilor și diagnostic." }
+    process: [],
+    faq: [
+      {
+        question: "Ce servicii de imagistică veterinară sunt oferite pentru diagnostic?", answer: "Clinica oferă servicii de ecografie (inclusiv pentru monitorizarea gestației) și endoscopie. Acestea permit vizualizarea internă, non-invazivă, a organelor și a tractului digestiv."
+      },
+      {
+        question: "Care este principalul avantaj al tehnicilor de imagistică menționate?", answer: "Principalul avantaj este că aceste tehnici sunt non-invazive, adică se realizează fără durere și fără riscuri majore pentru animal, oferind în același timp un diagnostic clar prin imagini în timp real."
+      },
+
     ],
-    faq: [],
   },
   {
     slug: "consultatii-specialitate",
@@ -183,13 +207,24 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Tratament Țintit", description: "Soluții specifice pentru afecțiuni complexe." },
-      { title: "Tehnologie", description: "Aparatură dedicată (ex: detartraj cu ultrasunete)." },
-      { title: "Consiliere", description: "Educație pentru prevenirea recidivelor." }
+      { title: "Expertiză Medicală Specializată", description: "Acces direct la medici  veterinari cu competențe avansate în domenii specifice, asigurând un diagnostic precis și un plan terapeutic optim." },
+      { title: "Tehnologie și Echipamente Dedicate", description: "Proceduri efectuate cu aparatură modernă (ex: Endoscop, Ecograf, Analizor Biochimie, Hematologie. Etc.), pentru intervenții sigure, precise și minim invazive." },
+      { title: "Abordare Terapeutică Personalizată", description: "Tratamente adaptate nevoilor individuale ale animalului, luând în considerare vârsta, rasa, istoricul medical și stilul de viață." },
+      {
+        title: "Consiliere Continuă și Urmărire", description: "Suport și îndrumare oferite proprietarului în toate fazele – de la diagnostic și tratament până la prevenția recidivelor și îngrijirea pe termen lung."
+      }
     ],
     process: [],
     faq: [
-      { question: "Cât durează un detartraj?", answer: "Procedura se face sub anestezie și durează aprox. 45-60 min." }
+      {
+        question: "Care sunt domeniile de specialitate pentru care se oferă consultații avansate?", answer: "Se oferă consultații de specialitate în următoarele domenii: Dermatologie, Obstetrică și ginecologie, Oncologie, Stomatologie, precum și Nutriție și comportament."
+      },
+      {
+        question: "Ce servicii specifice sunt incluse în specialitatea de Stomatologie?", answer: "Stomatologia veterinară include servicii precum: detartraj, extracții dentare, alte tratamente dentare și îngrijire orală completă. Acestea sunt efectuate cu ajutorul tehnologiei dedicate, cum ar fi detartrajul cu ultrasunete."
+      },
+      {
+        question: "Cum se asigură abordarea cazurilor complexe și prevenirea revenirii problemelor de sănătate?", answer: "Cazurile complexe sunt abordate prin tratament țintit, oferind soluții specifice pentru afecțiuni dificile. Prevenirea recidivelor este susținută prin consiliere și educarea proprietarilor pentru gestionarea corectă a sănătății animalului."
+      },
     ],
   },
   {
@@ -210,16 +245,25 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Siguranță Maximă", description: "Anestezie inhalatorie și monitorizare funcții vitale." },
-      { title: "Experiență", description: "Echipă chirurgicală pregătită pentru cazuri dificile." },
-      { title: "Recuperare Rapidă", description: "Protocoale moderne de gestionare a durerii." }
+      { title: "Siguranță Chirurgicală și Anestezică Avansată", description: "Intervenții desfășurate sub monitorizare intra operatorie continuă a parametrilor vitali  cu utilizarea anesteziei inhalatorii pentru un risc minimizat și o recuperare mai rapidă." },
+      { title: "Experiență în Managementul Cazurilor Complexe", description: "Echipă chirurgicală specializată, pregătită pentru a aborda traumatisme, urgențe și patologii chirurgicale dificile cu tehnică avansata și cu discernământ." },
+      { title: "Tehnologie și Protocoale pentru Recuperare Optimă", description: "Gestiunea modernă a durerii și protocoale terapeutice intensive postoperatorii care accelerează vindecarea și asigură confortul pacientului." },
+      {
+        title: "Îngrijire Critică și Monitorizare Continuă", description: "Terapie intensivă dedicată și supraveghere 24 ore din 24 pentru pacienții în stare gravă, asigurând o tranziție stabilă către recuperare."
+      }
     ],
-    process: [
-      { step: 1, title: "Pre-operator", description: "Analize de sânge și evaluare cardiologică." },
-      { step: 2, title: "Intervenție", description: "Operația propriu-zisă sub anestezie." },
-      { step: 3, title: "Trezire", description: "Supraveghere în spațiul de terapie intensivă." }
+    process: [],
+    faq: [
+      {
+        question: "Ce servicii specifice sunt oferite în departamentul de „Intervenții & Urgente”?", answer: "Serviciile oferite includ: chirurgie modernă și sigură, terapie intensivă cu monitorizare continuă, anestezie inhalatorie avansată, traumatologie pentru gestionarea leziunilor și fracturilor și monitorizare intraoperatorie a tuturor parametrilor vitali."
+      },
+      {
+        question: "Care este beneficiul principal al utilizării anesteziei inhalatorii, așa cum este menționat?", answer: "Principalul beneficiu al anesteziei inhalatorii este că este o tehnică avansată care asigură o recuperare rapidă și o siguranță sporită pentru animal în timpul și după intervenția chirurgicală."
+      },
+      {
+        question: "Cum se asigură „Siguranța Maximă” și „Recuperarea Rapidă” în timpul procedurilor chirurgicale?", answer: "Siguranța Maximă este asigurată prin combinarea anesteziei inhalatorii și a monitorizării continue a funcțiilor vitale pe durata intervenției. Recuperarea Rapidă este favorizată de aplicarea protocoalelor moderne de gestionare a durerii."
+      }
     ],
-    faq: [],
   },
   {
     slug: "spitalizare",
@@ -235,9 +279,10 @@ export const services: Service[] = [
       </ul>
     `,
     benefits: [
-      { title: "Monitorizare 24h", description: "Personal medical disponibil permanent." },
-      { title: "Tratament", description: "Administrarea corectă a medicației injectabile/perfuzabile." },
-      { title: "Confort", description: "Spații de cazare curate și încălzite." }
+      { title: "Monitorizare Medicală Continuă și Specializată", description: "Supraveghere non-stop, 24/24, asigurată de personal medical calificat, pentru intervenție imediată la orice modificare a stării pacientului." },
+      { title: "Terapie Intensivă și Plan de Recuperare Personalizat", description: "Administrare precisă a medicației (injectabile, perfuzii), gestionarea durerii și un protocol terapeutic adaptat nevoilor specifice ale fiecărui animal." },
+      { title: ". Mediu Controlat, Sigur și Confortabil", description: "Spații de internare dedicate, încălzite, igienizate și liniștite, concepute pentru a reduce stresul și a promova vindecarea rapidă." },
+      { title: "Facilități și Tehnologie pentru Îngrijire Integrată", description: "Acces la toate resursele clinice (imagistică, laborator) direct din sala de spitalizare, asigurând o continuitate perfectă a îngrijirii." }
     ],
     process: [],
     faq: [],
