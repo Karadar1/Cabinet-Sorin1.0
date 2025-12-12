@@ -33,8 +33,9 @@ export async function GET(req: Request) {
   // Explicitly type 'date' as string | null
   const date: string | null = searchParams.get("date");
 
-  // Explicitly type 'doctorId' as number after conversion
-  const doctorId: number = Number(searchParams.get("doctorId") ?? 1);
+  // Explicitly type 'doctorId' as number | null
+  const doctorIdParam = searchParams.get("doctorId");
+  const doctorId: number | undefined = doctorIdParam ? Number(doctorIdParam) : undefined;
 
   if (!date) {
     return NextResponse.json<SlotsResponse>({ slots: [] });

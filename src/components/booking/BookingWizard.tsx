@@ -68,7 +68,7 @@ export default function BookingWizard() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          doctorId: 1,
+          // doctorId: 1, // Removed hardcoded doctorId
           startISO: formData.slot?.start,
           endISO: formData.slot?.end,
           name: formData.clientName,

@@ -5,7 +5,7 @@ import { z } from "zod";
 const prisma = new PrismaClient();
 
 const BookSchema = z.object({
-  doctorId: z.coerce.number().default(1),
+  doctorId: z.coerce.number().optional(),
   startISO: z.string().datetime(),
   endISO: z.string().datetime(),
   name: z.string().min(2),
@@ -37,15 +37,17 @@ export async function POST(req: Request) {
     }
     const data = parsed.data;
 
-    // verifică existența doctorului (evită P2003)
-    const doctor = await prisma.doctor.findUnique({
-      where: { id: data.doctorId },
-    });
-    if (!doctor) {
-      return NextResponse.json(
-        { ok: false, error: `Doctorul #${data.doctorId} nu există.` },
-        { status: 400 }
-      );
+    // verifică existența doctorului (doar dacă e specificat)
+    if (data.doctorId) {
+      const doctor = await prisma.doctor.findUnique({
+        where: { id: data.doctorId },
+      });
+      if (!doctor) {
+        return NextResponse.json(
+          { ok: false, error: `Doctorul #${data.doctorId} nu există.` },
+          { status: 400 }
+        );
+      }
     }
 
     const appt = await prisma.appointment.create({

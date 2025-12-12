@@ -15,8 +15,8 @@ model Doctor {
 
 model Appointment {
   id          Int      @id @default(autoincrement())
-  doctorId    Int
-  doctor      Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId    Int?
+  doctor      Doctor?   @relation(fields: [doctorId], references: [id])
   start       DateTime
   end         DateTime
   name        String
