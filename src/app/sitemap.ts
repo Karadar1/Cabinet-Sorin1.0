@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 import { services } from '@/lib/services-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bioveti.ro';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bioveti-clinicaveterinara.ro';
 
     const serviceUrls = services.map((service) => ({
         url: `${baseUrl}/servicii/${service.slug}`,

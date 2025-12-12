@@ -2,7 +2,7 @@
 import { headers } from 'next/headers';
 
 export default function JsonLd() {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bioveti.ro';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bioveti-clinicaveterinara.ro';
 
     const jsonLd = {
         "@context": "https://schema.org",

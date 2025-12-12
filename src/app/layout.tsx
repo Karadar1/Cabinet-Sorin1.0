@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL
-  : "https://bioveti.ro"; // TODO: Update with actual domain
+  : "https://bioveti-clinicaveterinara.ro";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
