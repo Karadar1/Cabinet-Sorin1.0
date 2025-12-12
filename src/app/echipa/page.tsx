@@ -222,14 +222,14 @@ const TeamPage = () => {
       `}</style>
 
       {/* Hero Section Split Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24">
-          
+
           {/* Text Content */}
           <div ref={headerRef} className="fade-up order-2 lg:order-1 text-center lg:text-left">
-            
+
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Cunoaște echipa de <br/> <span className="gradient-text">Medici Veterinari</span>
+              Cunoaște echipa de <br /> <span className="gradient-text">Medici Veterinari</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
               Medicii noștri dedicați combină anii de experiență cu o compasiune autentică pentru a oferi cea mai bună îngrijire pentru companionii tăi iubiți.
@@ -243,28 +243,28 @@ const TeamPage = () => {
 
           {/* New Image 1 */}
           <div ref={heroRef} className="scale-in order-1 lg:order-2 relative">
-              <div className="absolute inset-0 bg-green-200 rounded-[32px] rotate-3 blur-sm transform scale-105 opacity-50"></div>
-              <div className="relative rounded-[32px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
-                <Image
-                  src="/team2.jpeg"
-                  alt="Echipa Bioveti - Poză de grup"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-              </div>
-              {/* Floating Badge */}
-              <div className="absolute -bottom-6 -right-6 lg:-left-6 bg-white p-4 rounded-xl shadow-xl border border-green-50 animate-bounce-slow hidden md:block">
-                <div className="flex items-center gap-3">
-                   <div className="p-2 bg-green-100 rounded-full text-green-700">
-                     <Award className="w-6 h-6" />
-                   </div>
-                   <div>
-                     <p className="text-sm font-bold text-gray-900">100% Dedicare</p>
-                   </div>
+            <div className="absolute inset-0 bg-green-200 rounded-[32px] rotate-3 blur-sm transform scale-105 opacity-50"></div>
+            <div className="relative rounded-[32px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
+              <Image
+                src="/team2.jpeg"
+                alt="Echipa Bioveti - Poză de grup"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            </div>
+            {/* Floating Badge */}
+            <div className="absolute -bottom-6 -right-6 lg:-left-6 bg-white p-4 rounded-xl shadow-xl border border-green-50 animate-bounce-slow hidden md:block">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-100 rounded-full text-green-700">
+                  <Award className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-gray-900">100% Dedicare</p>
                 </div>
               </div>
+            </div>
           </div>
         </div>
 
@@ -305,72 +305,72 @@ const TeamPage = () => {
         {/* Redesigned Why Choose Us Section - Split Layout */}
         <div ref={whyUsRef} className="bg-white rounded-[40px] shadow-xl p-8 md:p-12 overflow-hidden relative border border-green-50">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-green-50 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none"></div>
-          
+
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              
-              {/* Image Column */}
-              <div className="relative h-full min-h-[400px]  overflow-hidden group flex items-center justify-center">
-                <div className="relative w-full h-full min-h-[400px]">
-                  {/* Updated Image to be fully visible (object-contain) and removed hover scale to prevent clipping */}
-                  <Image
-                    src="/team1.jpeg"
-                    alt="Echipa Bioveti în acțiune"
-                    fill
-                    className="object-contain transition-transform duration-700"
-                  />
-                </div>
+
+            {/* Image Column */}
+            <div className="relative h-full min-h-[400px]  overflow-hidden group flex items-center justify-center">
+              <div className="relative w-full h-full min-h-[400px]">
+                {/* Updated Image to be fully visible (object-contain) and removed hover scale to prevent clipping */}
+                <Image
+                  src="/team1.jpeg"
+                  alt="Echipa Bioveti în acțiune"
+                  fill
+                  className="object-contain transition-transform duration-700"
+                />
               </div>
+            </div>
 
-              {/* Content Column with Updated Text */}
-              <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  De ce Bioveti este <span className="gradient-text">Alegerea Potrivită</span>
-                </h2>
-                <p className="text-gray-600 mb-10 text-lg leading-relaxed">
-                  Combinăm expertiza medicală de vârf cu o empatie profundă pentru a oferi îngrijirea pe care o merită fiecare membru necuvântător al familiei.
-                </p>
+            {/* Content Column with Updated Text */}
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                De ce Bioveti este <span className="gradient-text">Alegerea Potrivită</span>
+              </h2>
+              <p className="text-gray-600 mb-10 text-lg leading-relaxed">
+                Combinăm expertiza medicală de vârf cu o empatie profundă pentru a oferi îngrijirea pe care o merită fiecare membru necuvântător al familiei.
+              </p>
 
-                <div className="space-y-6">
-                  {/* Feature Item 1 */}
-                  <div className="feature-card flex items-start gap-4">
-                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                      <Award className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">Excelență Medicală Dovedită</h4>
-                      <p className="text-gray-500 text-sm leading-relaxed">
-                        Echipa noastră este formată din medici veterinari și conferențiari universitari, asigurând accesul la cele mai noi protocoale de tratament.
-                      </p>
-                    </div>
+              <div className="space-y-6">
+                {/* Feature Item 1 */}
+                <div className="feature-card flex items-start gap-4">
+                  <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Award className="w-6 h-6 text-white" />
                   </div>
-
-                  {/* Feature Item 2 */}
-                  <div className="feature-card flex items-start gap-4">
-                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                      <Heart className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">Empatie în Fiecare Interacțiune</h4>
-                      <p className="text-gray-500 text-sm leading-relaxed">
-                        Înțelegem legătura specială dintre tine și companionul tău. Tratăm fiecare pacient cu blândețe, răbdare și respect.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Feature Item 3 */}
-                  <div className="feature-card flex items-start gap-4">
-                    <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
-                      <Stethoscope className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">Diagnosticare de Precizie</h4>
-                      <p className="text-gray-500 text-sm leading-relaxed">
-                        Investim constant în tehnologie de ultimă generație pentru a identifica rapid și corect problemele de sănătate, de la analize la imagistică.
-                      </p>
-                    </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">Excelență Medicală Dovedită</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      Echipa noastră este formată din medici veterinari și conferențiari universitari, asigurând accesul la cele mai noi protocoale de tratament.
+                    </p>
                   </div>
                 </div>
+
+                {/* Feature Item 2 */}
+                <div className="feature-card flex items-start gap-4">
+                  <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">Empatie în Fiecare Interacțiune</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      Înțelegem legătura specială dintre tine și companionul tău. Tratăm fiecare pacient cu blândețe, răbdare și respect.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Feature Item 3 */}
+                <div className="feature-card flex items-start gap-4">
+                  <div className="primary-icon-bg w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Stethoscope className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">Diagnosticare de Precizie</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      Investim constant în tehnologie de ultimă generație pentru a identifica rapid și corect problemele de sănătate, de la analize la imagistică.
+                    </p>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
