@@ -566,15 +566,7 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#e0ebeb]">
-              <p className="text-sm text-gray-700">
-                Pentru urgențe în afara programului, vă rugăm să apelați la{" "}
-                <span style={{ color: PRIMARY_COLOR, fontWeight: "bold" }}>
-                  112
-                </span>{" "}
-                sau la cel mai apropiat spital veterinar non-stop.
-              </p>
-            </div>
+           
           </div>
         </div>
       </div>

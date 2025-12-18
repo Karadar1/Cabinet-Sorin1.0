@@ -13,6 +13,7 @@ import {
     Wheat,
     Globe
 } from "lucide-react";
+import Image from "next/image";
 
 // Brand colors
 const PRIMARY_COLOR = "#224e4d"; // Dark Green
@@ -123,12 +124,7 @@ export default function AboutPage() {
                                 </div>
                             </div>
                             <div className="hidden lg:block relative h-full min-h-[400px]">
-                                <div className="absolute inset-0 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                                    <div className="text-center p-8">
-                                        <p className="text-2xl font-bold mb-2">30+ Ani</p>
-                                        <p className="text-emerald-200">De Excelență Veterinară</p>
-                                    </div>
-                                </div>
+                               <Image src= "/why.jpeg" className="w-full h-full object-cover rounded-2xl" alt="Why Bioveti" width={500} height={500} />
                             </div>
                         </div>
                     </div>
