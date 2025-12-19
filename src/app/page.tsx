@@ -18,6 +18,14 @@ export const metadata: Metadata = {
   description: "Clinica Bioveti oferă servicii veterinare complete în Timișoara: consultații, chirurgie, analize, vaccinări și urgențe.",
 };
 
+const teamMembersMapping: Record<string, string> = {
+  "LazauAlexandru.jpeg": "Conf. Univ. Dr. Lazău Alexandru",
+  "BadercaStefan.jpeg": "Dr. Baderca Ștefan",
+  "RazaviIsabela.jpeg": "Dr. Razavi Isabela",
+  "RazaviAlin.jpeg": "Dr. Razavi Alin",
+  "PorojanEveline.jpeg": "Dr. Porojan Eveline"
+};
+
 async function getGalleryCategories() {
   const publicDir = path.join(process.cwd(), "public");
   const items = await fs.promises.readdir(publicDir, { withFileTypes: true });
@@ -29,10 +37,29 @@ async function getGalleryCategories() {
       const files = await fs.promises.readdir(folderPath);
       const images = files
         .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file))
-        .map((file) => ({
-          src: `/${folder.name}/${file}`,
-          alt: `${folder.name} image`,
-        }));
+        .map((file) => {
+          const mapKey = file as keyof typeof teamMembersMapping;
+          return {
+            src: `/${folder.name}/${file}`,
+            alt: teamMembersMapping[mapKey] ? `${teamMembersMapping[mapKey]} - Echipa Bioveti` : `${folder.name} image`,
+            subtitle: teamMembersMapping[mapKey] || undefined,
+          };
+        })
+        .sort((a, b) => {
+          // Priority 1: Team Group
+          if (a.src.includes("TeamGroup")) return -1;
+          if (b.src.includes("TeamGroup")) return 1;
+
+          // Priority 2: Lazau Alexandru
+          if (a.src.includes("LazauAlexandru")) return -1;
+          if (b.src.includes("LazauAlexandru")) return 1;
+
+          // Priority 3: Baderca Stefan
+          if (a.src.includes("BadercaStefan")) return -1;
+          if (b.src.includes("BadercaStefan")) return 1;
+
+          return a.src.localeCompare(b.src);
+        });
 
       return {
         id: folder.name.toLowerCase().replace(/\s+/g, "-"),

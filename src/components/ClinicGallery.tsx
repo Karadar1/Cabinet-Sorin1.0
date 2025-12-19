@@ -5,14 +5,18 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 
+interface ClinicGalleryProps {
+    categories: Category[];
+}
+
 export interface Category {
     id: string;
     label: string;
-    images: { src: string; alt: string }[];
-}
-
-interface ClinicGalleryProps {
-    categories: Category[];
+    images: {
+        src: string;
+        alt: string;
+        subtitle?: string;
+    }[];
 }
 
 export default function ClinicGallery({ categories }: ClinicGalleryProps) {
@@ -110,7 +114,6 @@ export default function ClinicGallery({ categories }: ClinicGalleryProps) {
                             />
 
 
-
                             {/* Hover Hint */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-sm rounded-full p-4">
                                 <Maximize2 className="w-8 h-8 text-white" />
@@ -157,6 +160,24 @@ export default function ClinicGallery({ categories }: ClinicGalleryProps) {
                     )}
                 </div>
 
+                {/* Subtitle / Caption Area */}
+                <div className="mt-4 min-h-[3rem] flex justify-center items-center">
+                    <AnimatePresence mode="wait">
+                        {images[currentImageIndex].subtitle && (
+                            <motion.div
+                                key={`sub-${activeCategory}-${currentImageIndex}`}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                transition={{ duration: 0.3 }}
+                                className="text-xl md:text-2xl font-bold text-slate-800 text-center"
+                            >
+                                {images[currentImageIndex].subtitle}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
                 {/* Full Screen Overlay */}
                 <AnimatePresence>
                     {isFullScreen && (
@@ -198,7 +219,7 @@ export default function ClinicGallery({ categories }: ClinicGalleryProps) {
                                 {/* Caption */}
                                 <div className="absolute bottom-8 left-0 right-0 text-center">
                                     <p className="text-white/90 text-xl font-medium bg-black/50 inline-block px-6 py-2 rounded-full backdrop-blur-md">
-                                        {images[currentImageIndex].alt}
+                                        {images[currentImageIndex].subtitle || images[currentImageIndex].alt}
                                     </p>
                                 </div>
                             </div>
