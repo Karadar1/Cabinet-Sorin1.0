@@ -119,13 +119,13 @@ export default function BookingWizard() {
   // --- Main View ---
   return (
     // UPDATED: Added `pt-24 md:pt-32` to clear the navbar
-    <div className="min-h-screen bg-slate-50/50 pb-28 md:pb-12 pt-24 md:pt-32">
+    <div className="min-h-screen bg-white pb-28 md:pb-12 pt-24 md:pt-32">
 
       {/* Mobile Compact Header - Changed top-0 to top-20 (approx) if your navbar is fixed, 
           or kept at top-0 if the navbar scrolls away. 
           Currently set to `top-[60px]` assuming a standard ~60px fixed navbar. 
           Adjust `top-[X]` to match your actual navbar height. */}
-      <div className="md:hidden bg-white/95 backdrop-blur-sm px-4 py-8 border-b border-slate-100 sticky top-[60px] z-30 -mt-8 mb-6 transition-all">
+      <div className="md:hidden backdrop-blur-sm px-4 py-8 border-b border-slate-100 sticky top-[60px] z-30 -mt-8 mb-6 transition-all">
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <PawPrint className="w-5 h-5 text-primary" /> Programare
@@ -160,7 +160,7 @@ export default function BookingWizard() {
           <div className="lg:col-span-8 bg-white rounded-2xl md:rounded-3xl shadow-sm md:shadow-xl md:shadow-slate-200/50 border border-slate-200/60 md:border-slate-100 overflow-hidden">
 
             {/* Desktop Steps */}
-            <div className="hidden md:block bg-slate-50/50 px-6 pt-6 pb-2 border-b border-slate-100">
+            <div className="hidden md:block px-6 pt-6 pb-2 ">
               <StepIndicator currentStep={step} steps={["Serviciu", "Dată & Oră", "Date Contact", "Confirmare"]} />
             </div>
 
@@ -174,9 +174,19 @@ export default function BookingWizard() {
                   onSelectDateTime={(date, slot) => updateData({ date, slot })}
                   availableTimeSlots={async (date) => {
                     const dateISO = format(date, "yyyy-MM-dd");
-                    const res = await fetch(`/api/slots?date=${dateISO}&doctorId=1`);
-                    const json = await res.json();
-                    return json.slots || [];
+                    try {
+                      const res = await fetch(`/api/slots?date=${dateISO}&doctorId=1`);
+                      if (!res.ok) {
+                        const text = await res.text();
+                        console.error("API Error:", text);
+                        return [];
+                      }
+                      const json = await res.json();
+                      return json.slots || [];
+                    } catch (err) {
+                      console.error("Fetch error:", err);
+                      return [];
+                    }
                   }}
                 />
               )}
@@ -197,7 +207,7 @@ export default function BookingWizard() {
                 variant="ghost"
                 onClick={prevStep}
                 disabled={step === 1 || loading}
-                className={cn("text-slate-500 hover:text-slate-900", step === 1 && "invisible")}
+                className={cn("text-slate-500 hover:text-slate-900 hover:bg-slate-100", step === 1 && "invisible")}
               >
                 <ChevronLeft className="w-4 h-4 mr-2" /> Înapoi
               </Button>

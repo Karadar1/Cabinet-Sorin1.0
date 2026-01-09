@@ -21,7 +21,7 @@ const services = [
 
 export function ServiceSelection({ data, updateData }: ServiceSelectionProps) {
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-slate-800">Ce serviciu dorești?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -56,20 +56,20 @@ export function ServiceSelection({ data, updateData }: ServiceSelectionProps) {
         <h2 className="text-xl font-bold text-slate-800">Detalii despre pacient</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="petName">Numele animalului</Label>
+            <Label htmlFor="petName" className="text-slate-700 font-bold text-base mb-1 block">Numele animalului</Label>
             <Input
               id="petName"
               placeholder="ex: Rex"
               value={data.petName}
               onChange={(e) => updateData({ petName: e.target.value })}
-              className="bg-slate-50 border-slate-200 focus:bg-white transition-colors"
+              className="bg-slate-50 border-slate-200 focus:bg-white transition-colors text-slate-900"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="petType">Specie</Label>
+            <Label htmlFor="petType" className="text-slate-700 font-bold text-base mb-1 block">Specie</Label>
             <select
               id="petType"
-              className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:bg-white transition-colors"
+              className="flex h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus:bg-white transition-colors text-slate-900"
               value={data.petType}
               onChange={(e) => updateData({ petType: e.target.value })}
             >
